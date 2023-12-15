@@ -6,6 +6,8 @@ import CategoryCardDetails from "../views/Home/components/CategoryCardDetails";
 import Navbar from "../views/Navbar";
 import Footer from "../views/Footer";
 
+import video from "../Assets/Animation/video.mp4";
+
 const SubCategories = () => {
   const { id } = useParams();
   const { getSubcategoriresByCategoryIdHandler } = CategoryHandler();
@@ -24,13 +26,26 @@ const SubCategories = () => {
   return (
     <div className="">
       <Navbar />
-      <PageContainer className="mt-2 p-5 rounded flex flex-wrap gap-3">
-        {subcategories.length > 0 &&
-          subcategories.map((value) => (
-            <CategoryCardDetails key={value._id} data={value} />
-          ))}
+      <PageContainer className="mt-2">
+        <div className="">
+          <video
+            className="h-[500px] w-screen rounded-lg"
+            controls
+            autoPlay
+            muted
+          >
+            <source src={video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div className=" p-5 rounded flex flex-wrap gap-3">
+          {subcategories.length > 0 &&
+            subcategories.map((value) => (
+              <CategoryCardDetails key={value._id} data={value} />
+            ))}
+        </div>
       </PageContainer>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
