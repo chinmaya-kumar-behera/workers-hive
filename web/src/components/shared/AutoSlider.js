@@ -48,7 +48,7 @@ function AutoSlider({ data }) {
             style={{ transform: `translateX(${-index * 100}%)` }}
           >
             {data.map((value, idx) => (
-              <div className="inline-block h-[300px] w-full rounded" key={idx}>
+              <div className="inline-block h-[400px] w-full rounded" key={idx}>
                 <img
                   src={value}
                   alt={value}
