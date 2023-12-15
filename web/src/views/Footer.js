@@ -4,13 +4,14 @@ import { CiInstagram } from "react-icons/ci";
 import { CiYoutube } from "react-icons/ci";
 import { CiFacebook } from "react-icons/ci";
 import { CiLinkedin } from "react-icons/ci";
+import logo from "../Assets/Logo/logo.jpg";
 
 const Footer = () => {
   return (
     <div className="px-1 lg:px-5">
       <div className="p-5 space-y-4">
-        <div className="py-5">
-          <h1 className="font-bold text-5xl">Logo here</h1>
+        <div className="h-[80px] overflow-hidden rounded-xl my-5">
+         <img src={logo} className="w-auto h-full object-center object-cover" alt='logo'/>
         </div>
         <div className="flex justify-between gap-10 pb-10">
           <div className="w-1/5 space-y-3">
