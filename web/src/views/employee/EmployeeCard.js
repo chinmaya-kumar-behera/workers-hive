@@ -1,11 +1,19 @@
 import React from "react";
 import { FaStar } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
-
+import { useNavigate } from "react-router-dom";
 
 const EmployeeCard = ({ data }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/user/${data._id}`);
+  };
   return (
-    <div className="flex gap-5 rounded-xl p-4 bg-gray-50 border">
+    <div
+      className="flex gap-5 rounded-xl p-4 bg-gray-50 border"
+      onClick={handleClick}
+    >
       <div className="overflow-hidden h-[100px] w-[100px]">
         {data?.photo ? (
           <img
@@ -15,7 +23,7 @@ const EmployeeCard = ({ data }) => {
           />
         ) : (
           <div className="h-full w-full flex items-center justify-center bg-gray-200 border rounded-full">
-            <CiUser className="text-6xl text-blue-900"/>
+            <CiUser className="text-6xl text-blue-900" />
           </div>
         )}
       </div>

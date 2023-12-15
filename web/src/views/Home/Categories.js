@@ -28,7 +28,7 @@ const Categories = () => {
     <PageContainer>
       <div className="w-full flex gap-10 items-center justify-center overflow-x-auto py-5 px-10">
         <div className="flex flex-col items-center gap-2" onClick={onCategoryClick}>
-          <div className="h-20 w-20 flex justify-center items-center overflow-hidden bg-blue-100 rounded">
+          <div className="h-20 w-20 flex justify-center items-center overflow-hidden bg-blue-100 rounded-full">
             <BiCategory className="text-6xl" />
           </div>
           <div className="">

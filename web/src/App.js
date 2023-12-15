@@ -12,6 +12,7 @@ import SignIn from "./pages/SignIn";
 import "./App.css";
 import ServiceProvider from "./pages/ServiceProvider";
 import SearchPage from "./pages/SearchPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -34,7 +35,6 @@ const App = () => {
         setUserData(parsedUserData);
       } catch (error) {
         console.error("Error parsing user data:", error);
-        // Handle the error or set default user data as needed
       }
     }
   }, [setUserData]);
@@ -50,6 +50,7 @@ const App = () => {
       <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
       <Route path="/serviceProvider" element={<ServiceProvider />} />
       <Route path="/search/:query" element={<SearchPage />} />
+      <Route path="/user/:id" element={<ProfilePage />} />
 
       {/* ADMIN ROUTE */}
       <Route path="/admin*" element={<Admin />} />
