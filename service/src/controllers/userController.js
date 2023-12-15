@@ -10,7 +10,7 @@ const getUser = async (req, res) => {
     res.status(404).json({ message: "user id not found" });
   }
 
-  const userDetails = await User.findById(id).select("-password");
+  const userDetails = await User.findById(id).select("-password");  
 
   res
     .status(200)
