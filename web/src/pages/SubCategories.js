@@ -35,10 +35,9 @@ const SubCategories = () => {
             muted
           >
             <source src={video} type="video/mp4" />
-            Your browser does not support the video tag.
           </video>
         </div>
-        <div className=" p-5 rounded flex flex-wrap gap-3">
+        <div className="mt-10 p-5 rounded flex flex-wrap gap-3">
           {subcategories.length > 0 &&
             subcategories.map((value) => (
               <CategoryCardDetails key={value._id} data={value} />
