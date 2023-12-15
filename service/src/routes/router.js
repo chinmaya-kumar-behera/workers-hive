@@ -8,6 +8,7 @@ const multer = require("multer");
 const router = express.Router();
 const path = require("path");
 const { getSearchResult } = require("../controllers/saerchController");
+const { getUser } = require("../controllers/userController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -39,6 +40,11 @@ router.get("/workers/:id", getWorkers);
 
 // search api
 router.get("/search/:query", getSearchResult);
+
+//user routes
+router.get("/user/:id", getUser);
+
+
 
 
 module.exports = router;

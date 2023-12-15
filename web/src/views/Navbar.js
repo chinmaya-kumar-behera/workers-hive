@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { Menu, MenuHandler, MenuList, MenuItem, } from "@material-tailwind/react";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+} from "@material-tailwind/react";
 import NavigationHandler from "../handler/NavigationHandler";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
 import { useRecoilValue } from "recoil";
@@ -9,6 +14,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 
+import logo from "../Assets/Logo/logo.jpg";
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
   const navigate = useNavigate();
@@ -20,11 +26,7 @@ const Navbar = () => {
     setSearchQuery(query);
   }, []);
 
-  const {
-    navigateToAdminPanel,
-    navigateToSignInPage,
-    navigateToServiceProviderPage,
-  } = NavigationHandler();
+  const { navigateToAdminPanel, navigateToSignInPage, navigateToServiceProviderPage, navigateToHomePage } = NavigationHandler();
   const { logOutHandler } = AuthenticationHandler();
 
   const handleSearchClick = () => {
@@ -37,7 +39,13 @@ const Navbar = () => {
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Left section of the header */}
         <div className="flex items-center">
-          <h1 className="lg:text-2xl font-semibold">Logo here</h1>
+          <div className="h-[50px]" onClick={navigateToHomePage}>
+            <img
+              className="h-full w-full object-cover object-center rounded-lg"
+              alt="logo"
+              src={logo}
+            />
+          </div>
           <div className="lg:ml-5 relative">
             <input
               type="text"
@@ -56,7 +64,7 @@ const Navbar = () => {
         </div>
 
         {/* Right section of the header */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {authData?._id && (
             <div className="text-gray-900">
               <span
@@ -67,6 +75,9 @@ const Navbar = () => {
               </span>
             </div>
           )}
+          <button className="text-blue-900" onClick={navigateToHomePage}>
+            Home
+          </button>
           <div className="">
             {authData?._id ? (
               <div className="">
