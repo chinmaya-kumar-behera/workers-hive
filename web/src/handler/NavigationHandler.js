@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { AuthState } from "../atom/authState";
 
 const NavigationHandler = () => {
+  const authData = useRecoilValue(AuthState);
   const navigate = useNavigate();
 
   const navigateToAdminPanel = () => {
@@ -24,8 +27,12 @@ const NavigationHandler = () => {
   }
 
    const navigateToHomePage = () => {
-     navigate("/");
-   };
+     navigate(`/`);
+  };
+  const navigateToProfilePage = () => {
+     navigate(`/user/${authData?._id}`);
+    
+  }
 
   return {
     navigateToAdminPanel,
@@ -34,6 +41,7 @@ const NavigationHandler = () => {
     navigateToLogInPage,
     navigateToServiceProviderPage,
     navigateToHomePage,
+    navigateToProfilePage,
   };
 };
 

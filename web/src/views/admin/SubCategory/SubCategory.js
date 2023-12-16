@@ -101,9 +101,6 @@ const SubCategory = () => {
                   Photo
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Price
-                </th>
-                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
 
@@ -136,7 +133,6 @@ const SubCategory = () => {
                         />
                       </div>
                     </td>
-                    <td className="px-6 py-4">{value.price}</td>
                     <td className="px-6 py-4">
                       <button
                         className="text-xs p-1.5 bg-gray-500 text-white rounded"

@@ -33,17 +33,26 @@ const userSchema = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "categories",
+      ref: "Category",
     },
     subCategory: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "subcategories",
+      ref: "SubCategory",
     },
     photo: {
       type: String,
     },
     price: {
       type: Number,
+    },
+    workingPhotos: [
+      {
+        type: String,
+      },
+    ],
+    address: {
+      city: { type: String },
+      country: { type: String },
     },
   },
   {

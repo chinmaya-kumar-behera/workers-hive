@@ -3,27 +3,13 @@ import { creataServiceWorkerService, getWorkersBySubcategoryIdService } from "..
 
 const serviceWorkerHandler = () => {
   const createServiceWorkerHandler = async (data) => {
-    const {
-     name,
-      email,
-      mobileNumber,
-      category,
-      subCategory,
-      professionDescription,
-      price
-    } = data;
+    console.log(data);
+    const { firstName, lastName, email, mobileNumber, category, subCategory, professionDescription, price, city, country, gender } = data;
 
     console.log(data);
 
     try {
-      if (
-        !name ||
-        !email ||
-        !category ||
-        !subCategory ||
-        !professionDescription || 
-        !price
-      ) {
+      if (!firstName || !lastName || !email || !category || !subCategory || !professionDescription || !price || !city || !country || !gender){
         toast.error("Please Fill all the fields");
         return;
       }

@@ -17,10 +17,6 @@ const subCategorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  price: {
-    type: Number,
-    required: true,
-  },
 });
 
 const SubCategory = mongoose.model("SubCategory", subCategorySchema);

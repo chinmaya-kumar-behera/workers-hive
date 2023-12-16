@@ -30,10 +30,10 @@ const createCategory = async (req, res) => {
 
 const createSubCategory = async (req, res) => {
   try {
-    const { heading, description, price, categoryId } = req.body;
+    const { heading, description, categoryId } = req.body;
     const { file } = req;
 
-    if (!heading || !description || !file || !price) {
+    if (!heading || !description || !file) {
       return res.status(400).json({ error: "Invalid input data" });
     }
 
@@ -44,7 +44,6 @@ const createSubCategory = async (req, res) => {
       heading,
       description,
       image: imageUrl,
-      price,
     });
 
     res.status(201).json({ message: "SubCategory created successfully", subcategory });

@@ -1,20 +1,26 @@
 const User = require("../models/userModel");
 
 const getUser = async (req, res) => {
-  console.log("get user ccalled");
-
   const { id } = req.params;
-  console.log(id);
 
   if (!id) {
     res.status(404).json({ message: "user id not found" });
+    return; 
   }
 
-  const userDetails = await User.findById(id).select("-password");  
+  try {
+    const userDetails = await User.findById(id)
+      .populate("category", ["_id", "heading", "image"])
+      .populate("subCategory", ["_id", "heading", "image"])
+      .select("-password");
 
-  res
-    .status(200)
-    .json({ message: "Data fetched successfully", data: userDetails });
+    res
+      .status(200)
+      .json({ message: "Data fetched successfully", data: userDetails });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = { getUser };

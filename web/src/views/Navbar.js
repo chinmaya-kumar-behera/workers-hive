@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
+import { Menu, MenuHandler, MenuList, MenuItem } from "@material-tailwind/react";
 import NavigationHandler from "../handler/NavigationHandler";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
 import { useRecoilValue } from "recoil";
@@ -13,8 +8,10 @@ import { AuthState } from "../atom/authState";
 import { FaRegUserCircle } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 import logo from "../Assets/Logo/logo.jpg";
+import { BiLogOutCircle } from "react-icons/bi";
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
   const navigate = useNavigate();
@@ -26,7 +23,7 @@ const Navbar = () => {
     setSearchQuery(query);
   }, []);
 
-  const { navigateToAdminPanel, navigateToSignInPage, navigateToServiceProviderPage, navigateToHomePage } = NavigationHandler();
+  const { navigateToAdminPanel, navigateToSignInPage, navigateToServiceProviderPage, navigateToHomePage, navigateToProfilePage } = NavigationHandler();
   const { logOutHandler } = AuthenticationHandler();
 
   const handleSearchClick = () => {
@@ -68,16 +65,18 @@ const Navbar = () => {
           {authData?._id && (
             <div className="text-gray-900">
               <span
-                className="cursor-pointer"
+                className="cursor-pointer text-gray-600"
                 onClick={navigateToServiceProviderPage}
               >
                 Become a service provider !
               </span>
             </div>
           )}
-          <button className="text-blue-900" onClick={navigateToHomePage}>
-            Home
-          </button>
+          <div className="px-5">
+            <button className="text-blue-900" onClick={navigateToHomePage}>
+              Home
+            </button>
+          </div>
           <div className="">
             {authData?._id ? (
               <div className="">
@@ -100,22 +99,30 @@ const Navbar = () => {
                       </div>
                     </div>
                   </MenuHandler>
-                  <MenuList className="relative w-[200px] right-10 z-[21] bg-gray-100 py-3">
+                  <MenuList className="relative w-[200px] right-10 z-[21] bg-gray-100 py-3 px-2 space-y-1">
                     <div className="absolute left-[85%] -top-2 h-4 w-4 -rotate-45 bg-gray-100"></div>
+                    <MenuItem
+                      className="w-full flex justify-start items-center gap-3 bg-blue-100 p-2"
+                      onClick={navigateToProfilePage}
+                    >
+                      <FaUserCircle className="text-xl" />
+                      <span className="text-[16px]">Profile</span>
+                    </MenuItem>
 
                     {authData.role === "admin" && (
                       <MenuItem
-                        className="w-full hover:bg-red-100 p-1"
+                        className="w-full flex justify-start items-center gap-3 bg-blue-100 p-1"
                         onClick={navigateToAdminPanel}
                       >
                         Admin Panel
                       </MenuItem>
                     )}
                     <MenuItem
-                      className="w-full hover:bg-red-100 p-1"
+                      className="w-full flex justify-start items-center gap-3 bg-blue-100 p-2"
                       onClick={logOutHandler}
                     >
-                      Logout
+                      <BiLogOutCircle className="text-xl" />{" "}
+                      <span className="text-[16px]">Logout</span>
                     </MenuItem>
                   </MenuList>
                 </Menu>

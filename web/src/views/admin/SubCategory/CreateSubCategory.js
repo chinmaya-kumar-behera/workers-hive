@@ -10,7 +10,6 @@ const CreateSubCategory = ({ isOpen, onClose, getCat, categoryId }) => {
     heading: "",
     description: "",
     image: null,
-    price: 0,
   });
 
   const handleChange = (e) => {
@@ -31,7 +30,6 @@ const CreateSubCategory = ({ isOpen, onClose, getCat, categoryId }) => {
           heading: "",
           description: "",
           image: null,
-          price: null,
         });
 
         onClose();
@@ -103,25 +101,6 @@ const CreateSubCategory = ({ isOpen, onClose, getCat, categoryId }) => {
             required
           />
         </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="price"
-            className="block text-sm font-semibold text-gray-600"
-          >
-            Price
-          </label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={categoryData.price}
-            onChange={handleChange}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
-        </div>
-
 
         <div className="flex justify-end">
           <button

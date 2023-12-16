@@ -17,7 +17,6 @@ export const createSubCategoryAdminService = (data) => {
   formData.append("heading", data.heading);
   formData.append("description", data.description);
   formData.append("file", data.image);
-  formData.append("price", data.price);
   formData.append("categoryId", data.categoryId);
   return axios.post(
     `http://localhost:5000/api/admin/subcategory/create`,

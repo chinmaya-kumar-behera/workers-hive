@@ -35,7 +35,21 @@ router.post("/signup",signUp)
 router.post("/signIn", signIn);
 
 // serviceWorker
-router.post("/serviceWorker/create", upload.single("file"), createServiceWorker);
+
+const multerMiddleware = upload.fields([
+  { name: "profilePic", maxCount: 2 },
+  { name: "workingPhotos", maxCount: 10 },
+]);
+
+router.post(
+  "/serviceWorker/create",
+  upload.fields([
+    { name: "profilePic", maxCount: 2 },
+    { name: "workingPhotos", maxCount: 10 },
+  ]),
+  createServiceWorker
+);
+
 router.get("/workers/:id", getWorkers);
 
 // search api
