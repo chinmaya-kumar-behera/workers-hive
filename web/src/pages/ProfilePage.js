@@ -198,79 +198,93 @@ const ProfilePage = () => {
                 <div className="my-4"></div>
 
                 <div className="bg-white p-3 shadow-sm rounded-sm">
-                  <div className="grid grid-cols-2 gap-5">
-                    <div className="space-y-5">
-                      <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                        <span clas="text-green-500">
-                          <svg
-                            className="h-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                            />
-                          </svg>
-                        </span>
-                        <span className="tracking-wide">Working Details</span>
-                      </div>
-                      <div className="relative bg-gray-100 text-gray-600 py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <div className="flex items-center py-3">
-                          <h2>{userData?.category?.heading}</h2>
+                  {userData?.role === "worker" || userData?.role === "admin" ? (
+                    <div className="grid grid-cols-2 gap-5">
+                      <div className="space-y-5">
+                        <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                          <span clas="text-green-500">
+                            <svg
+                              className="h-5"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                              />
+                            </svg>
+                          </span>
+                          <span className="tracking-wide">Working Details</span>
                         </div>
-                        <div className="absolute -top-0 -translate-y-1/2 left-5 px-4 py-1 rounded-md text-white bg-blue-500">
-                          <h5 className="text-xs font-semibold">Category</h5>
-                        </div>
-                      </div>
-
-                      <div className="relative bg-gray-100 text-gray-600 py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <div className="flex items-center py-3">
-                          <h2>{userData?.subCategory?.heading}</h2>
-                        </div>
-                        <div className="absolute -top-0 -translate-y-1/2 left-5 px-4 py-1 rounded-md text-white bg-blue-500">
-                          <h5 className="text-xs font-semibold">
-                            Sub Category
-                          </h5>
-                        </div>
-                      </div>
-
-                      <div className="relative bg-gray-100 text-gray-600  py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <div className="flex items-center py-3">
-                          <h2>{userData?.description}</h2>
-                        </div>
-                        <div className="absolute -top-0 -translate-y-1/2 left-5 px-4 py-1 rounded-md text-white bg-blue-500">
-                          <h5 className="text-xs font-semibold">Description</h5>
-                        </div>
-                      </div>
-
-                      <div className="w-full flex justify-center">
-                        <button
-                          className="px-10 py-1 rounded-lg text-xs bg-gray-100 hover:text-blue-700 transition-all"
-                          onClick={() => setEditModalState(true)}
-                        >
-                          Edit{" "}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                        <span className="tracking-wide">Photos</span>
-                      </div>
-                      <div className="flex flex-wrap gap-5">
-                        {userData?.workingPhotos?.map((value, index) => (
-                          <div className="">
-                            <img key={index} src={value} alt='working_photo' className="object-cover object-center h-28 w-44 rounded-md" />
+                        <div className="relative bg-gray-100 text-gray-600 py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                          <div className="flex items-center py-3">
+                            <h2>{userData?.category?.heading}</h2>
                           </div>
-                        ))}
+                          <div className="absolute -top-0 -translate-y-1/2 left-5 px-4 py-1 rounded-md text-white bg-blue-500">
+                            <h5 className="text-xs font-semibold">Category</h5>
+                          </div>
+                        </div>
+
+                        <div className="relative bg-gray-100 text-gray-600 py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                          <div className="flex items-center py-3">
+                            <h2>{userData?.subCategory?.heading}</h2>
+                          </div>
+                          <div className="absolute -top-0 -translate-y-1/2 left-5 px-4 py-1 rounded-md text-white bg-blue-500">
+                            <h5 className="text-xs font-semibold">
+                              Sub Category
+                            </h5>
+                          </div>
+                        </div>
+
+                        <div className="relative bg-gray-100 text-gray-600  py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                          <div className="flex items-center py-3">
+                            <h2>{userData?.description}</h2>
+                          </div>
+                          <div className="absolute -top-0 -translate-y-1/2 left-5 px-4 py-1 rounded-md text-white bg-blue-500">
+                            <h5 className="text-xs font-semibold">
+                              Description
+                            </h5>
+                          </div>
+                        </div>
+
+                        <div className="w-full flex justify-center">
+                          <button
+                            className="px-10 py-1 rounded-lg text-xs bg-gray-100 hover:text-blue-700 transition-all"
+                            onClick={() => setEditModalState(true)}
+                          >
+                            Edit{" "}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
+                          <span className="tracking-wide">Photos</span>
+                        </div>
+                        <div className="flex flex-wrap gap-5">
+                          {userData?.workingPhotos?.map((value, index) => (
+                            <div className="">
+                              <img
+                                key={index}
+                                src={value}
+                                alt="working_photo"
+                                className="object-cover object-center h-28 w-44 rounded-md"
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <h2 className="text-xl font-bold">Working Details</h2>
+                      <p> You can't access the working details fields.</p>{" "}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -40,6 +40,7 @@ const createServiceWorker = async (req, res) => {
     userExist.price = price;
     userExist.gender = gender;
     userExist.address = { city, country };
+    userExist.role = 'worker';
 
     if (profileUrl) {
       userExist.photo = imageUrl;

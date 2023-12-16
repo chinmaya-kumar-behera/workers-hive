@@ -61,3 +61,19 @@
 .dialog-overlay-before-close {
     opacity: 0;
 }
+
+
+     /* skeleton css  */
+     
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-wave {
+  animation: waveAnimation 2s linear infinite;
+}

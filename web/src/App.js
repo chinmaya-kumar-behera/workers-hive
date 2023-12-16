@@ -13,6 +13,7 @@ import "./App.css";
 import ServiceProvider from "./pages/ServiceProvider";
 import SearchPage from "./pages/SearchPage";
 import ProfilePage from "./pages/ProfilePage";
+import ChattingWindow from "./views/chat/ChattingWindow";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -40,21 +41,24 @@ const App = () => {
   }, [setUserData]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/categories" element={<Categories />} />
-      <Route path="/category/:id" element={<SubCategories />} />
-      <Route path="/subcategory/:id" element={<Available />} />
+    <div className="relative">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/category/:id" element={<SubCategories />} />
+        <Route path="/subcategory/:id" element={<Available />} />
 
-      <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
-      <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
-      <Route path="/serviceProvider" element={<ServiceProvider />} />
-      <Route path="/search/:query" element={<SearchPage />} />
-      <Route path="/user/:id" element={<ProfilePage />} />
+        <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
+        <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
+        <Route path="/serviceProvider" element={<ServiceProvider />} />
+        <Route path="/search/:query" element={<SearchPage />} />
+        <Route path="/user/:id" element={<ProfilePage />} />
 
-      {/* ADMIN ROUTE */}
-      <Route path="/admin*" element={<Admin />} />
-    </Routes>
+        {/* ADMIN ROUTE */}
+        <Route path="/admin*" element={<Admin />} />
+      </Routes>
+      <ChattingWindow/>
+    </div>
   );
 };
 
