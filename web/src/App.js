@@ -38,7 +38,7 @@ const App = () => {
         console.error("Error parsing user data:", error);
       }
     }
-  }, [setUserData]);
+  }, [userData?._id]);
 
   return (
     <div className="relative">
@@ -57,7 +57,7 @@ const App = () => {
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
-      <ChattingWindow/>
+      {/* <ChattingWindow/> */}
     </div>
   );
 };

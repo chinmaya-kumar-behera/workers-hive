@@ -5,7 +5,6 @@ import CategoryHandler from "../handler/CategoryHandler";
 import CategoryCardDetails from "../views/Home/components/CategoryCardDetails";
 import Navbar from "../views/Navbar";
 import Footer from "../views/Footer";
-
 import video from "../Assets/Animation/video.mp4";
 
 const SubCategories = () => {

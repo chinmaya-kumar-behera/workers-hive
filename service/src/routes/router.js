@@ -1,5 +1,5 @@
 const express = require("express");
-const { getCategories, getCategory, getsubcategories } = require("../controllers/categoriesController");
+const { getCategories, getCategory, getsubcategories, getSubcategoryDetail } = require("../controllers/categoriesController");
 const { getSliderImage } = require("../controllers/sliderController");
 const { signUp, signIn } = require("../controllers/authenticationController");
 const { createServiceWorker, getWorkers } = require("../controllers/serviceWorkerController");
@@ -29,6 +29,7 @@ router.get("/categories", getCategories);
 router.get("/category/:id", getCategory);
 router.get("/subcategories/:id", getsubcategories);
 router.get("/getsliderimage", getSliderImage);
+router.get("/subcategorydetail/:id", getSubcategoryDetail);
 
 // Authentication controllers
 router.post("/signup",signUp)

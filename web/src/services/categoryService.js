@@ -38,3 +38,7 @@ export const getCategoryByIdService = (id) => {
 export const getSubcategoriresByCategoryIdService = (id) => {
   return axios.get(`http://localhost:5000/api/subcategories/${id}`);
 };
+
+export const getSubcategoryDetailsByIdService = (id) => {
+  return axios.get(`http://localhost:5000/api/subcategorydetail/${id}`);
+};

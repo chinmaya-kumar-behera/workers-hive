@@ -43,7 +43,7 @@ const createServiceWorker = async (req, res) => {
     userExist.role = 'worker';
 
     if (profileUrl) {
-      userExist.photo = imageUrl;
+      userExist.photo = profileUrl;
     }
     if (workerPhotosUrl.length > 0) {
       userExist.workingPhotos = workerPhotosUrl;

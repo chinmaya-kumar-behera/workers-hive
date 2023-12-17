@@ -4,6 +4,7 @@ import {
   getCategoriesService,
   getCategoryByIdService,
   getSubcategoriresByCategoryIdService,
+  getSubcategoryDetailsByIdService,
 } from "../services/categoryService";
 
 //----------------------  Admin Handlers ------------------//
@@ -40,7 +41,11 @@ const CategoryHandler = () => {
 
    const getSubcategoriresByCategoryIdHandler = async (id) => {
      return await getSubcategoriresByCategoryIdService(id);
-   };
+  };
+  
+  const getSubcategoryDetailsByIdHandler = async (id) => {
+    return await getSubcategoryDetailsByIdService(id);
+  }
 
   return {
     createCategoryAdminHandler,
@@ -48,6 +53,7 @@ const CategoryHandler = () => {
     getCategoryByIdHandler,
     createSubCategoryAdminHandler,
     getSubcategoriresByCategoryIdHandler,
+    getSubcategoryDetailsByIdHandler,
   };
 };
 
