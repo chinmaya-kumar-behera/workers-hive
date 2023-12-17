@@ -1,6 +1,5 @@
 import React from "react";
 import { CiUser } from "react-icons/ci";
-import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const EmployeeCard = ({ data }) => {
@@ -56,11 +55,6 @@ const EmployeeCard = ({ data }) => {
               Save for Later
             </button>
           </div>
-
-          {/* <div className="flex justify-start items-center gap-3 mt-2">
-            <FaStar className="text-3xl text-orange-500" />{" "}
-            <h2 className="text-2xl font-bold">3.7</h2>
-          </div> */}
         </div>
         <div className="w-2/5">
           <h3 className="font-semibold text-blue-400 text-md">

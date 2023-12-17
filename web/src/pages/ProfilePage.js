@@ -6,18 +6,24 @@ import { useParams } from "react-router-dom";
 import EditServiceWorkerModal from "../views/profile/EditServiceWorkerModal";
 import { useRecoilValue } from "recoil";
 import { AuthState } from "../atom/authState";
+import { MdAddToPhotos } from "react-icons/md";
+import EditProfilePicModal from "../views/profile/EditProfilePicModal";
+import EditPersonalDetailModal from "../views/profile/EditPersonalDetailModal";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
   const { id } = useParams();
   const [userData, setUserData] = useState();
-  const [editServiceModal, setEditModalState] = useState(false);
+  const [editWorkingDetailModal, setEditWorkingDetailModal] = useState(false);
+  const [editprofilePicModal, setEditProfilePicModal] = useState(false);
+  const [editPersonalDetails, setEditPersonalDetails] = useState(false);
+
   const authData = useRecoilValue(AuthState);
 
   useEffect(() => {
     getUserUserDetailsHandler(id)
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setUserData(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -32,12 +38,22 @@ const ProfilePage = () => {
             <div className="md:flex no-wrap md:-mx-2 ">
               <div className="w-full md:w-3/12 md:mx-2">
                 <div className="bg-white p-3 border-t-4 border-green-400">
-                  <div className="overflow-hidden flex justify-center">
-                    <img
-                      className="mx-auto h-[100px] w-[100px] bg-red-100 rounded-full overflow-hidden object-cover object-center"
-                      src={userData?.photo && userData.photo}
-                      alt="profileImage"
-                    />
+                  <div className=" overflow-hidden flex justify-center ">
+                    <div className="relative h-[100px] w-[100px]">
+                      <img
+                        className="mx-auto h-[100px] w-[100px] bg-red-100 rounded-full overflow-hidden object-cover object-center"
+                        src={userData?.photo && userData.photo}
+                        alt="profileImage"
+                      />
+                      <div className="absolute top-[70px] -translate-y-[10px] right-0 ">
+                        <button
+                          className="p-1.5 rounded-full bg-gray-800"
+                          onClick={() => setEditProfilePicModal(true)}
+                        >
+                          <MdAddToPhotos className="text-white" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <h1 className="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
                     {userData?.name}
@@ -58,6 +74,13 @@ const ProfilePage = () => {
                           new Date(userData.createdAt).toLocaleDateString()}
                       </span>
                     </li>
+                    {authData._id !== id && (
+                      <li className="py-3">
+                        <button className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition-all">
+                          Book An Appointment
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 </div>
                 {authData._id !== id && (
@@ -117,6 +140,7 @@ const ProfilePage = () => {
                     </span>
                     <span className="tracking-wide">Personal Details</span>
                   </div>
+
                   <div className="text-gray-700">
                     <div className="grid md:grid-cols-2 text-sm">
                       <div className="grid grid-cols-2">
@@ -167,6 +191,15 @@ const ProfilePage = () => {
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div className="w-full flex justify-between">
+                    <button
+                      className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
+                      onClick={() => setEditPersonalDetails(true)}
+                    >
+                      Edit Working Details
+                    </button>
                   </div>
                 </div>
 
@@ -229,10 +262,10 @@ const ProfilePage = () => {
                         {authData?._id === id && (
                           <div className="w-full flex justify-center">
                             <button
-                              className="px-10 py-1 rounded-lg text-xs bg-gray-100 hover:text-blue-700 transition-all"
-                              onClick={() => setEditModalState(true)}
+                              className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
+                              onClick={() => setEditWorkingDetailModal(true)}
                             >
-                              Edit{" "}
+                              Edit Working Details
                             </button>
                           </div>
                         )}
@@ -245,7 +278,7 @@ const ProfilePage = () => {
                         {userData.workingPhotos?.length > 0 ? (
                           <div className="flex flex-wrap gap-5">
                             {userData?.workingPhotos?.map((value, index) => (
-                              <div className="">
+                              <div className="" key={index}>
                                 <img
                                   key={index}
                                   src={value}
@@ -273,10 +306,22 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-        {editServiceModal && (
+        {editWorkingDetailModal && (
           <EditServiceWorkerModal
-            isOpen={editServiceModal}
-            onClose={() => setEditModalState(false)}
+            isOpen={editWorkingDetailModal}
+            onClose={() => setEditWorkingDetailModal(false)}
+          />
+        )}
+        {editprofilePicModal && (
+          <EditProfilePicModal
+            isOpen={editprofilePicModal}
+            onClose={() => setEditProfilePicModal(false)}
+          />
+        )}
+        {editPersonalDetails && (
+          <EditPersonalDetailModal
+            isOpen={editPersonalDetails}
+            onClose={() => setEditPersonalDetails(false)}
           />
         )}
       </PageContainer>
