@@ -32,7 +32,7 @@ const createServiceWorker = async (req, res) => {
       );
     }
 
-    userExist.name = firstName + " " + lastName;
+    userExist.name = firstName.trim() + " " + lastName.trim();
     userExist.phone = mobileNumber;
     userExist.description = professionDescription;
     userExist.category = category;

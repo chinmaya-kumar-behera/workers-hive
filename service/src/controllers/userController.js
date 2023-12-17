@@ -54,7 +54,7 @@ const updateUser = async (req, res) => {
 
     const userExist = await User.findById(id);
 
-    if (firstName) userExist.name = firstName + " " + lastName;
+    if (firstName) userExist.name = firstName.trim() + " " + lastName.trim();;
     if (mobileNumber) userExist.phone = mobileNumber;
     if (professionDescription) userExist.description = professionDescription;
     if (category) userExist.category = category;

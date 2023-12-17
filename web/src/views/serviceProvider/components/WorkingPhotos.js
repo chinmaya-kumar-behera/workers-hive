@@ -1,3 +1,4 @@
+import { MdOutlineCancel } from "react-icons/md";
 
 const WorkingPhotos = ({ formData, setFormData }) => {
 
@@ -76,9 +77,9 @@ const WorkingPhotos = ({ formData, setFormData }) => {
               />
               <button
                 onClick={() => handleDeletePhoto(index)}
-                className="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-white"
+                className="absolute top-1 right-1 bg-white rounded-full text-red-500 p-.5"
               >
-                X
+                <MdOutlineCancel className="text-lg" />
               </button>
             </div>
           ))}
