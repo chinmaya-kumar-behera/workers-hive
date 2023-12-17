@@ -113,6 +113,15 @@ const getsubcategories = async (req, res) => {
   res.status(200).json({ message: "Successfully fetched", data: category });
 };
 
+const getSubcategoryDetail = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(404).json({ message: "Id not found" });
+  }
+  const category = await SubCategory.findById(id);
+  res.status(200).json({ message: "Successfully fetched", data: category });
+};
+
 module.exports = {
   createCategory,
   updateCategory,
@@ -120,4 +129,5 @@ module.exports = {
   getCategory,
   createSubCategory,
   getsubcategories,
+  getSubcategoryDetail,
 };

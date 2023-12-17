@@ -6,7 +6,7 @@ import AuthenticationHandler from "../handler/AuthenticationHandler";
 import { useRecoilValue } from "recoil";
 import { AuthState } from "../atom/authState";
 import { FaRegUserCircle } from "react-icons/fa";
-import { CiSearch } from "react-icons/ci";
+import { CiChat1, CiChat2, CiHome, CiSearch } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -30,6 +30,10 @@ const Navbar = () => {
     if (!searchQuery?.trim()) return;
     navigate(`/search/${searchQuery}`);
   };
+
+  const chatButtomHandler = () => {
+    
+  }
 
   return (
     <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
@@ -55,7 +59,7 @@ const Navbar = () => {
               className="absolute top-1/2 -translate-y-1/2 left-[93%]"
               onClick={handleSearchClick}
             >
-              <CiSearch className="text-xl text-blue-700 hover:text-blue-900" />
+              <CiSearch className="text-xl text-blue-400 hover:text-blue-900" />
             </span>
           </div>
         </div>
@@ -72,9 +76,14 @@ const Navbar = () => {
               </span>
             </div>
           )}
-          <div className="px-5">
-            <button className="text-blue-900" onClick={navigateToHomePage}>
+          <div className="flex items-center gap-3 px-5">
+            <button className="text-blue-600" onClick={navigateToHomePage}>
+              {/* <CiHome className="text-lg" /> */}
               Home
+            </button>
+            <button className="text-blue-600" onClick={chatButtomHandler}>
+              {/* <CiChat1 className="text-lg" /> */}
+              Chat
             </button>
           </div>
           <div className="">

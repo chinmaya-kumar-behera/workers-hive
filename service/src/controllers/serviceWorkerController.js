@@ -22,7 +22,7 @@ const createServiceWorker = async (req, res) => {
     let profileUrl;
     let workerPhotosUrl;
 
-    if (!profilePic.length > 0) {
+    if (profilePic.length > 0) {
       profileUrl = `${process.env.BASE_URL}/images/${profilePic[0].filename}`;
     }
 
@@ -43,7 +43,7 @@ const createServiceWorker = async (req, res) => {
     userExist.role = 'worker';
 
     if (profileUrl) {
-      userExist.photo = imageUrl;
+      userExist.photo = profileUrl;
     }
     if (workerPhotosUrl.length > 0) {
       userExist.workingPhotos = workerPhotosUrl;

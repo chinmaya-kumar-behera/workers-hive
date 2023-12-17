@@ -4,12 +4,15 @@ import Navbar from "../views/Navbar";
 import ProfileHandler from "../handler/ProfileHandler";
 import { useParams } from "react-router-dom";
 import EditServiceWorkerModal from "../views/profile/EditServiceWorkerModal";
+import { useRecoilValue } from "recoil";
+import { AuthState } from "../atom/authState";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
   const { id } = useParams();
   const [userData, setUserData] = useState();
   const [editServiceModal, setEditModalState] = useState(false);
+  const authData = useRecoilValue(AuthState);
 
   useEffect(() => {
     getUserUserDetailsHandler(id)
@@ -18,7 +21,8 @@ const ProfilePage = () => {
         setUserData(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
+
   return (
     <div>
       <Navbar />
@@ -56,28 +60,28 @@ const ProfilePage = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="my-4"></div>
-                <div className="bg-white p-3 hover:shadow">
-                  <div className="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
-                    <span className="text-green-500">
-                      <svg
-                        className="h-5 fill-current"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                        />
-                      </svg>
-                    </span>
-                    <span>Similar Profiles</span>
-                  </div>
-                  {/* <div className="grid grid-cols-3">
+                {authData._id !== id && (
+                  <div className="bg-white p-3 hover:shadow mt-4">
+                    <div className="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
+                      <span className="text-green-500">
+                        <svg
+                          className="h-5 fill-current"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                          />
+                        </svg>
+                      </span>
+                      <span>Similar Profiles</span>
+                    </div>
+                    {/* <div className="grid grid-cols-3">
                     <div className="text-center my-2">
                       <img
                         className="h-16 w-16 rounded-full mx-auto"
@@ -88,38 +92,9 @@ const ProfilePage = () => {
                         Kojstantin
                       </a>
                     </div>
-                    <div className="text-center my-2">
-                      <img
-                        className="h-16 w-16 rounded-full mx-auto"
-                        src="https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4"
-                        alt=""
-                      />
-                      <a href="#" className="text-main-color">
-                        James
-                      </a>
-                    </div>
-                    <div className="text-center my-2">
-                      <img
-                        className="h-16 w-16 rounded-full mx-auto"
-                        src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
-                        alt=""
-                      />
-                      <a href="#" className="text-main-color">
-                        Natie
-                      </a>
-                    </div>
-                    <div className="text-center my-2">
-                      <img
-                        className="h-16 w-16 rounded-full mx-auto"
-                        src="https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f04b52da-12f2-449f-b90c-5e4d5e2b1469_361x361.png"
-                        alt=""
-                      />
-                      <a href="#" className="text-main-color">
-                        Casey
-                      </a>
-                    </div>
                   </div> */}
-                </div>
+                  </div>
+                )}
               </div>
               <div className="w-full md:w-9/12 mx-2 h-64">
                 <div className="bg-white p-3 shadow-sm rounded-sm">
@@ -251,32 +226,40 @@ const ProfilePage = () => {
                           </div>
                         </div>
 
-                        <div className="w-full flex justify-center">
-                          <button
-                            className="px-10 py-1 rounded-lg text-xs bg-gray-100 hover:text-blue-700 transition-all"
-                            onClick={() => setEditModalState(true)}
-                          >
-                            Edit{" "}
-                          </button>
-                        </div>
+                        {authData?._id === id && (
+                          <div className="w-full flex justify-center">
+                            <button
+                              className="px-10 py-1 rounded-lg text-xs bg-gray-100 hover:text-blue-700 transition-all"
+                              onClick={() => setEditModalState(true)}
+                            >
+                              Edit{" "}
+                            </button>
+                          </div>
+                        )}
                       </div>
 
                       <div>
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                           <span className="tracking-wide">Photos</span>
                         </div>
-                        <div className="flex flex-wrap gap-5">
-                          {userData?.workingPhotos?.map((value, index) => (
-                            <div className="">
-                              <img
-                                key={index}
-                                src={value}
-                                alt="working_photo"
-                                className="object-cover object-center h-28 w-44 rounded-md"
-                              />
-                            </div>
-                          ))}
-                        </div>
+                        {userData.workingPhotos?.length > 0 ? (
+                          <div className="flex flex-wrap gap-5">
+                            {userData?.workingPhotos?.map((value, index) => (
+                              <div className="">
+                                <img
+                                  key={index}
+                                  src={value}
+                                  alt="working_photo"
+                                  className="object-cover object-center h-28 w-44 rounded-md"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-sm py-2 text-red-400">
+                            Hasn't provided any photos !
+                          </div>
+                        )}
                       </div>
                     </div>
                   ) : (
