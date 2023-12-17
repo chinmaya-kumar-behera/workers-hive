@@ -34,7 +34,7 @@ const ServiceDetailsForm = () => {
   useEffect(() => {
     getCategoriesHandler()
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setCategoriesList(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -44,7 +44,7 @@ const ServiceDetailsForm = () => {
     if (formData.category) {
       getSubcategoriresByCategoryIdHandler(formData.category)
         .then((res) => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           setSubCategoriesList(res.data.data);
         })
         .catch((err) => console.log(err));

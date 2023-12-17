@@ -4,10 +4,10 @@ const createServiceWorker = async (req, res) => {
   const { userId, firstName, lastName, email, mobileNumber, category, subCategory, professionDescription, price, city, country, gender } = req.body;
   const { profilePic, workingPhotos } = req.files;
 
-  if (!firstName || !email || !category || !subCategory || !professionDescription || !price || !city || !country || !gender) {
-    res.status(500).json({ message: "Fill all the details !" });
-    return;
-  }
+  // if (!firstName || !email || !category || !subCategory || !professionDescription || !price || !city || !country || !gender) {
+  //   res.status(500).json({ message: "Fill all the details !" });
+  //   return;
+  // }
   try {
     if (!userId) {
       res.status(404).json({ message: "User Id not Found !" });
@@ -22,7 +22,7 @@ const createServiceWorker = async (req, res) => {
     let profileUrl;
     let workerPhotosUrl;
 
-    if (!profilePic.length > 0) {
+    if (profilePic.length > 0) {
       profileUrl = `${process.env.BASE_URL}/images/${profilePic[0].filename}`;
     }
 
