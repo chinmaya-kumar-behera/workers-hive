@@ -119,6 +119,9 @@ const ProfilePage = () => {
                   </div>
                 )}
               </div>
+              
+
+              {/* // Personal details section */}
               <div className="w-full md:w-9/12 mx-2 h-64">
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
@@ -198,13 +201,15 @@ const ProfilePage = () => {
                       className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
                       onClick={() => setEditPersonalDetails(true)}
                     >
-                      Edit Working Details
+                      Edit Personal Details
                     </button>
                   </div>
                 </div>
 
                 <div className="my-4"></div>
 
+                
+                {/* // Working Details */}
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   {userData?.role === "worker" || userData?.role === "admin" ? (
                     <div className="grid grid-cols-2 gap-5">
@@ -271,6 +276,8 @@ const ProfilePage = () => {
                         )}
                       </div>
 
+                      
+                      {/* // Working photos */}
                       <div>
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                           <span className="tracking-wide">Photos</span>

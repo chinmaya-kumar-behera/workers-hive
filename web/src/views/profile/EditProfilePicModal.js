@@ -8,12 +8,16 @@ import toast from "react-hot-toast";
 
 const EditProfilePicModal = ({ isOpen, onClose }) => {
     const { updateProfileDetailHandler } = ProfileHandler();
-    const [formData, setFormData] = useState();
+    const [formData, setFormData] = useState({ profilePic: "" });
     const authData = useRecoilValue(AuthState);
 
     const submitHandler = (e) => {
-        e.preventDefault();
-        console.log(formData);
+      e.preventDefault();
+      
+      if (!formData.profilePic) {
+        toast.error("select photo");
+        return;
+      }
         updateProfileDetailHandler({ id: authData._id, ...formData })
           .then((res) => {
             console.log(res);
