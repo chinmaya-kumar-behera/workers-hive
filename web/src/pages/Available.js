@@ -17,16 +17,22 @@ const Available = () => {
   const [subcategory, setSubcategory] = useState();
 
   const [subcategories, setSubCategories] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
 
   useEffect(() => {
     getWorkersBySubcategoryIdHandler({ id })
       .then((res) => {
         setworkers(res.data.data);
-        console.log(res.data.data)
+        console.log(res.data.data);
+        if (res.data.data.length === 0) {
+          setNoResults(true);
+        } else {
+          setNoResults(false);
+        }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
 
   useEffect(() => {
@@ -36,7 +42,7 @@ const Available = () => {
         setSubcategory(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, [])
+  }, [id]);
   
 
   useEffect(() => {
@@ -54,17 +60,21 @@ const Available = () => {
     <div className="">
       <Navbar />
       <PageContainer className={"mt-2"}>
-        <div className="">
-          <div className="flex gap-5 min-h-screen">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex gap-5 min-h-[90vh]">
             <div className="w-2/6 p-2">
               <div className="p-3 mb-3">
                 <h4 className="text-lg font-semibold">Similar items</h4>
                 <hr className="mt-2" />
               </div>
-              <div className="grid grid-cols-4 gap-2 justify-center">
+              <div className="grid grid-cols-3 gap-2 justify-center">
                 {subcategories.length > 0
                   ? subcategories?.map((value, index) => (
-                      <SubCategoryCard key={value._id} data={value} />
+                      <SubCategoryCard
+                        key={value._id}
+                        data={value}
+                        subCategoryId={id}
+                      />
                     ))
                   : Array.from({ length: 5 }, (_, index) => index + 1).map(
                       (value) => (
@@ -89,15 +99,18 @@ const Available = () => {
             </div>
             <div className="w-4/6 p-2 space-y-2">
               <div className="p-3">
-                <h4 className="text-lg font-semibold">Similar items</h4>
+                <h4 className="text-lg font-semibold">Available captains</h4>
                 <hr className="mt-2" />
               </div>
-              <div className="p-2 bg-gray-100">
-              {workers.length > 0 &&
-                workers.map((value, index) => (
-                  <EmployeeCard key={value._id} data={value} />
+              <div className="p-2 space-y-2 rounded">
+                {workers.length > 0 &&
+                  workers.map((value, index) => (
+                    <EmployeeCard key={value._id} data={value} />
                   ))}
-                  </div>
+                {noResults && <div className="text-center">
+                  <h3>Oops.. ! No results found</h3>
+                </div>}
+              </div>
             </div>
           </div>
         </div>

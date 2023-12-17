@@ -1,9 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const SubCategoryCard = ({ data }) => {
-  const handleClick = () => {};
+const SubCategoryCard = ({ data, subCategoryId }) => {
+  const bgColor = subCategoryId === data._id ? 'bg-gray-100 shadow-md shadow-blue-200 text-blue-500' : 'bg-gray-50';
+
+  const navigate = useNavigate();
+  const handleClick = (id) => {
+    navigate(`/subcategory/${id}`);
+  };
+  
   return (
-    <div className="flex flex-col items-center gap-2" onClick={handleClick}>
+    <div
+      className={`flex flex-col items-center ${bgColor} py-2 px-2 rounded-xl`}
+      onClick={()=>handleClick(data._id)}
+    >
       <div className="h-20 w-20 flex justify-center items-center overflow-hidden rounded-full">
         <img
           alt={"category"}
@@ -14,7 +24,7 @@ const SubCategoryCard = ({ data }) => {
       <div className="max-w-[100px] overflow-hidden">
         <span
           title={data.heading}
-          className="font-semibold text-sm cursor-pointer max-w-[100px] truncate overflow-hidden"
+          className="font-semibold text-[13px] cursor-pointer max-w-[100px] truncate overflow-hidden"
         >
           {data.heading}
         </span>
