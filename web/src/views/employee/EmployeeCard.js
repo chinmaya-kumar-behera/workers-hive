@@ -67,18 +67,22 @@ const EmployeeCard = ({ data }) => {
             Photos of work
           </h3>
 
-          <div className="w-fit p-2 bg-gray-100 rounded mt-1">
-            <div className="flex flex-wrap gap-2">
-              {data?.workingPhotos?.map((value, index) => (
-                <img
-                  key={index}
-                  src={value}
-                  className="h-[60px] w-[60px] object-cover object-center hover:scale-105 transition-all rounded"
-                  alt="working-photos"
-                />
-              ))}
+          {data?.workingPhotos?.length > 0 ? (
+            <div className="w-fit p-2 bg-gray-100 rounded mt-1">
+              <div className="flex flex-wrap gap-2">
+                {data?.workingPhotos?.map((value, index) => (
+                  <img
+                    key={index}
+                    src={value}
+                    className="h-[60px] w-[60px] object-cover object-center hover:scale-105 transition-all rounded"
+                    alt="working-photos"
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="text-sm py-2 text-red-400">Hasn't provided any photos !</div>
+          )}
         </div>
       </div>
     </div>
