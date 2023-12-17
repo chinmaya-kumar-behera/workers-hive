@@ -3,12 +3,13 @@ import PageContainer from "../components/shared/PageContainer";
 import Navbar from "../views/Navbar";
 import ProfileHandler from "../handler/ProfileHandler";
 import { useParams } from "react-router-dom";
-import EditServiceWorkerModal from "../views/profile/EditServiceWorkerModal";
 import { useRecoilValue } from "recoil";
 import { AuthState } from "../atom/authState";
 import { MdAddToPhotos } from "react-icons/md";
 import EditProfilePicModal from "../views/profile/EditProfilePicModal";
 import EditPersonalDetailModal from "../views/profile/EditPersonalDetailModal";
+import EditWorkingDetailModal from "../views/profile/EditWorkingDetailModal";
+import { FaRegUser } from "react-icons/fa";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
@@ -119,27 +120,13 @@ const ProfilePage = () => {
                   </div>
                 )}
               </div>
-              
 
               {/* // Personal details section */}
               <div className="w-full md:w-9/12 mx-2 h-64">
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                    <span clas="text-green-500">
-                      <svg
-                        className="h-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        />
-                      </svg>
+                    <span className="text-green-500 bg-gray-100 p-2 rounded-full">
+                      <FaRegUser />
                     </span>
                     <span className="tracking-wide">Personal Details</span>
                   </div>
@@ -196,7 +183,7 @@ const ProfilePage = () => {
                     </div>
                   </div>
 
-                  <div className="w-full flex justify-between">
+                  <div className="w-full flex justify-between mt-3">
                     <button
                       className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
                       onClick={() => setEditPersonalDetails(true)}
@@ -208,14 +195,13 @@ const ProfilePage = () => {
 
                 <div className="my-4"></div>
 
-                
                 {/* // Working Details */}
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   {userData?.role === "worker" || userData?.role === "admin" ? (
                     <div className="grid grid-cols-2 gap-5">
                       <div className="space-y-5">
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                          <span clas="text-green-500">
+                          <span className="text-green-500 bg-gray-100 p-2 rounded-full">
                             <svg
                               className="h-5"
                               xmlns="http://www.w3.org/2000/svg"
@@ -265,7 +251,7 @@ const ProfilePage = () => {
                         </div>
 
                         {authData?._id === id && (
-                          <div className="w-full flex justify-center">
+                          <div className="w-full">
                             <button
                               className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
                               onClick={() => setEditWorkingDetailModal(true)}
@@ -276,7 +262,6 @@ const ProfilePage = () => {
                         )}
                       </div>
 
-                      
                       {/* // Working photos */}
                       <div>
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -314,7 +299,7 @@ const ProfilePage = () => {
           </div>
         </div>
         {editWorkingDetailModal && (
-          <EditServiceWorkerModal
+          <EditWorkingDetailModal
             isOpen={editWorkingDetailModal}
             onClose={() => setEditWorkingDetailModal(false)}
           />
