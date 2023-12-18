@@ -1,15 +1,13 @@
+import { MdOutlineCancel } from "react-icons/md";
 
 const WorkingPhotos = ({ formData, setFormData }) => {
 
   const handleFileChange = (e) => {
       const files = e.target.files;
       console.log(files);
-    // const selectedPhotosArray = Array.from(files).map((file) =>
-    //   URL.createObjectURL(file)
-    // );
       setFormData((prev) => ({
         ...prev,
-        workingPhotos: [...prev.workingPhotos, ...files],
+        workingPhotos: [...prev?.workingPhotos, ...files],
       }));
   };
 
@@ -69,21 +67,22 @@ const WorkingPhotos = ({ formData, setFormData }) => {
       </div>
 
       <div className="flex flex-wrap gap-2 mt-4">
-        {formData.workingPhotos.length > 0 && formData.workingPhotos.map((photo, index) => (
-          <div key={index} className="relative">
-            <img
-              src={URL.createObjectURL(photo)}
-              alt={`Work_Photo_${index}`}
-              className="w-24 h-24 object-cover object-center"
-            />
-            <button
-              onClick={() => handleDeletePhoto(index)}
-              className="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-white"
-            >
-              X
-            </button>
-          </div>
-        ))}
+        {formData?.workingPhotos?.length > 0 &&
+          formData.workingPhotos.map((photo, index) => (
+            <div key={index} className="relative">
+              <img
+                src={URL.createObjectURL(photo)}
+                alt={`Work_Photo_${index}`}
+                className="w-24 h-24 object-cover object-center"
+              />
+              <button
+                onClick={() => handleDeletePhoto(index)}
+                className="absolute top-1 right-1 bg-white rounded-full text-red-500 p-.5"
+              >
+                <MdOutlineCancel className="text-lg" />
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );

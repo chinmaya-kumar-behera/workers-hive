@@ -3,21 +3,28 @@ import PageContainer from "../components/shared/PageContainer";
 import Navbar from "../views/Navbar";
 import ProfileHandler from "../handler/ProfileHandler";
 import { useParams } from "react-router-dom";
-import EditServiceWorkerModal from "../views/profile/EditServiceWorkerModal";
 import { useRecoilValue } from "recoil";
 import { AuthState } from "../atom/authState";
+import { MdAddToPhotos } from "react-icons/md";
+import EditProfilePicModal from "../views/profile/EditProfilePicModal";
+import EditPersonalDetailModal from "../views/profile/EditPersonalDetailModal";
+import EditWorkingDetailModal from "../views/profile/EditWorkingDetailModal";
+import { FaRegUser } from "react-icons/fa";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
   const { id } = useParams();
   const [userData, setUserData] = useState();
-  const [editServiceModal, setEditModalState] = useState(false);
+  const [editWorkingDetailModal, setEditWorkingDetailModal] = useState(false);
+  const [editprofilePicModal, setEditProfilePicModal] = useState(false);
+  const [editPersonalDetails, setEditPersonalDetails] = useState(false);
+
   const authData = useRecoilValue(AuthState);
 
   useEffect(() => {
     getUserUserDetailsHandler(id)
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setUserData(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -32,12 +39,22 @@ const ProfilePage = () => {
             <div className="md:flex no-wrap md:-mx-2 ">
               <div className="w-full md:w-3/12 md:mx-2">
                 <div className="bg-white p-3 border-t-4 border-green-400">
-                  <div className="overflow-hidden flex justify-center">
-                    <img
-                      className="mx-auto h-[100px] w-[100px] bg-red-100 rounded-full overflow-hidden object-cover object-center"
-                      src={userData?.photo && userData.photo}
-                      alt="profileImage"
-                    />
+                  <div className=" overflow-hidden flex justify-center ">
+                    <div className="relative h-[100px] w-[100px]">
+                      <img
+                        className="mx-auto h-[100px] w-[100px] bg-red-100 rounded-full overflow-hidden object-cover object-center"
+                        src={userData?.photo && userData.photo}
+                        alt="profileImage"
+                      />
+                      <div className="absolute top-[70px] -translate-y-[10px] right-0 ">
+                        <button
+                          className="p-1.5 rounded-full bg-gray-800"
+                          onClick={() => setEditProfilePicModal(true)}
+                        >
+                          <MdAddToPhotos className="text-white" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <h1 className="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
                     {userData?.name}
@@ -58,6 +75,13 @@ const ProfilePage = () => {
                           new Date(userData.createdAt).toLocaleDateString()}
                       </span>
                     </li>
+                    {authData._id !== id && (
+                      <li className="py-3">
+                        <button className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition-all">
+                          Book An Appointment
+                        </button>
+                      </li>
+                    )}
                   </ul>
                 </div>
                 {authData._id !== id && (
@@ -96,27 +120,17 @@ const ProfilePage = () => {
                   </div>
                 )}
               </div>
+
+              {/* // Personal details section */}
               <div className="w-full md:w-9/12 mx-2 h-64">
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
-                    <span clas="text-green-500">
-                      <svg
-                        className="h-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        />
-                      </svg>
+                    <span className="text-green-500 bg-gray-100 p-2 rounded-full">
+                      <FaRegUser />
                     </span>
                     <span className="tracking-wide">Personal Details</span>
                   </div>
+
                   <div className="text-gray-700">
                     <div className="grid md:grid-cols-2 text-sm">
                       <div className="grid grid-cols-2">
@@ -168,16 +182,26 @@ const ProfilePage = () => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="w-full flex justify-between mt-3">
+                    <button
+                      className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
+                      onClick={() => setEditPersonalDetails(true)}
+                    >
+                      Edit Personal Details
+                    </button>
+                  </div>
                 </div>
 
                 <div className="my-4"></div>
 
+                {/* // Working Details */}
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   {userData?.role === "worker" || userData?.role === "admin" ? (
                     <div className="grid grid-cols-2 gap-5">
                       <div className="space-y-5">
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
-                          <span clas="text-green-500">
+                          <span className="text-green-500 bg-gray-100 p-2 rounded-full">
                             <svg
                               className="h-5"
                               xmlns="http://www.w3.org/2000/svg"
@@ -227,17 +251,18 @@ const ProfilePage = () => {
                         </div>
 
                         {authData?._id === id && (
-                          <div className="w-full flex justify-center">
+                          <div className="w-full">
                             <button
-                              className="px-10 py-1 rounded-lg text-xs bg-gray-100 hover:text-blue-700 transition-all"
-                              onClick={() => setEditModalState(true)}
+                              className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
+                              onClick={() => setEditWorkingDetailModal(true)}
                             >
-                              Edit{" "}
+                              Edit Working Details
                             </button>
                           </div>
                         )}
                       </div>
 
+                      {/* // Working photos */}
                       <div>
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                           <span className="tracking-wide">Photos</span>
@@ -245,7 +270,7 @@ const ProfilePage = () => {
                         {userData.workingPhotos?.length > 0 ? (
                           <div className="flex flex-wrap gap-5">
                             {userData?.workingPhotos?.map((value, index) => (
-                              <div className="">
+                              <div className="" key={index}>
                                 <img
                                   key={index}
                                   src={value}
@@ -273,10 +298,22 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
-        {editServiceModal && (
-          <EditServiceWorkerModal
-            isOpen={editServiceModal}
-            onClose={() => setEditModalState(false)}
+        {editWorkingDetailModal && (
+          <EditWorkingDetailModal
+            isOpen={editWorkingDetailModal}
+            onClose={() => setEditWorkingDetailModal(false)}
+          />
+        )}
+        {editprofilePicModal && (
+          <EditProfilePicModal
+            isOpen={editprofilePicModal}
+            onClose={() => setEditProfilePicModal(false)}
+          />
+        )}
+        {editPersonalDetails && (
+          <EditPersonalDetailModal
+            isOpen={editPersonalDetails}
+            onClose={() => setEditPersonalDetails(false)}
           />
         )}
       </PageContainer>
