@@ -57,7 +57,7 @@ const App = () => {
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
-      {/* <ChattingWindow/> */}
+      <ChattingWindow/>
     </div>
   );
 };

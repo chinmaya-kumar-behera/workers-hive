@@ -183,14 +183,16 @@ const ProfilePage = () => {
                     </div>
                   </div>
 
-                  <div className="w-full flex justify-between mt-3">
-                    <button
-                      className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
-                      onClick={() => setEditPersonalDetails(true)}
-                    >
-                      Edit Personal Details
-                    </button>
-                  </div>
+                  {authData?._id === id && (
+                    <div className="w-full flex justify-between mt-3">
+                      <button
+                        className="px-10 py-1 rounded-lg text-xs bg-gray-200 text-blue-700 transition-all"
+                        onClick={() => setEditPersonalDetails(true)}
+                      >
+                        Edit Personal Details
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div className="my-4"></div>
