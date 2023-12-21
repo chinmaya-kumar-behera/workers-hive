@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { CiChat1 } from "react-icons/ci";
 import mrunal from "../../mrunal-thakur.jpg";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { ChatWindow } from "../../atom/chatState";
 
 const ChattingWindow = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useRecoilState(ChatWindow);
 
   const onBtnClick = () => {
     setIsExpanded(!isExpanded);
@@ -38,7 +40,7 @@ const ChattingWindow = () => {
         </div>
 
         <div className="mt-4 space-y-3">
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <div className="h-[40px] w-[40px] overflow-hidden">
               <img
                 alt={"dp_image"}
@@ -76,7 +78,7 @@ const ChattingWindow = () => {
               <h5 className="font-semibold text-md">Chinmaya kumar behera</h5>
               <p className="text-xs"> hello </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

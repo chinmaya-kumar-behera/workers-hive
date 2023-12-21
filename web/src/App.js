@@ -14,6 +14,8 @@ import ServiceProvider from "./pages/ServiceProvider";
 import SearchPage from "./pages/SearchPage";
 import ProfilePage from "./pages/ProfilePage";
 import ChattingWindow from "./views/chat/ChattingWindow";
+import PhotoModal from "./views/modals/PhotoModal";
+import { PhotoState } from "./atom/photoState";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -27,6 +29,7 @@ const PrivateRoute = ({ element, ...props }) => {
 
 const App = () => {
   const [userData, setUserData] = useRecoilState(AuthState);
+  const photoModalValue = useRecoilValue(PhotoState);
 
   useEffect(() => {
     const storedUserData = localStorage.getItem("userData");
@@ -57,7 +60,8 @@ const App = () => {
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
-      <ChattingWindow/>
+      <ChattingWindow />
+      {photoModalValue.isOpen && <PhotoModal />}
     </div>
   );
 };

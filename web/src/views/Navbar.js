@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { Menu, MenuHandler, MenuList, MenuItem } from "@material-tailwind/react";
 import NavigationHandler from "../handler/NavigationHandler";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../atom/authState";
 import { FaRegUserCircle } from "react-icons/fa";
 import { CiChat1, CiChat2, CiHome, CiSearch } from "react-icons/ci";
@@ -12,12 +12,16 @@ import { FaUserCircle } from "react-icons/fa";
 
 import logo from "../Assets/Logo/logo.jpg";
 import { BiLogOutCircle } from "react-icons/bi";
+import { ChatWindow } from "../atom/chatState";
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState();
 
   const { query } = useParams();
+
+  const setChatWindowExpand = useSetRecoilState(ChatWindow);
+
 
   useEffect(() => {
     setSearchQuery(query);
@@ -81,8 +85,10 @@ const Navbar = () => {
               {/* <CiHome className="text-lg" /> */}
               Home
             </button>
-            <button className="text-blue-600" onClick={chatButtomHandler}>
-              {/* <CiChat1 className="text-lg" /> */}
+            <button
+              className="text-blue-600"
+              onClick={() => setChatWindowExpand((prev) => !prev)}
+            >
               Chat
             </button>
           </div>

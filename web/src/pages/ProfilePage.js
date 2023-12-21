@@ -3,13 +3,14 @@ import PageContainer from "../components/shared/PageContainer";
 import Navbar from "../views/Navbar";
 import ProfileHandler from "../handler/ProfileHandler";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../atom/authState";
 import { MdAddToPhotos } from "react-icons/md";
 import EditProfilePicModal from "../views/profile/EditProfilePicModal";
 import EditPersonalDetailModal from "../views/profile/EditPersonalDetailModal";
 import EditWorkingDetailModal from "../views/profile/EditWorkingDetailModal";
 import { FaRegUser } from "react-icons/fa";
+import { PhotoState } from "../atom/photoState";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
@@ -18,6 +19,8 @@ const ProfilePage = () => {
   const [editWorkingDetailModal, setEditWorkingDetailModal] = useState(false);
   const [editprofilePicModal, setEditProfilePicModal] = useState(false);
   const [editPersonalDetails, setEditPersonalDetails] = useState(false);
+
+  const setPhotoModal = useSetRecoilState(PhotoState);
 
   const authData = useRecoilValue(AuthState);
 
@@ -270,14 +273,20 @@ const ProfilePage = () => {
                           <span className="tracking-wide">Photos</span>
                         </div>
                         {userData.workingPhotos?.length > 0 ? (
-                          <div className="flex flex-wrap gap-5">
+                          <div className="h-28 w-44 flex flex-wrap gap-5 overflow-hidden">
                             {userData?.workingPhotos?.map((value, index) => (
-                              <div className="" key={index}>
+                              <div
+                                className=""
+                                key={index}
+                                onClick={() =>
+                                  setPhotoModal({ isOpen: true, photo: value })
+                                }
+                              >
                                 <img
                                   key={index}
                                   src={value}
                                   alt="working_photo"
-                                  className="object-cover object-center h-28 w-44 rounded-md"
+                                  className="object-cover object-center h-28 w-44 rounded-md hover:scale-105 transition-all duration-500 shadow-md"
                                 />
                               </div>
                             ))}
