@@ -9,8 +9,6 @@ const EmployeeCard = ({ data }) => {
     navigate(`/user/${data._id}`);
   };
 
-  console.log(data);
-
   return (
     <div className="w-full flex gap-5 rounded-xl p-4 bg-gray-50 shadow-xl hover:shadow-lg">
       <div className="w-[100px] text-center">

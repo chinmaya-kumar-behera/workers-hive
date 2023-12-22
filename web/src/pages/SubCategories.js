@@ -16,7 +16,7 @@ const SubCategories = () => {
   useEffect(() => {
     getSubcategoriresByCategoryIdHandler(id)
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setSubCategories(res.data.data);
       })
       .catch((err) => console.log(err));
