@@ -19,7 +19,7 @@ const Categories = () => {
    useEffect(() => {
      getCategoriesHandler()
        .then((res) => {
-         console.log(res.data.data);
+        //  console.log(res.data.data);
          setCategories(res.data.data);
        })
        .catch((err) => console.log(err));
@@ -43,8 +43,8 @@ const Categories = () => {
           ? categories
               .slice(0, 7)
               .map((value, index) => <CategoryCard key={index} data={value} />)
-          : Array.from({ length: 7 }, (_, index) => index + 1).map((value) => (
-              <div className="flex flex-col items-center gap-2">
+          : Array.from({ length: 7 }, (_, index) => index + 1).map((value,index) => (
+              <div key={index} className="flex flex-col items-center gap-2">
                 <Skeleton
                   height="80px"
                   width="80px"

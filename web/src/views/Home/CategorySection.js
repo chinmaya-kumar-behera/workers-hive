@@ -13,7 +13,7 @@ const CategorySection = ({ id, heading }) => {
    useEffect(() => {
      getSubcategoriresByCategoryIdHandler(id)
        .then((res) => {
-         console.log(res.data.data);
+        //  console.log(res.data.data);
          setSubCategories(res.data.data);
        })
        .catch((err) => console.log(err));
@@ -29,8 +29,8 @@ const CategorySection = ({ id, heading }) => {
               <CategoryCardDetails key={value._id} data={value} />
             ))
           ) : (
-              Array.from({ length: 6}, (_, index) => index + 1).map((value) => (
-            <Skeleton height="250px" width="230px"  className={'rounded-xl'}/>))
+              Array.from({ length: 6}, (_, index) => index + 1).map((value,index) => (
+            <Skeleton key={index} height="250px" width="230px"  className={'rounded-xl'}/>))
           )}
         </PageContainer>
       </div>

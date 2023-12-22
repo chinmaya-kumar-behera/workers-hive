@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiChat1 } from "react-icons/ci";
 import mrunal from "../../mrunal-thakur.jpg";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useRecoilState } from "recoil";
 import { ChatWindow } from "../../atom/chatState";
+
+import socketIo from "socket.io-client";
+const socket = socketIo.connect("http://localhost:3000");
 
 const ChattingWindow = () => {
   const [isExpanded, setIsExpanded] = useRecoilState(ChatWindow);
@@ -12,6 +15,17 @@ const ChattingWindow = () => {
     setIsExpanded(!isExpanded);
   };
 
+  useEffect(() => {
+    socket.emit("user-join", { message: "Hello, server! Please join Me !" });
+    socket.on("chat-message", (param) => {
+      console.log("chat-message");
+      console.log(param);
+    });
+
+    return () => {
+      socket.off("join-request");
+    };
+  }, []);
 
   return (
     <div
@@ -24,7 +38,9 @@ const ChattingWindow = () => {
           <div className="flex justify-between">
             <span className="font-semibold text-lg">Chats</span>
             <button
-              className={`mr-3 ${isExpanded ? "" : "rotate-180"} hover:bg-gray-200 rounded-full p-1 transition-all`}
+              className={`mr-3 ${
+                isExpanded ? "" : "rotate-180"
+              } hover:bg-gray-200 rounded-full p-1 transition-all`}
               onClick={onBtnClick}
             >
               <MdKeyboardArrowDown className="text-xl" />
@@ -37,48 +53,6 @@ const ChattingWindow = () => {
               placeholder="Search Chats"
             />
           </div>
-        </div>
-
-        <div className="mt-4 space-y-3">
-          {/* <div className="flex gap-2">
-            <div className="h-[40px] w-[40px] overflow-hidden">
-              <img
-                alt={"dp_image"}
-                src={mrunal}
-                className="h-full w-full object-center object-cover rounded-full"
-              />
-            </div>
-            <div className="space-y-.5">
-              <h5 className="font-semibold text-md">Chinmaya kumar behera</h5>
-              <p className="text-xs"> hello </p>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <div className="h-[45px] w-[45px] overflow-hidden">
-              <img
-                alt={"dp_image"}
-                src={mrunal}
-                className="h-full w-full object-center object-cover rounded-full"
-              />
-            </div>
-            <div className="space-y-.5">
-              <h5 className="font-semibold text-md">Chinmaya kumar behera</h5>
-              <p className="text-xs"> hello </p>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <div className="h-[45px] w-[45px] overflow-hidden">
-              <img
-                alt={"dp_image"}
-                src={mrunal}
-                className="h-full w-full object-center object-cover rounded-full"
-              />
-            </div>
-            <div className="space-y-.5">
-              <h5 className="font-semibold text-md">Chinmaya kumar behera</h5>
-              <p className="text-xs"> hello </p>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
