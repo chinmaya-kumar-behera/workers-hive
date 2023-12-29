@@ -3,7 +3,7 @@ import PageContainer from "../components/shared/PageContainer";
 import Navbar from "../views/Navbar";
 import ProfileHandler from "../handler/ProfileHandler";
 import { useParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../atom/authState";
 import { MdAddToPhotos } from "react-icons/md";
 import EditProfilePicModal from "../views/profile/EditProfilePicModal";
@@ -11,9 +11,12 @@ import EditPersonalDetailModal from "../views/profile/EditPersonalDetailModal";
 import EditWorkingDetailModal from "../views/profile/EditWorkingDetailModal";
 import { FaRegUser } from "react-icons/fa";
 import { PhotoState } from "../atom/photoState";
+import ChatHandler from "../handler/ChatHandler";
+import { ChatWindow } from "../atom/chatState";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
+  const { createChatHandler } = ChatHandler();
   const { id } = useParams();
   const [userData, setUserData] = useState();
   const [editWorkingDetailModal, setEditWorkingDetailModal] = useState(false);
@@ -24,14 +27,28 @@ const ProfilePage = () => {
 
   const authData = useRecoilValue(AuthState);
 
+  const [isExpanded, setIsExpanded] = useRecoilState(ChatWindow);
+
+  const toggleChatWindow = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   useEffect(() => {
     getUserUserDetailsHandler(id)
       .then((res) => {
-        // console.log(res.data.data);
         setUserData(res.data.data);
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+  const startConvHandler = () => {
+    createChatHandler({ users: [authData._id, userData._id] })
+      .then((res) => {
+        console.log(res);
+        toggleChatWindow();
+      })
+      .catch((err) => console.log(err));
+  };  
 
   return (
     <div>
@@ -86,6 +103,11 @@ const ProfilePage = () => {
                       </li>
                     )}
                   </ul>
+                  <div className="py-3 flex justify-center">
+                      <button className="w-md px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition-all" onClick={startConvHandler}>
+                        Start Conversation
+                      </button>
+                  </div>
                 </div>
                 {authData._id !== id && (
                   <div className="bg-white p-3 hover:shadow mt-4">

@@ -66,8 +66,6 @@ const AuthenticationHandler = () => {
 
       const result = await signInService(data);
 
-      console.log(result.status);
-
       if (result.status === 200) {
         toast.success("Sign In was successful");
         return result;

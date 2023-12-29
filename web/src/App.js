@@ -19,11 +19,9 @@ import { PhotoState } from "./atom/photoState";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
-
   if (!userData._id) {
     return element;
   }
-
   return <Navigate to="/" />;
 };
 
@@ -32,6 +30,8 @@ const App = () => {
   const photoModalValue = useRecoilValue(PhotoState);
 
   useEffect(() => {
+    // console.log("useEffect triggered with userData?._id:", userData?._id);
+    
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       try {
@@ -60,7 +60,7 @@ const App = () => {
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
-      <ChattingWindow />
+      {userData?._id && <ChattingWindow />}
       {photoModalValue.isOpen && <PhotoModal />}
     </div>
   );

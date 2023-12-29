@@ -24,7 +24,7 @@ const Available = () => {
     getWorkersBySubcategoryIdHandler({ id })
       .then((res) => {
         setworkers(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
         if (res.data.data.length === 0) {
           setNoResults(true);
         } else {

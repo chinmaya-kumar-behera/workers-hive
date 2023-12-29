@@ -16,7 +16,7 @@ const addSliderImage = async (req, res) => {
     }
 
     const result = await sliderData.save();
-    console.log(result);
+    // console.log(result);
 
     res.status(201).json(result);
   } catch (error) {

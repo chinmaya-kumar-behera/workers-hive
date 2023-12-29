@@ -35,7 +35,6 @@ const SignIn = () => {
         const data = res.data.data;
         localStorage.setItem("userData", JSON.stringify(data));
         setAuthData({ ...data });
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);

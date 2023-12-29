@@ -24,7 +24,6 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  console.log("update user called")
   try {
     const { id } = req.params;
 

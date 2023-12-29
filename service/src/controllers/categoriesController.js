@@ -4,7 +4,6 @@ const SubCategory = require('../models/subCategoryModel');
 // ------------ ADMIN CONTROLLERS -------------- //
 
 const createCategory = async (req, res) => {
-  console.log("create category called");
   try {
     const { heading, description } = req.body;
     const { file } = req;

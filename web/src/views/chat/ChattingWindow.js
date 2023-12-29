@@ -1,62 +1,65 @@
 import React, { useEffect, useState } from "react";
-import { CiChat1 } from "react-icons/ci";
-import mrunal from "../../mrunal-thakur.jpg";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { useRecoilState } from "recoil";
-import { ChatWindow } from "../../atom/chatState";
-
-import socketIo from "socket.io-client";
-const socket = socketIo.connect("http://localhost:3000");
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { ChatWindow, SelectedChat } from "../../atom/chatState"
+import ChatHandler from "../../handler/ChatHandler";
+import { AuthState } from "../../atom/authState";
+import ChatList from "./components/ChatList";
+import ChatHomeHeader from "./components/ChatHomeHeader";
+import ChattingRoom from "./components/ChattingRoom";
+import { useLocation } from "react-router-dom";
 
 const ChattingWindow = () => {
-  const [isExpanded, setIsExpanded] = useRecoilState(ChatWindow);
+  const { pathname } = useLocation();
+  const { getUserChatsHandler } = ChatHandler();
+  const isExpanded = useRecoilValue(ChatWindow);
+  const authData = useRecoilValue(AuthState);
+  const selectedChat = useRecoilValue(SelectedChat);
+  const resetSelectedChat = useResetRecoilState(SelectedChat)
+  const [chatNotFound, setChatNotFound] = useState(false);
 
-  const onBtnClick = () => {
-    setIsExpanded(!isExpanded);
-  };
-
+  const [chats, setChats] = useState([]);
+  
   useEffect(() => {
-    socket.emit("user-join", { message: "Hello, server! Please join Me !" });
-    socket.on("chat-message", (param) => {
-      console.log("chat-message");
-      console.log(param);
-    });
+    if (authData?._id) {
+      getUserChatsHandler({ userId: authData._id })
+        .then((res) => {
+          // console.log(res.data.data);
+          setChats(res.data.data);
+          if (res.data.data === 0) {
+            setChatNotFound(true);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
 
     return () => {
-      socket.off("join-request");
-    };
-  }, []);
+      resetSelectedChat();
+    }
+  }, [authData?._id]);
 
-  return (
-    <div
-      className={`fixed ${
-        isExpanded ? "bottom-5" : "-bottom-[64%]"
-      } right-5 h-[70%] w-[300px] bg-gray-100 border border-gray-300 z-20 rounded shadow-xl shadow-blue-50 px-3 py-2 transition-all duration-700`}
-    >
-      <div className="">
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span className="font-semibold text-lg">Chats</span>
-            <button
-              className={`mr-3 ${
-                isExpanded ? "" : "rotate-180"
-              } hover:bg-gray-200 rounded-full p-1 transition-all`}
-              onClick={onBtnClick}
-            >
-              <MdKeyboardArrowDown className="text-xl" />
-            </button>
-          </div>
-          <div className="">
-            <input
-              type="text"
-              className="w-full px-3 py-1.5 rounded-full focus:outline-none text-sm "
-              placeholder="Search Chats"
-            />
-          </div>
-        </div>
+  const canVisible =
+    pathname === "/" ||
+    pathname.startsWith("/subcategory/") ||
+    pathname.startsWith("/category/") ||
+    pathname.startsWith("/user") ||
+    pathname.startsWith("/categories");
+
+    return (
+      <div
+        className={`fixed ${isExpanded ? "bottom-5" : "-bottom-[63%]"} ${
+          !canVisible && "hidden"
+        } right-5 h-[70%] w-[300px] bg-gray-100 border border-gray-300 z-20 rounded shadow-xl shadow-blue-50 px-3 py-2 transition-all duration-700`}
+      >
+        {selectedChat?.room ? (
+          <ChattingRoom />
+        ) : (
+          <>
+            <ChatHomeHeader />
+            <ChatList chatNotFound={chatNotFound} data={chats} />
+          </>
+        )}
       </div>
-    </div>
-  );
+    );
 };
 
 export default ChattingWindow;
