@@ -34,8 +34,8 @@ const ChattingWindow = () => {
 
     return () => {
       resetSelectedChat();
-    }
-  }, [authData?._id]);
+    };
+  }, [authData?._id, isExpanded]);
 
   const canVisible =
     pathname === "/" ||
