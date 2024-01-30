@@ -66,14 +66,16 @@ const ProfilePage = () => {
                         src={userData?.photo && userData.photo}
                         alt="profileImage"
                       />
-                      <div className="absolute top-[70px] -translate-y-[10px] right-0 ">
-                        <button
-                          className="p-1.5 rounded-full bg-gray-800"
-                          onClick={() => setEditProfilePicModal(true)}
-                        >
-                          <MdAddToPhotos className="text-white" />
-                        </button>
-                      </div>
+                      {userData?.id === authData?._id && 
+                        <div className="absolute top-[70px] -translate-y-[10px] right-0 ">
+                          <button
+                            className="p-1.5 rounded-full bg-gray-800"
+                            onClick={() => setEditProfilePicModal(true)}
+                          >
+                            <MdAddToPhotos className="text-white" />
+                          </button>
+                        </div>
+                      }
                     </div>
                   </div>
                   <h1 className="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
@@ -104,9 +106,12 @@ const ProfilePage = () => {
                     )}
                   </ul>
                   <div className="py-3 flex justify-center">
-                      <button className="w-md px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition-all" onClick={startConvHandler}>
-                        Start Conversation
-                      </button>
+                    <button
+                      className="w-md px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition-all"
+                      onClick={startConvHandler}
+                    >
+                      Start Conversation
+                    </button>
                   </div>
                 </div>
                 {authData._id !== id && (

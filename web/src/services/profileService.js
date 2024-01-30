@@ -28,6 +28,6 @@ export const updateProfileDetailService = (data) => {
         formData.append("workingPhotos", photo);
       });
     }
-  return axios.post(`http://localhost:5000/api/user/${id}/update`, formData);
+  return axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/user/${id}/update`, formData);
 };
 ;

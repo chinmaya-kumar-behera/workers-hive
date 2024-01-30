@@ -23,11 +23,11 @@ export const creataServiceWorkerService = (data) => {
          formData.append("workingPhotos", photo);
        });
     }
-    return axios.post(`http://localhost:5000/api/serviceWorker/create`, formData);
+    return axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/serviceWorker/create`, formData);
 };
 
 
 export const getWorkersBySubcategoryIdService = (data) => {
     const { id } = data;
-    return axios.get(`http://localhost:5000/api/workers/${id}`);
+    return axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/workers/${id}`);
 }

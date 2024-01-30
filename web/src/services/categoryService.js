@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 // ----------------------- ADMIN SERVICES ---------------------//
 
 export const createCategoryAdminService = (data) => {
@@ -9,7 +8,7 @@ export const createCategoryAdminService = (data) => {
   formData.append("heading", data.heading);
   formData.append("description", data.description);
   formData.append("file", data.image);
-  return axios.post(`http://localhost:5000/api/admin/category/create`, formData);
+  return axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/admin/category/create`, formData);
 };
 
 export const createSubCategoryAdminService = (data) => {
@@ -19,7 +18,7 @@ export const createSubCategoryAdminService = (data) => {
   formData.append("file", data.image);
   formData.append("categoryId", data.categoryId);
   return axios.post(
-    `http://localhost:5000/api/admin/subcategory/create`,
+    `${process.env.REACT_APP_API_BASE_URL}/api/admin/subcategory/create`,
     formData
   );
 };
@@ -28,17 +27,17 @@ export const createSubCategoryAdminService = (data) => {
 //  ----------------------- SERVICES -------------------//
 
 export const getCategoriesService = () => {
-  return axios.get(`http://localhost:5000/api/categories`);
+  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/categories`);
 }
  
 export const getCategoryByIdService = (id) => {
-  return axios.get(`http://localhost:5000/api/category/${id}`);
+  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/category/${id}`);
 };
 
 export const getSubcategoriresByCategoryIdService = (id) => {
-  return axios.get(`http://localhost:5000/api/subcategories/${id}`);
+  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategories/${id}`);
 };
 
 export const getSubcategoryDetailsByIdService = (id) => {
-  return axios.get(`http://localhost:5000/api/subcategorydetail/${id}`);
+  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/subcategorydetail/${id}`);
 };
