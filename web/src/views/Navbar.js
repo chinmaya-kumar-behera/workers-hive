@@ -3,10 +3,10 @@ import { CgProfile } from "react-icons/cg";
 import { Menu, MenuHandler, MenuList, MenuItem } from "@material-tailwind/react";
 import NavigationHandler from "../handler/NavigationHandler";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../atom/authState";
 import { FaRegUserCircle } from "react-icons/fa";
-import { CiChat1, CiChat2, CiHome, CiSearch } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -34,10 +34,6 @@ const Navbar = () => {
     if (!searchQuery?.trim()) return;
     navigate(`/search/${searchQuery}`);
   };
-
-  const chatButtomHandler = () => {
-    
-  }
 
   return (
     <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
