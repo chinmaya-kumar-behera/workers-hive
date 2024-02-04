@@ -35,6 +35,10 @@ const Navbar = () => {
     navigate(`/search/${searchQuery}`);
   };
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') handleSearchClick();
+  }
+
   return (
     <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -54,6 +58,7 @@ const Navbar = () => {
               className="w-[200px] lg:w-[450px] px-4 py-2 bg-blue-50  rounded-md outline-none"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
             <span
               className="absolute top-1/2 -translate-y-1/2 left-[93%]"
