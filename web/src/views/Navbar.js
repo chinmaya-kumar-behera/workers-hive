@@ -9,19 +9,16 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-
 import logo from "../Assets/Logo/logo.jpg";
 import { BiLogOutCircle } from "react-icons/bi";
 import { ChatWindow } from "../atom/chatState";
+
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState();
-
   const { query } = useParams();
-
   const setChatWindowExpand = useSetRecoilState(ChatWindow);
-
 
   useEffect(() => {
     setSearchQuery(query);
