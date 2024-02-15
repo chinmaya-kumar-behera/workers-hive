@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ImageHandler from "../../handler/ImageHandler";
 
 const CategoryCard = ({ data }) => {
   const navigate = useNavigate();
+  const { convertImageURL } = ImageHandler();
 
   const handleClick = () => {
     navigate(`/category/${data._id}`);
@@ -13,7 +15,7 @@ const CategoryCard = ({ data }) => {
       <div className="h-20 w-20 flex justify-center items-center overflow-hidden rounded-full">
         <img
           alt={"category"}
-          src={data.image}
+          src={convertImageURL(data.image)}
           className="h-full w-full object-center object-cover rounded-md"
         />
       </div>
