@@ -18,7 +18,7 @@ app.use(express.static("uploads"));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://workers-hive.vercel.app/"],
+    origin: ["http://localhost:3000", "https://workers-hive.vercel.app"],
   })
 );
 
