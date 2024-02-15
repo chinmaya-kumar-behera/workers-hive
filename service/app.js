@@ -16,13 +16,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("uploads"));
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://workers-hive.vercel.app/"],
+  })
+);
 
 app.get("/", (req, res) => {
-  if (process.env == 'development') {
+  if (process.env.NODE_ENV === "development") {
     res.send("Development API is working fine !");
-  } else
-    res.send("Production Api is working fine")
+  } else res.send("Production Api is working fine");
 });
 
 app.use("/api/admin", adminRouter);
