@@ -4,11 +4,13 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { SelectedChat } from "../../../atom/chatState";
 import { IoArrowBack } from "react-icons/io5";
 import ChatsContainer from "./ChatsContainer";
+import ImageHandler from "../../../handler/ImageHandler";
 
 const ChattingRoom = () => {
   const selectedChat = useRecoilValue(SelectedChat);
   const resetSelectedChat = useSetRecoilState(SelectedChat);
   const { user } = selectedChat;
+  const { convertImageURL } = ImageHandler();
 
   useEffect(() => {}, []);
 
@@ -31,7 +33,7 @@ const ChattingRoom = () => {
           {user?.photo ? (
             <img
               alt={"dp_image"}
-              src={user.photo}
+              src={convertImageURL(user.photo)}
               className="h-full w-full object-center object-cover rounded-full"
             />
           ) : (

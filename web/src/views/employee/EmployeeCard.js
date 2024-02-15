@@ -1,9 +1,11 @@
 import React from "react";
 import { CiUser } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import ImageHandler from "../../handler/ImageHandler";
 
 const EmployeeCard = ({ data }) => {
   const navigate = useNavigate();
+  const { convertImageURL } = ImageHandler();
 
   const handleVisitProfile = () => {
     navigate(`/user/${data._id}`);
@@ -16,7 +18,7 @@ const EmployeeCard = ({ data }) => {
           {data?.photo ? (
             <img
               alt="eEmployee_image"
-              src={data?.photo}
+              src={convertImageURL(data.photo)}
               className="min-h-[100px] min-w-[100px] object-center object-cover rounded-full"
             />
           ) : (
@@ -65,7 +67,7 @@ const EmployeeCard = ({ data }) => {
                 {data?.workingPhotos?.map((value, index) => (
                   <img
                     key={index}
-                    src={value}
+                    src={convertImageURL(value)}
                     className="h-[60px] w-[60px] object-cover object-center hover:scale-105 transition-all rounded"
                     alt="working-photos"
                   />
@@ -73,7 +75,9 @@ const EmployeeCard = ({ data }) => {
               </div>
             </div>
           ) : (
-            <div className="text-sm py-2 text-red-400">Hasn't provided any photos !</div>
+            <div className="text-sm py-2 text-red-400">
+              Hasn't provided any photos !
+            </div>
           )}
         </div>
       </div>

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Dialog from "../../components/ui/Dialog";
 import { PhotoState } from "../../atom/photoState";
 import { useRecoilState } from "recoil";
+import ImageHandler from "../../handler/ImageHandler";
 
 const PhotoModal = () => {
-    const [PhotoModal, setPhotoModal] = useRecoilState(PhotoState);
+  const [PhotoModal, setPhotoModal] = useRecoilState(PhotoState);
+  const { convertImageURL } = ImageHandler();
    
     const onClose = () => {
         setPhotoModal((prev) => ({ ...prev, isOpen: false }));
@@ -21,8 +23,8 @@ const PhotoModal = () => {
       <div className="lg:max-h-[500px]">
         <img
           className="object-cover object-center h-full w-full"
-          src={PhotoModal?.photo}
-          alt="photo"
+          src={convertImageURL(PhotoModal?.photo)}
+          alt="modal_photo"
         />
       </div>
     </Dialog>

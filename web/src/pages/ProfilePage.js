@@ -13,10 +13,12 @@ import { FaRegUser } from "react-icons/fa";
 import { PhotoState } from "../atom/photoState";
 import ChatHandler from "../handler/ChatHandler";
 import { ChatWindow } from "../atom/chatState";
+import ImageHandler from "../handler/ImageHandler";
 
 const ProfilePage = () => {
   const { getUserUserDetailsHandler } = ProfileHandler();
   const { createChatHandler } = ChatHandler();
+  const { convertImageURL } = ImageHandler();
   const { id } = useParams();
   const [userData, setUserData] = useState();
   const [editWorkingDetailModal, setEditWorkingDetailModal] = useState(false);
@@ -63,10 +65,10 @@ const ProfilePage = () => {
                     <div className="relative h-[100px] w-[100px]">
                       <img
                         className="mx-auto h-[100px] w-[100px] bg-red-100 rounded-full overflow-hidden object-cover object-center"
-                        src={userData?.photo && userData.photo}
+                        src={userData?.photo && convertImageURL(userData.photo)}
                         alt="profileImage"
                       />
-                      {userData?.id === authData?._id && 
+                      {userData?.id === authData?._id && (
                         <div className="absolute top-[70px] -translate-y-[10px] right-0 ">
                           <button
                             className="p-1.5 rounded-full bg-gray-800"
@@ -75,7 +77,7 @@ const ProfilePage = () => {
                             <MdAddToPhotos className="text-white" />
                           </button>
                         </div>
-                      }
+                      )}
                     </div>
                   </div>
                   <h1 className="text-gray-900 font-bold text-xl leading-8 my-1 text-center">
@@ -311,7 +313,7 @@ const ProfilePage = () => {
                               >
                                 <img
                                   key={index}
-                                  src={value}
+                                  src={convertImageURL(value)}
                                   alt="working_photo"
                                   className="object-cover object-center h-28 w-44 rounded-md hover:scale-105 transition-all duration-500 shadow-md"
                                 />

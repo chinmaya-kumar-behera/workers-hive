@@ -3,11 +3,14 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../../../atom/authState";
 import { FaUser } from "react-icons/fa";
 import { SelectedChat } from "../../../atom/chatState";
+import ImageHandler from "../../../handler/ImageHandler";
 
 const ChatName = ({ data }) => {
   const authData = useRecoilValue(AuthState);
   const setSelectedChat = useSetRecoilState(SelectedChat);
   const user = data.users.find(value => value._id !== authData._id);
+  const { convertImageURL } = ImageHandler();
+  
 
   const onChatClick = () => {
     setSelectedChat({ room: data._id, user });
@@ -23,7 +26,7 @@ const ChatName = ({ data }) => {
           {user?.photo ? (
             <img
               alt={"dp_image"}
-              src={user.photo}
+              src={convertImageURL(user.photo)}
               className="h-full w-full object-center object-cover rounded-full"
             />
           ) : (

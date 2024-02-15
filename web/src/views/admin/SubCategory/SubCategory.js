@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CategoryHandler from "../../../handler/CategoryHandler";
 import CreateSubCategory from "./CreateSubCategory";
+import ImageHandler from "../../../handler/ImageHandler";
 
 const SubCategory = () => {
   const { id } = useParams();
   const { getCategoryByIdHandler, getSubcategoriresByCategoryIdHandler } = CategoryHandler();
+  const { convertImageURL } = ImageHandler();
 
   const [category, setCategory] = useState({});
   const [subCategories, setSubCategories] = useState([]);
@@ -127,7 +129,7 @@ const SubCategory = () => {
                     <td className="px-6 py-4">
                       <div className="h-10 w-10 overflow-hidden">
                         <img
-                          src={value.image}
+                          src={convertImageURL(value.image)}
                           alt="alt"
                           className="h-full w-full object-center object-cover"
                         />

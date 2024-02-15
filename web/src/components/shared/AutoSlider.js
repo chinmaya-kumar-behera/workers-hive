@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
 import { MdKeyboardArrowRight } from "react-icons/md";
+import ImageHandler from "../../handler/ImageHandler";
 function AutoSlider({ data }) {
+  const { convertImageURL } = ImageHandler();
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
   const delay = 2500;
@@ -50,7 +52,7 @@ function AutoSlider({ data }) {
             {data.map((value, idx) => (
               <div className="inline-block h-[400px] w-full rounded" key={idx}>
                 <img
-                  src={value}
+                  src={convertImageURL(value)}
                   alt={value}
                   className="w-full h-full object-cover object-center"
                 />
