@@ -19,7 +19,7 @@ const Categories = () => {
    useEffect(() => {
      getCategoriesHandler()
        .then((res) => {
-        //  console.log(res.data.data);
+         console.log(res.data.data);
          setCategories(res.data.data);
        })
        .catch((err) => console.log(err));
