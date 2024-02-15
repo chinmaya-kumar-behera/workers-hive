@@ -1,4 +1,3 @@
-import React from 'react'
 
 const ImageHandler = () => {
     const convertImageURL = (url) => {
