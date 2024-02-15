@@ -19,7 +19,10 @@ app.use(express.static("uploads"));
 app.use(cors({ origin: "http://localhost:3000" }));
 
 app.get("/", (req, res) => {
-  res.send("API is working fine !");
+  if (process.env == 'development') {
+    res.send("Development API is working fine !");
+  } else
+    res.send("Production Api is working fine")
 });
 
 app.use("/api/admin", adminRouter);
