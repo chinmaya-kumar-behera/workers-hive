@@ -36,38 +36,47 @@ const Navbar = () => {
     if (e.key === 'Enter') handleSearchClick();
   }
 
-  return (  
+  const toggleSideBar =()=>{
+    
+  }
+
+  return (
     <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
-      <div className="w-full mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div className="w-full mx-auto flex flex-col md:flex-row justify-between lg:items-center">
         {/* Left section of the header */}
-        <div className="flex items-center">
-          <div className="h-[50px]" onClick={navigateToHomePage}>
-            <img
-              className="h-full w-full object-cover object-center rounded-lg"
-              alt="logo"
-              src={logo}
-            />
+        <div className="flex justify-between items-center w-full">
+          <div className="flex items-center gap-3 bg-blue-400">
+            <div className="h-[50px] lg:h-[50px]" onClick={navigateToHomePage}>
+              <img
+                className="h-full w-full object-cover object-center rounded-lg"
+                alt="logo"
+                src={logo}
+              />
+            </div>
+            <div className="lg:ml-5 relative">
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="w-full lg:w-[450px] px-4 py-2 bg-blue-50  rounded-md outline-none"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              <span
+                className="absolute top-1/2 -translate-y-1/2 left-[93%]"
+                onClick={handleSearchClick}
+              >
+                <CiSearch className="text-md lg:text-xl text-blue-400 hover:text-blue-900" />
+              </span>
+            </div>
           </div>
-          <div className="lg:ml-5 relative">
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="w-[200px] lg:w-[450px] px-4 py-2 bg-blue-50  rounded-md outline-none"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <span
-              className="absolute top-1/2 -translate-y-1/2 left-[93%]"
-              onClick={handleSearchClick}
-            >
-              <CiSearch className="text-xl text-blue-400 hover:text-blue-900" />
-            </span>
+          <div className="lg:hidden">
+            <FaUserCircle className="text-4xl" onClick={toggleSideBar}/>
           </div>
         </div>
 
         {/* Right section of the header */}
-        <div className="flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           {authData?._id && (
             <div className="text-gray-900">
               <span
@@ -95,11 +104,9 @@ const Navbar = () => {
               <div className="">
                 <Menu placement="bottom-start">
                   <MenuHandler>
-                    <div
-                      className="flex items-center gap-2 bg-blue-400 text-gray-800 px-4 py-2 rounded-md cursor-pointer"
-                    >
+                    <div className="flex items-center gap-2 bg-blue-400 text-gray-800 px-4 py-2 rounded-md cursor-pointer">
                       <div className="">
-                        <FaRegUserCircle className="text-3xl text-white" /> 
+                        <FaRegUserCircle className="text-3xl text-white" />
                       </div>
                       <div className="">
                         <h4 className="text-gray-100 text-sm font-semibold">
