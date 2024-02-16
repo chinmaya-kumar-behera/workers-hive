@@ -45,7 +45,7 @@ const Navbar = () => {
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between lg:items-center">
         {/* Left section of the header */}
         <div className="flex justify-between items-center w-full">
-          <div className="flex items-center gap-3 bg-blue-400">
+          <div className="flex items-center gap-3">
             <div className="h-[50px] lg:h-[50px]" onClick={navigateToHomePage}>
               <img
                 className="h-full w-full object-cover object-center rounded-lg"
