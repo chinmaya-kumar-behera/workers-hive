@@ -36,7 +36,7 @@ const Navbar = () => {
     if (e.key === 'Enter') handleSearchClick();
   }
 
-  return (
+  return (  
     <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Left section of the header */}
@@ -96,11 +96,10 @@ const Navbar = () => {
                 <Menu placement="bottom-start">
                   <MenuHandler>
                     <div
-                      className="flex items-center gap-2 bg-blue-400 text-gray-800 px-4 py-2
-                rounded-md cursor-pointer"
+                      className="flex items-center gap-2 bg-blue-400 text-gray-800 px-4 py-2 rounded-md cursor-pointer"
                     >
                       <div className="">
-                        <FaRegUserCircle className="text-3xl text-white" />
+                        <FaRegUserCircle className="text-3xl text-white" /> 
                       </div>
                       <div className="">
                         <h4 className="text-gray-100 text-sm font-semibold">
