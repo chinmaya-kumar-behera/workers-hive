@@ -20,10 +20,10 @@ const CategorySection = ({ id, heading }) => {
    }, []);
 
   return (
-    <PageContainer className="p-5 space-y-5">
-      <div className="text-4xl font-semibold">{heading}</div>
-      <div className="">
-        <PageContainer className="mt-2 py-5 rounded flex flex-wrap gap-3">
+    <PageContainer className="w-full p-0 sm:p-1 md:p-3 lg:p-5 space-y-0 lg:space-y-5">
+      <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">{heading}</div>
+      <div className="w-full">
+        <PageContainer className="py-5 rounded flex flex-wrap gap-3">
           {subcategories.length > 0 ? (
             subcategories.map((value) => (
               <CategoryCardDetails key={value._id} data={value} />
