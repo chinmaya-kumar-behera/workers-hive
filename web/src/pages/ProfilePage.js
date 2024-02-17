@@ -38,6 +38,7 @@ const ProfilePage = () => {
   useEffect(() => {
     getUserUserDetailsHandler(id)
       .then((res) => {
+        console.log(res)
         setUserData(res.data.data);
       })
       .catch((err) => console.log(err));
