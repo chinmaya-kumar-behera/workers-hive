@@ -12,6 +12,8 @@ import { FaUserCircle } from "react-icons/fa";
 import logo from "../Assets/Logo/logo.jpg";
 import { BiLogOutCircle } from "react-icons/bi";
 import { ChatWindow } from "../atom/chatState";
+import { RxCross2 } from "react-icons/rx";
+
 
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
@@ -19,6 +21,8 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState();
   const { query } = useParams();
   const setChatWindowExpand = useSetRecoilState(ChatWindow);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
+
 
   useEffect(() => {
     setSearchQuery(query);
@@ -37,7 +41,7 @@ const Navbar = () => {
   }
 
   const toggleSideBar =()=>{
-    
+    setSideBarOpen((prev) => !prev);
   }
 
   return (
@@ -72,7 +76,7 @@ const Navbar = () => {
           </div>
 
           <div className="lg:hidden">
-            <FaUserCircle className="text-4xl" onClick={toggleSideBar}/>
+            <FaUserCircle className="text-4xl" onClick={toggleSideBar} />
           </div>
         </div>
 
@@ -93,12 +97,14 @@ const Navbar = () => {
               {/* <CiHome className="text-lg" /> */}
               Home
             </button>
-            <button
-              className="text-blue-600"
-              onClick={() => setChatWindowExpand((prev) => !prev)}
-            >
-              Chat
-            </button>
+            {authData?._id && (
+              <button
+                className="text-blue-600"
+                onClick={() => setChatWindowExpand((prev) => !prev)}
+              >
+                Chat
+              </button>
+            )}
           </div>
           <div className="">
             {authData?._id ? (
@@ -158,6 +164,50 @@ const Navbar = () => {
             )}
           </div>
         </div>
+
+        {sideBarOpen && (
+          <div className="absolute top-0 left-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transition-all duration-500" />
+        )}
+        <aside
+          className={`${
+            sideBarOpen ? "left-1/3" : "left-[100%]"
+          } fixed top-0 w-2/3 transition-all duration-500 h-full bg-gradient-to-br from-blue-200 to-blue-100 z-20 p-5`}
+        >
+          <div className="relative">
+            <div className="absolute top-0 right-0">
+              <button className="p-1" onClick={toggleSideBar}>
+                <RxCross2 className="text-xl" />
+              </button>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="">
+                <button
+                  className="text-blue-600"
+                  onClick={() => {
+                    toggleSideBar();
+                    navigateToHomePage();
+                  }}
+                >
+                  Home
+                </button>
+              </div>
+
+              {authData?._id && (
+                <div className="">
+                  <button
+                    className="text-blue-600"
+                    onClick={() => {
+                      toggleSideBar();
+                      setChatWindowExpand((prev) => !prev);
+                    }}
+                  >
+                    Chat
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </aside>
       </div>
     </nav>
   );
