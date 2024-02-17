@@ -57,8 +57,9 @@ const ProfilePage = () => {
       <Navbar />
       <PageContainer className="mt-2 rounded relative">
         <div className="bg-gray-100">
-          <div className="container mx-auto p-5">
+          <div className="container mx-auto p-0 lg:p-5">
             <div className="md:flex no-wrap md:-mx-2 ">
+
               <div className="w-full md:w-3/12 md:mx-2">
                 <div className="bg-white p-3 border-t-4 border-green-400">
                   <div className=" overflow-hidden flex justify-center ">
@@ -116,7 +117,8 @@ const ProfilePage = () => {
                     </button>
                   </div>
                 </div>
-                {authData._id !== id && (
+                {/* similar profiles */}
+                {/* {authData._id !== id && (
                   <div className="bg-white p-3 hover:shadow mt-4">
                     <div className="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8">
                       <span className="text-green-500">
@@ -124,7 +126,7 @@ const ProfilePage = () => {
                           className="h-5 fill-current"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
-                          viewBox="0 0 24 24"
+                           viewBox="0 0 24 24"
                           stroke="currentColor"
                         >
                           <path
@@ -137,7 +139,7 @@ const ProfilePage = () => {
                       </span>
                       <span>Similar Profiles</span>
                     </div>
-                    {/* <div className="grid grid-cols-3">
+                    <div className="grid grid-cols-3">
                     <div className="text-center my-2">
                       <img
                         className="h-16 w-16 rounded-full mx-auto"
@@ -148,13 +150,14 @@ const ProfilePage = () => {
                         Kojstantin
                       </a>
                     </div>
-                  </div> */}
                   </div>
-                )}
+                  </div>
+                )} */}
               </div>
 
               {/* // Personal details section */}
-              <div className="w-full md:w-9/12 mx-2 h-64">
+              <div className="w-full md:w-9/12 lg:mx-2 h-64 mt-2 md:mt-0">
+
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                     <span className="text-green-500 bg-gray-100 p-2 rounded-full">
@@ -163,7 +166,7 @@ const ProfilePage = () => {
                     <span className="tracking-wide">Personal Details</span>
                   </div>
 
-                  <div className="text-gray-700">
+                  <div className="text-gray-700 mt-2">
                     <div className="grid md:grid-cols-2 text-sm">
                       <div className="grid grid-cols-2">
                         <div className="px-4 py-2 font-semibold">
@@ -232,8 +235,9 @@ const ProfilePage = () => {
                 {/* // Working Details */}
                 <div className="bg-white p-3 shadow-sm rounded-sm">
                   {userData?.role === "worker" || userData?.role === "admin" ? (
-                    <div className="grid grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                       <div className="space-y-5">
+                        
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                           <span className="text-green-500 bg-gray-100 p-2 rounded-full">
                             <svg
@@ -253,6 +257,7 @@ const ProfilePage = () => {
                           </span>
                           <span className="tracking-wide">Working Details</span>
                         </div>
+
                         <div className="relative bg-gray-100 text-gray-600 py-2 px-3 mt-3 divide-y rounded shadow-sm">
                           <div className="flex items-center py-3">
                             <h2>{userData?.category?.heading}</h2>
@@ -338,6 +343,7 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
+
         {editWorkingDetailModal && (
           <EditWorkingDetailModal
             isOpen={editWorkingDetailModal}

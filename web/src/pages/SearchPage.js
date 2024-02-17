@@ -36,7 +36,7 @@ const SearchPage = () => {
       <PageContainer className="mt-2 min-h-[calc(100vh-80px)]">
         <div className="space-y-2 max-w-3xl mx-auto pb-5">
           <div className="py-5">
-            <h3 className="text-3xl font-semibold">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-center lg:text-left">
               Getting you result on "{query}"
             </h3>
           </div>
