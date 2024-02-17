@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getUserDetailsService = (id) => {
-  return axios.get(`http://localhost:5000/api/user/${id}`);
+  return axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/user/${id}`);
 };
 
 
