@@ -27,16 +27,16 @@ const Categories = () => {
   
   return (
     <PageContainer>
-      <div className="w-full flex gap-10 items-center justify-center overflow-x-auto py-5 px-10">
+      <div className="w-full flex gap-3 sm:gap-5 md:gap-7 lg:gap-10 items-center justify-start lg:justify-center overflow-x-auto py-5 px-2 lg:px-10">
         <div
           className="flex flex-col items-center gap-2"
           onClick={onCategoryClick}
         >
-          <div className="h-20 w-20 flex justify-center items-center overflow-hidden bg-blue-100 rounded-full">
-            <BiCategory className="text-6xl" />
+          <div className="h-14 lg:h-20 w-14 lg:w-20 flex justify-center items-center overflow-hidden bg-blue-100 rounded-full">
+            <BiCategory className="text-4xl lg:text-6xl " />
           </div>
           <div className="">
-            <button className="font-semibold text-sm">Categories</button>
+            <button className="font-semibold text-xs lg:text-sm">Categories</button>
           </div>
         </div>
         {categories.length > 0

@@ -44,7 +44,7 @@ const Navbar = () => {
     <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between lg:items-center">
         {/* Left section of the header */}
-        <div className="flex justify-between items-center w-full">
+        <div className="flex justify-between items-center w-full lg:w-fit gap-3">
           <div className="flex items-center gap-3">
             <div className="h-[50px] lg:h-[50px]" onClick={navigateToHomePage}>
               <img
@@ -53,7 +53,7 @@ const Navbar = () => {
                 src={logo}
               />
             </div>
-            <div className="lg:ml-5 relative">
+            <div className="lg:ml-5 relative flex items-center">
               <input
                 type="text"
                 placeholder="Search products..."
@@ -63,13 +63,14 @@ const Navbar = () => {
                 onKeyDown={handleKeyDown}
               />
               <span
-                className="absolute top-1/2 -translate-y-1/2 left-[93%]"
+                className="-translate-x-[35px] bg-blue-100 p-1.5 rounded-full hover:bg-blue-700 transition-all hover:text-white group hover:shadow-xl"
                 onClick={handleSearchClick}
               >
-                <CiSearch className="text-md lg:text-xl text-blue-400 hover:text-blue-900" />
+                <CiSearch className="text-md lg:text-lg text-blue-800 group-hover:text-white" />
               </span>
             </div>
           </div>
+
           <div className="lg:hidden">
             <FaUserCircle className="text-4xl" onClick={toggleSideBar}/>
           </div>
@@ -80,7 +81,7 @@ const Navbar = () => {
           {authData?._id && (
             <div className="text-gray-900">
               <span
-                className="cursor-pointer text-gray-600"
+                className="cursor-pointer text-gray-600 w-fit"
                 onClick={navigateToServiceProviderPage}
               >
                 Become a service provider !

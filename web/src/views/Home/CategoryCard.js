@@ -12,17 +12,17 @@ const CategoryCard = ({ data }) => {
 
   return (
     <div className="flex flex-col items-center gap-2" onClick={handleClick}>
-      <div className="h-20 w-20 flex justify-center items-center overflow-hidden rounded-full">
+      <div className="h-14 lg:h-20 w-14 lg:w-20 flex justify-center items-center overflow-hidden rounded-full">
         <img
           alt={"category"}
           src={convertImageURL(data.image)}
           className="h-full w-full object-center object-cover rounded-md"
         />
       </div>
-      <div className="max-w-[100px] overflow-hidden">
+      <div className="max-w-[50px] sm:max-w-[60px] lg:max-w-[100px] overflow-hidden">
         <span
           title={data.heading}
-          className="font-semibold text-sm cursor-pointer max-w-[100px] truncate overflow-hidden"
+          className="w-full font-semibold text-xs lg:text-sm cursor-pointer truncate overflow-hidden"
         >
           {data.heading}
         </span>

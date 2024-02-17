@@ -42,7 +42,7 @@ function AutoSlider({ data }) {
         <div className="">
           <div className="absolute left-5 top-1/2 -translate-y-1/2 p-2 bg-gray-600 z-10 flex items-center justify-center rounded-full">
             <button className="sliderArrow left" onClick={prevSlide}>
-              <MdKeyboardArrowLeft className="text-3xl text-white" />
+              <MdKeyboardArrowLeft className="text-xl md:text-2xl lg:text-3xl text-white" />
             </button>
           </div>
           <div
@@ -50,7 +50,10 @@ function AutoSlider({ data }) {
             style={{ transform: `translateX(${-index * 100}%)` }}
           >
             {data.map((value, idx) => (
-              <div className="inline-block h-[400px] w-full rounded" key={idx}>
+              <div
+                className="inline-block h-[200px] sm:h-[300px] md:h-[300px] lg:h-[400px] w-full rounded"
+                key={idx}
+              >
                 <img
                   src={convertImageURL(value)}
                   alt={value}
@@ -61,7 +64,7 @@ function AutoSlider({ data }) {
           </div>
           <div className="absolute right-5 top-1/2 -translate-y-1/2 p-2 bg-gray-600 z-10 flex items-center justify-center rounded-full">
             <button className="sliderArrow right" onClick={nextSlide}>
-              <MdKeyboardArrowRight className="text-3xl text-white" />
+              <MdKeyboardArrowRight className="text-xl md:text-2xl lg:text-3xl text-white" />
             </button>
           </div>
           <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
