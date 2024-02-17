@@ -88,7 +88,7 @@ const ServiceDetailsForm = () => {
 
   return (
     <form action="/stats" enctype="multipart/form-data">
-      <div className="max-w-6xl flex gap-10 mx-auto p-5">
+      <div className="max-w-6xl flex flex-col lg:flex-row gap-10 mx-auto p-2 md-5">
         <div className="w-full space-y-5 rounded bg-gray-100 px-5 py-10">
           <ImageFill setFormData={setFormData} formData={formData} />
 
@@ -182,6 +182,7 @@ const ServiceDetailsForm = () => {
             </div>
           </div>
         </div>
+
       </div>
 
       <div className="flex justify-center pb-10">
