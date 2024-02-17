@@ -3,7 +3,7 @@ import React from "react";
 const Skeleton = ({ width, height, className }) => {
   return (
     <div
-      style={{ width, height }}
+      style={{ width: width, height: width }}
       className={`${className} relative overflow-hidden bg-gray-200`}
     >
       <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent animate-wave" />

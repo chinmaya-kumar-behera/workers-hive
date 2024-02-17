@@ -36,23 +36,31 @@ const Categories = () => {
             <BiCategory className="text-4xl lg:text-6xl " />
           </div>
           <div className="">
-            <button className="font-semibold text-xs lg:text-sm">Categories</button>
+            <button className="font-semibold text-xs lg:text-sm">
+              Categories
+            </button>
           </div>
         </div>
         {categories.length > 0
           ? categories
               .slice(0, 7)
               .map((value, index) => <CategoryCard key={index} data={value} />)
-          : Array.from({ length: 7 }, (_, index) => index + 1).map((value,index) => (
-              <div key={index} className="flex flex-col items-center gap-2">
-                <Skeleton
-                  height="80px"
-                  width="80px"
-                  className={"rounded-full"}
-                />
-                <Skeleton height="15px" width="50px" className={"rounded-xl"} />
-              </div>
-            ))}
+          : Array.from({ length: 7 }, (_, index) => index + 1).map(
+              (value, index) => (
+                <div key={index} className="flex flex-col items-center gap-2">
+                  <Skeleton
+                    height={window.innerWidth >= 1024 ? "80px" : "56px"}
+                    width={window.innerWidth >= 1024 ? "80px" : "56px"}
+                    className={"rounded-full"}
+                  />
+                  <Skeleton
+                    height="15px"
+                    width="50px"
+                    className={"rounded-xl"}
+                  />
+                </div>
+              )
+            )}
       </div>
     </PageContainer>
   );

@@ -12,7 +12,7 @@ const CategoryCardDetails = ({ data }) => {
 
   return (
     <div
-      className="xxs:max-w-full sm:max-w-1/2 md:max-w-[250px] w-full space-y-2 bg-gray-100 p-3 rounded-lg"
+      className="w-full max-w-full sm:max-w-1/2 md:max-w-[250px] space-y-2 bg-gray-50 hover:bg-blue-100 transition-all duration-300 hover:scale-105 p-3 rounded-lg"
       onClick={handleClick}
     >
       <div className="w-full h-[250px] overflow-hidden">

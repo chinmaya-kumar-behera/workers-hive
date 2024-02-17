@@ -62,7 +62,8 @@ const Available = () => {
       <PageContainer className={"mt-2"}>
         <div className="max-w-7xl mx-auto">
           <div className="flex gap-5 min-h-[90vh]">
-            <div className="w-2/6 p-2">
+            {/* similar items */}
+            <div className="hidden lg:block w-2/6 p-2">
               <div className="p-3 mb-3">
                 <h4 className="text-lg font-semibold">Similar items</h4>
                 <hr className="mt-2" />
@@ -97,7 +98,8 @@ const Available = () => {
                     )}
               </div>
             </div>
-            <div className="w-4/6 p-2 space-y-2">
+
+            <div className="w-full lg:w-4/6 p-2 space-y-2">
               <div className="p-3">
                 <h4 className="text-lg font-semibold">Available captains</h4>
                 <hr className="mt-2" />
@@ -112,6 +114,7 @@ const Available = () => {
                 </div>}
               </div>
             </div>
+
           </div>
         </div>
       </PageContainer>

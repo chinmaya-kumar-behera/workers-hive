@@ -13,6 +13,8 @@ const EmployeeCard = ({ data }) => {
 
   return (
     <div className="w-full flex gap-5 rounded-xl p-4 bg-gray-50 shadow-xl hover:shadow-lg">
+      
+      {/* Profile Photo and View profile */}
       <div className="w-[100px] text-center">
         <div className="h-[100px] w-[100px] overflow-hidden rounded-full">
           {data?.photo ? (
@@ -35,8 +37,9 @@ const EmployeeCard = ({ data }) => {
           Visit profile
         </button>
       </div>
-      <div className="w-full flex items-start justify-between">
-        <div className="w-3/5 p-2 space-y-2">
+
+      <div className="w-full flex flex-col gap-5 lg:gap-0 lg:flex-row items-start justify-between">
+        <div className="w-full lg:w-3/5 p-0 lg:p-2 space-y-2">
           <div className="space-y-1">
             <h3 className="font-semibold text-lg">{data.name}</h3>
             <p className="text-sm">{data.description}</p>
@@ -47,16 +50,18 @@ const EmployeeCard = ({ data }) => {
               <span className="text-gray-500">Price :</span> {data?.price}
             </h5>
           </div>
-          <div className="flex gap-2 items-center">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 transition-all">
+          <div className="flex flex-wrap gap-2 lg:items-center">
+            <button className="px-2 lg:px-4 py-1 lg:py-2 text-sm lg:text-lg bg-blue-500 text-white rounded hover:bg-blue-400 transition-all">
               Book Appointment
             </button>
-            <button className="px-4 py-2 bg-orange-400 text-white rounded hover:bg-orange-300 transition-all">
+            <button className="px-2 lg:px-4 py-1 lg:py-2 text-sm lg:text-lg bg-orange-400 text-white rounded hover:bg-orange-300 transition-all">
               Save for Later
             </button>
           </div>
         </div>
-        <div className="w-2/5">
+
+        {/* work phootos */}
+        <div className="w-full lg:w-2/5">
           <h3 className="font-semibold text-blue-400 text-md">
             Photos of work
           </h3>
