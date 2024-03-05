@@ -45,23 +45,27 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="sticky flex items-center top-0 px-5 bg-white z-20 h-[70px]">
+    <nav className="sticky flex items-center top-0 px-2 md:px-5 bg-white z-20 h-[50px] md:h-[70px]">
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between lg:items-center">
         {/* Left section of the header */}
-        <div className="flex justify-between items-center w-full lg:w-fit gap-3">
-          <div className="flex items-center gap-3">
-            <div className="h-[50px] lg:h-[50px]" onClick={navigateToHomePage}>
+        <div className="flex justify-between items-center w-full lg:w-fit gap-2">
+          <div className="flex justify-between items-center gap-3">
+            <div
+              className="max-w-[80px] lg:max-w-[200px] h-[40px] md:h-[50px] lg:h-[50px]"
+              onClick={navigateToHomePage}
+            >
               <img
                 className="h-full w-full object-cover object-center rounded-lg"
                 alt="logo"
                 src={logo}
               />
             </div>
-            <div className="lg:ml-5 relative flex items-center">
+
+            <div className="w-full lg:ml-5 relative flex items-center">
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full lg:w-[450px] px-4 py-2 bg-blue-50  rounded-md outline-none"
+                className="min-w-full w-full lg:w-[450px] px-4 py-2 bg-blue-50 rounded-md outline-none"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -165,9 +169,11 @@ const Navbar = () => {
           </div>
         </div>
 
+        {/* overlay for side drawer */}
         {sideBarOpen && (
           <div className="absolute top-0 left-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transition-all duration-500" />
         )}
+        {/* side drawer for mobile screen */}
         <aside
           className={`${
             sideBarOpen ? "left-1/3" : "left-[100%]"
