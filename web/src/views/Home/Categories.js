@@ -41,23 +41,19 @@ const Categories = () => {
             </button>
           </div>
         </div>
-        {categories.length > 0
+        {categories.length < 0
           ? categories
               .slice(0, 7)
               .map((value, index) => <CategoryCard key={index} data={value} />)
           : Array.from({ length: 7 }, (_, index) => index + 1).map(
               (value, index) => (
-                <div key={index} className="flex flex-col items-center gap-2">
+                <div key={index} className="flex flex-col items-center gap-3">
                   <Skeleton
                     height={window.innerWidth >= 1024 ? "80px" : "56px"}
                     width={window.innerWidth >= 1024 ? "80px" : "56px"}
                     className={"rounded-full"}
                   />
-                  <Skeleton
-                    height="15px"
-                    width="50px"
-                    className={"rounded-xl"}
-                  />
+                  <Skeleton className={"h-3 lg:h-4 w-[50px] lg:w-[80px] rounded-md"} />
                 </div>
               )
             )}
