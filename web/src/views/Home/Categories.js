@@ -41,7 +41,7 @@ const Categories = () => {
             </button>
           </div>
         </div>
-        {categories.length < 0
+        {categories.length > 0
           ? categories
               .slice(0, 7)
               .map((value, index) => <CategoryCard key={index} data={value} />)
