@@ -13,6 +13,8 @@ import logo from "../Assets/Logo/logo.jpg";
 import { BiLogOutCircle } from "react-icons/bi";
 import { ChatWindow } from "../atom/chatState";
 import { RxCross2 } from "react-icons/rx";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+
 
 
 const Navbar = () => {
@@ -144,6 +146,7 @@ const Navbar = () => {
                         className="w-full flex justify-start items-center gap-3 bg-blue-100 p-2"
                         onClick={navigateToAdminPanel}
                       >
+                        <MdOutlineAdminPanelSettings className="text-xl" />
                         Admin Panel
                       </MenuItem>
                     )}
