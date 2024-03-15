@@ -141,7 +141,7 @@ const Navbar = () => {
 
                     {authData.role === "admin" && (
                       <MenuItem
-                        className="w-full flex justify-start items-center gap-3 bg-blue-100 p-1"
+                        className="w-full flex justify-start items-center gap-3 bg-blue-100 p-2"
                         onClick={navigateToAdminPanel}
                       >
                         Admin Panel
