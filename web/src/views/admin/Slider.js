@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import SliderHandler from "../../handler/SliderHandler";
 import { FaPlus } from "react-icons/fa";
 import Dialog from "../../components/ui/Dialog";
+import ImageHandler from "../../handler/ImageHandler";
 
 const Slider = () => {
   const { addSliderImageHandler, getSliderImageHandler ,deleteSliderImageHandler} = SliderHandler();
@@ -9,6 +10,7 @@ const Slider = () => {
   const fileInputRef = useRef(null);
   const [previewModal, setPreviewModal] = useState(false);
   const [sliderImages, setSliderImages] = useState([]);
+  const { convertImageURL } = ImageHandler();
 
   const onFileChange = (e) => {
     const selectedImage = e.target.files[0];
@@ -63,7 +65,7 @@ const Slider = () => {
           >
             <img
               alt="slider_image"
-              src={value}
+              src={convertImageURL(value)}
               className="h-full w-full object-cover object-center rounded"
             />
             <div className="absolute left-1/2 -translate-x-1/2 top-[90%] h-10 w-10 flex justify-center items-center bg-gray-300 rounded-full">
@@ -72,7 +74,10 @@ const Slider = () => {
               </span>
             </div>
             <div className="absolute h-10 w-10 top-2 left-[80%]">
-              <button className="bg-red-400 px-[15px] py-1 text-white rounded-sm text-sm hover:bg-red-300 transition-all" onClick={()=>onDeleteHandler(value)}>
+              <button
+                className="bg-red-400 px-[15px] py-1 text-white rounded-sm text-sm hover:bg-red-300 transition-all"
+                onClick={() => onDeleteHandler(value)}
+              >
                 Delete
               </button>
             </div>
