@@ -16,7 +16,6 @@ import { RxCross2 } from "react-icons/rx";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 
-
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
   const navigate = useNavigate();
