@@ -17,7 +17,6 @@ root.render(
       <BrowserRouter>
         <RecoilRoot>
           <App />
-          <App />
           <Toaster />
         </RecoilRoot>
       </BrowserRouter>
