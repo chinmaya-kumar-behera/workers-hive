@@ -119,20 +119,21 @@ const SignIn = () => {
                   Sign up
                 </a>
               </p>
-
-              <GoogleLogin
-                theme="filled_black"
-                text="continue_with"
-                shape="pill"
-                cancel_on_tap_outside
-                className="flex items-center justify-center"
-                onSuccess={handleGoogleLoginSuccess}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-                useOneTap
-                auto_select
-              />
+              <div className="flex justify-center">
+                <GoogleLogin
+                  theme="filled_black"
+                  text="continue_with"
+                  shape="pill"
+                  cancel_on_tap_outside
+                  className="flex items-center justify-center"
+                  onSuccess={handleGoogleLoginSuccess}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                  useOneTap
+                  auto_select
+                />
+              </div>
             </form>
           </div>
         </div>
