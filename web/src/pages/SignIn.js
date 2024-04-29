@@ -3,15 +3,16 @@ import AuthenticationHandler from "../handler/AuthenticationHandler";
 import { AuthState } from "../atom/authState";
 import { useSetRecoilState } from "recoil";
 import logo from "../Assets/Logo/logo.jpg";
+import { GoogleLogin } from "@react-oauth/google";
 
 const SignIn = () => {
-  const { signInHandler } = AuthenticationHandler();
+  const { signInHandler, googleLoginHandler } = AuthenticationHandler();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const setAuthData = useSetRecoilState(AuthState);
+
 
   const [loading, setLoading] = useState(false);
 
@@ -32,9 +33,9 @@ const SignIn = () => {
 
     signInHandler({ email, password })
       .then((res) => {
-        const data = res.data.data;
-        localStorage.setItem("userData", JSON.stringify(data));
-        setAuthData({ ...data });
+        // const data = res.data.data;
+        // localStorage.setItem("userData", JSON.stringify(data));
+        // setAuthData({ ...data });
       })
       .catch((err) => {
         console.log(err);
@@ -43,6 +44,11 @@ const SignIn = () => {
         setLoading(false);
       });
   };
+
+  const handleGoogleLoginSuccess = (token) => {
+    const { credential } = token;
+    googleLoginHandler(credential);
+  }
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -113,6 +119,20 @@ const SignIn = () => {
                   Sign up
                 </a>
               </p>
+
+              <GoogleLogin
+                theme="filled_black"
+                text="continue_with"
+                shape="pill"
+                cancel_on_tap_outside
+                className="flex items-center justify-center"
+                onSuccess={handleGoogleLoginSuccess}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+                useOneTap
+                auto_select
+              />
             </form>
           </div>
         </div>

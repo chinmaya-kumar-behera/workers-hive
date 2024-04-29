@@ -6,16 +6,22 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { RecoilRoot } from "recoil";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <RecoilRoot>
-        <App />
-        <Toaster /> 
-      </RecoilRoot>
-    </BrowserRouter>
+    <GoogleOAuthProvider
+      clientId={process.env.REACT_APP_API_GOOGLE_OAUTH_CLIENT_ID}
+    >
+      <BrowserRouter>
+        <RecoilRoot>
+          <App />
+          <App />
+          <Toaster />
+        </RecoilRoot>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 
