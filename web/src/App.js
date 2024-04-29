@@ -29,9 +29,8 @@ const App = () => {
   const [userData, setUserData] = useRecoilState(AuthState);
   const photoModalValue = useRecoilValue(PhotoState);
 
-  useEffect(() => {
-    // console.log("useEffect triggered with userData?._id:", userData?._id);
-    
+  useEffect(() => {  
+    console.log("parsed user data")
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       try {
@@ -42,6 +41,11 @@ const App = () => {
       }
     }
   }, [userData?._id]);
+
+
+  useEffect(() => {
+    console.log("App Useffect called")
+  },[])
 
   return (
     <div className="relative">

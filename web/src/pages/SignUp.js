@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
-import logo from "../Assets/Logo/logo.jpg"
+import logo from "../Assets/Logo/logo.jpg";
+import { GoogleLogin } from "@react-oauth/google";
+
 
 const SignUp = () => {
-  const { signUpHandler } = AuthenticationHandler();
+  const { signUpHandler, googleLoginHandler } = AuthenticationHandler();
 
   const [signUpData, setSignUpData] = useState({
     name:"",
@@ -40,6 +42,10 @@ const SignUp = () => {
     setSignUpData((prev) => ({ ...prev, [name]: value }));
   };  
 
+    const handleGoogleLoginSuccess = (token) => {
+      const { credential } = token;
+      googleLoginHandler(credential);
+    };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -137,6 +143,21 @@ const SignUp = () => {
                   Login here
                 </a>
               </p>
+              <div className="flex justify-center">
+                <GoogleLogin
+                  theme="filled_black"
+                  text="continue_with"
+                  shape="pill"
+                  cancel_on_tap_outside
+                  className="flex items-center justify-center"
+                  onSuccess={handleGoogleLoginSuccess}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                  useOneTap
+                  // auto_select
+                />
+              </div>
             </form>
           </div>
         </div>

@@ -1,10 +1,11 @@
-import { useResetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { signInService, signUpService } from "../services/authenticationService";
 import toast from "react-hot-toast";
 import { AuthState } from "../atom/authState";
 
 const AuthenticationHandler = () => {
   const resetAuthState = useResetRecoilState(AuthState);
+  const setAuthData = useSetRecoilState(AuthState);
 
   const signUpHandler = async (data) => {
     const { email, name, password, confirmPassword } = data;
@@ -68,6 +69,7 @@ const AuthenticationHandler = () => {
 
       if (result.status === 200) {
         toast.success("Sign In was successful");
+        setAuthDetails(result);
         return result;
       }
 
@@ -81,12 +83,27 @@ const AuthenticationHandler = () => {
     }
   };
 
+  const setAuthDetails = (res) => {
+    const data = res.data.data;
+    localStorage.setItem("userData", JSON.stringify(data));
+    setAuthData({ ...data });
+  };
+
   const logOutHandler = () => {
     localStorage.removeItem("userData");
     resetAuthState();
   }
 
-  return { signUpHandler, signInHandler, logOutHandler };
+  const googleLoginHandler = async(accessToken) => {
+    const result = await signInService({ accessToken });
+    if (result.status === 200) {
+      toast.success("Sign In was successful");
+      setAuthDetails(result);
+      return result;
+    }
+  }
+
+  return { signUpHandler, signInHandler, logOutHandler, googleLoginHandler };
 };
 
 export default AuthenticationHandler;
