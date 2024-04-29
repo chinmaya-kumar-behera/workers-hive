@@ -2,7 +2,5 @@ import { atom } from "recoil";
 
 export const MobileSidebarState = atom({
   key: "MobileSidebarState",
-  default: {
-    isOpen: false,
-  },
+  default: false,
 });
