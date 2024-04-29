@@ -8,6 +8,7 @@ import ChatHomeHeader from "./components/ChatHomeHeader";
 import ChattingRoom from "./components/ChattingRoom";
 import { useLocation } from "react-router-dom";
 import { AiOutlineMessage } from "react-icons/ai";
+import { MobileSidebarState } from "../../atom/mobileSidebar";
 
 const ChattingWindow = () => {
   const { pathname } = useLocation();
@@ -17,6 +18,8 @@ const ChattingWindow = () => {
   const selectedChat = useRecoilValue(SelectedChat);
   const resetSelectedChat = useResetRecoilState(SelectedChat)
   const [chatNotFound, setChatNotFound] = useState(false);
+  const mobileSidebar = useRecoilValue(MobileSidebarState);
+
 
   const [chats, setChats] = useState([]);
   
@@ -48,7 +51,11 @@ const ChattingWindow = () => {
   return (
     <>
       <div
-        className={`fixed ${isExpanded ? "bottom-0 lg:bottom-5" : "-bottom-[100%] lg:-bottom-[63%]"} ${
+        className={`fixed ${
+          isExpanded
+            ? "bottom-0 lg:bottom-5"
+            : "-bottom-[100%] lg:-bottom-[63%]"
+        } ${
           !canVisible && "hidden"
         } right-0 lg:right-5 h-full lg:h-[70%] w-full lg:w-[300px] bg-gray-100 border border-gray-300 z-20 rounded shadow-xl shadow-blue-50 px-3 py-2 transition-all duration-700`}
       >
@@ -60,12 +67,14 @@ const ChattingWindow = () => {
             <ChatList chatNotFound={chatNotFound} data={chats} />
           </>
         )}
-        <button
-          className="fixed bottom-5 right-5 lg:hidden bg-blue-500 text-white rounded-full p-3 shadow-lg z-0"
-          onClick={() => setIsExpanded(prev=>!prev)}
-        >
-          <AiOutlineMessage size={24} />
-        </button>
+        {!mobileSidebar && (
+          <button
+            className="fixed bottom-5 right-5 lg:hidden bg-blue-500 text-white rounded-full p-3 shadow-lg transition-all duration-500"
+            onClick={() => setIsExpanded((prev) => !prev)}
+          >
+            <AiOutlineMessage size={24} />
+          </button>
+        )}
       </div>
     </>
   );

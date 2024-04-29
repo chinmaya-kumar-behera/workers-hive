@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { Menu, MenuHandler, MenuList, MenuItem } from "@material-tailwind/react";
 import NavigationHandler from "../handler/NavigationHandler";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../atom/authState";
 import { FaRegUserCircle } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
@@ -14,6 +14,8 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { ChatWindow } from "../atom/chatState";
 import { RxCross2 } from "react-icons/rx";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { IoIosArrowRoundForward, IoMdLogOut } from "react-icons/io";
+import { MobileSidebarState } from "../atom/mobileSidebar";
 
 
 const Navbar = () => {
@@ -22,7 +24,7 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState();
   const { query } = useParams();
   const setChatWindowExpand = useSetRecoilState(ChatWindow);
-  const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [sideBarOpen, setSideBarOpen] = useRecoilState(MobileSidebarState);
 
 
   useEffect(() => {
@@ -179,37 +181,60 @@ const Navbar = () => {
         <aside
           className={`${
             sideBarOpen ? "left-1/3" : "left-[100%]"
-          } fixed top-0 w-2/3 transition-all duration-500 h-full bg-gradient-to-br from-blue-200 to-blue-100 z-20 p-5`}
+          } fixed top-0 w-2/3 transition-all duration-500 h-full bg-gradient-to-br from-blue-200 to-blue-100 z-90 p-5`}
         >
-          <div className="relative">
+          <div className="h-full relative">
             <div className="absolute top-0 right-0">
               <button className="p-1" onClick={toggleSideBar}>
                 <RxCross2 className="text-xl" />
               </button>
             </div>
-            <div className="flex flex-col gap-2">
-              <div className="">
-                <button
-                  className="text-blue-600"
-                  onClick={() => {
-                    toggleSideBar();
-                    navigateToHomePage();
-                  }}
-                >
-                  Home
-                </button>
-              </div>
 
-              {authData?._id && (
+            <div className="h-full flex flex-col justify-between gap-2 ">
+              <div className="space-y-2">
                 <div className="">
                   <button
                     className="text-blue-600"
                     onClick={() => {
                       toggleSideBar();
-                      setChatWindowExpand((prev) => !prev);
+                      navigateToHomePage();
                     }}
                   >
-                    Chat
+                    Home
+                  </button>
+                </div>
+
+                {authData?._id && (
+                  <div className="">
+                    <button
+                      className="text-blue-600"
+                      onClick={() => {
+                        toggleSideBar();
+                        setChatWindowExpand((prev) => !prev);
+                      }}
+                    >
+                      Chat
+                    </button>
+                  </div>
+                )}
+              </div>
+              {authData?._id ? (
+                <div className="">
+                  <button
+                    className="flex items-center justify-start bg-gray-500 bg-opacity-10 rounded-lg gap-3 px-4 py-2 w-full backdrop-blur-lg transition-all text-red-500 text-md font-semibold"
+                    onClick={logOutHandler}
+                  >
+                    logout <IoMdLogOut className="text-xl" />
+                  </button>
+                </div>
+              ) : (
+                <div className="">
+                  <button
+                    className="flex items-center justify-start bg-blue-500 rounded-lg gap-3 px-4 py-2 w-full backdrop-blur-lg transition-all text-white text-md font-semibold"
+                    onClick={navigateToSignInPage}
+                  >
+                    <span className="flex items-center"> Sign in</span>{" "}
+                    <IoIosArrowRoundForward className="text-2xl" />
                   </button>
                 </div>
               )}
