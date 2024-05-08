@@ -1,26 +1,51 @@
 import React, { useState } from "react";
 import Loader from "../../components/ui/Loader";
 import AuthenticationHandler from "../../handler/AuthenticationHandler";
+import toast from "react-hot-toast";
 
-const VerifyOTP = () => {
-  const { verifyOTPHandler } = AuthenticationHandler();
+const VerifyOTP = ({ userData, setVerifyOtp }) => {
+  const { verifyOTPHandler, resendOTPHandler } = AuthenticationHandler();
 
-  const [signUpData, setSignUpData] = useState({
-    otp: "",
-  });
+  const [OTP, setOTP] = useState();
     const [loading, setLoading] = useState(false);
+    const [resendLoading, setResendLoading] = useState(false);
+
+  const { _id } = userData;
 
   const onChangeHandle = (event) => {
-    const { name, value } = event.target;
-    setSignUpData((prev) => ({ ...prev, [name]: value }));
+   setOTP(event.target.value);
+  };
+
+  const onSubmit = (event) => {
+      event.preventDefault();
+      console.log(OTP)
+      setLoading(true);
+      verifyOTPHandler({ id: _id, otp: OTP })
+        .then((res) => {
+          if (res.status === 200) {
+            toast.success(res.data.message);
+            setVerifyOtp(false);
+          }
+          if (res.status === 203) {
+            toast.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     };
     
-    const onSubmit = (event) => {
+    const onResendOTP = (event) => {
         event.preventDefault();
-        console.log(signUpData);
-        verifyOTPHandler({ hello: "hii" });
+        setResendLoading(true);
+        resendOTPHandler({ id: _id })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err))
+          .finally(() => setResendLoading(false));
     }
-
 
   return (
     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -28,6 +53,9 @@ const VerifyOTP = () => {
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Verify account
         </h1>
+        <div className="">
+          hii {userData.name} an opt is send to your email please check
+        </div>
         <form className="space-y-4 md:space-y-6">
           <div>
             <label
@@ -44,15 +72,24 @@ const VerifyOTP = () => {
               placeholder="Enter OTP"
               required=""
               onChange={onChangeHandle}
-              value={signUpData.otp}
+              value={OTP}
             />
           </div>
+
+          <button
+            className="w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
+            onClick={onResendOTP}
+            disabled={resendLoading}
+          >
+            {resendLoading ? <Loader size={2} /> : "Resend OTP"}
+          </button>
+
           <button
             className="w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
             onClick={onSubmit}
             disabled={loading}
           >
-            {loading ? <Loader/> : "Verify OTP"}
+            {loading ? <Loader size={3} /> : "Verify OTP"}
           </button>
         </form>
       </div>

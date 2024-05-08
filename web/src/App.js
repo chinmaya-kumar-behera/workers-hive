@@ -30,7 +30,6 @@ const App = () => {
   const photoModalValue = useRecoilValue(PhotoState);
 
   useEffect(() => {  
-    console.log("parsed user data")
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       try {

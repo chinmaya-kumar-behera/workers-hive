@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const nodemailer = require('nodemailer');
 
 const signUp = async (req, res) => {
   const { name, email, password } = req.body;
@@ -9,19 +10,35 @@ const signUp = async (req, res) => {
     
     const isUserExist = await User.findOne({ email: email });
 
-    if (isUserExist) {
-     return res.status(200).json({
+  if (isUserExist) {
+    if (isUserExist.verified == 'false') {
+      const OTP = generateOTP();
+      sendOTP(email, OTP);
+      isUserExist.otp = OTP;
+      isUserExist.save();
+      return res.status(202).json({
+        message:
+          "This email has already registered. Please go through the verification process.",
+        data: isUserExist,
+      }); 
+    } else {
+      return res.status(201).json({
         message:
           "This email has already registered. Please provide a different one.",
+        data: isUserExist,
       });
     }
+    }
+  
+  const OTP = generateOTP();
+  sendOTP(email,OTP)
 
   try {
     const userData = new User({
       name,
       email,
       password,
-      verified:'false'
+      otp: OTP,
     });
 
     await userData.save();
@@ -111,28 +128,81 @@ function generateOTP() {
 }
 
 async function sendOTP(email, otp) {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "your_email@gmail.com",
-      pass: "your_password",
-    },
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.NODEMAILER_MAIL,
+        pass: process.env.NODEMAILER_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.NODEMAILER_MAIL,
+      to: email,
+      subject: "Verification Code for Sign-Up",
+      text: `Your verification code is: ${otp}`,
+    };
+
+    return await transporter.sendMail(mailOptions);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const verifyOTP = async(req, res) => {
+  // console.log(req.body)
+
+  const { id, otp, } = req.body;
+
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).json({
+      message:
+        "User not found.",
+    });
+  }
+
+  if (user.otp !== Number(otp)) {
+    return res.status(203).json({
+      message: "OTP didnot match re check again.",
+    });
+  }
+
+  user.verified = "true";
+  user.save();
+  return res.status(200).json({
+    message: "Your otp verification was successful.",
   });
-
-  const mailOptions = {
-    from: "your_email@gmail.com",
-    to: email,
-    subject: "Verification Code for Sign-Up",
-    text: `Your verification code is: ${otp}`,
-  };
-
-  await transporter.sendMail(mailOptions);
 }
 
-const verifyOTP = (req, res) => {
-  return res.status(200).json({message:'Verified OTP'})
+const resendOTP = async (req, res) => {
+  try {
+    const { id } = req.body;
+    console.log(id)
+
+    const user = await User.findById(id);
+      if (!user) {
+        return res.status(404).json({
+          message: "User not found.",
+        });
+    }
+    
+    const OTP = generateOTP();
+    result = sendOTP(user.email, OTP);
+
+    user.otp = OTP;
+    user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Was sent successfully!", data: result });
+  } catch (err) {
+    console.log(err);
+     return res
+       .status(400)
+       .json({ message: "Error Occured!" });
+  }
 }
 
-
-
-module.exports = { signUp, signIn, verifyOTP };
+module.exports = { signUp, signIn, verifyOTP, resendOTP };

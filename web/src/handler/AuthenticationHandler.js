@@ -1,11 +1,13 @@
 import { useResetRecoilState, useSetRecoilState } from "recoil";
-import { signInService, signUpService, verifyOTPService } from "../services/authenticationService";
+import { resendOTPService, signInService, signUpService, verifyOTPService } from "../services/authenticationService";
 import toast from "react-hot-toast";
 import { AuthState } from "../atom/authState";
+import NavigationHandler from "./NavigationHandler";
 
 const AuthenticationHandler = () => {
   const resetAuthState = useResetRecoilState(AuthState);
   const setAuthData = useSetRecoilState(AuthState);
+  const { navigateToHomePage } = NavigationHandler();
 
   const signUpHandler = async (data) => {
     const { email, name, password, confirmPassword } = data;
@@ -36,16 +38,13 @@ const AuthenticationHandler = () => {
 
     try {
       const result = await signUpService(data);
-      if (result.status === 200) {
-        toast.success(result.data.message);
-        return result;
-      } else if (result.status === 202) {
-        toast.success(result.data.message);
-        return new Error("Already registered !");
-      }
+      // console.log(result)
+      toast.success(result.data.message);
+      return result;
     } catch (error) {
       console.error("Signup failed:", error.message);
       toast.error("Signup failed. Please try again later.");
+      return error
     }
   };
 
@@ -84,11 +83,11 @@ const AuthenticationHandler = () => {
   };
 
   const verifyOTPHandler = async(data) => {
-     await verifyOTPService(data)
-       .then((res) => {
-         console.log(res);
-       })
-       .catch((err) => console.log(err));
+     return await verifyOTPService(data)
+  }
+
+  const resendOTPHandler = async (data) => {
+    return await resendOTPService(data);
   }
 
   const setAuthDetails = (res) => {
@@ -117,6 +116,7 @@ const AuthenticationHandler = () => {
     logOutHandler,
     googleLoginHandler,
     verifyOTPHandler,
+    resendOTPHandler,
   };
 };
 

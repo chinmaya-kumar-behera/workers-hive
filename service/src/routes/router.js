@@ -1,7 +1,7 @@
 const express = require("express");
 const { getCategories, getCategory, getsubcategories, getSubcategoryDetail } = require("../controllers/categoriesController");
 const { getSliderImage } = require("../controllers/sliderController");
-const { signUp, signIn, verifyOTP } = require("../controllers/authenticationController");
+const { signUp, signIn, verifyOTP, resendOTP } = require("../controllers/authenticationController");
 const { createServiceWorker, getWorkers } = require("../controllers/serviceWorkerController");
 const multer = require("multer");
 
@@ -35,6 +35,7 @@ router.get("/subcategorydetail/:id", getSubcategoryDetail);
 router.post("/signup",signUp)
 router.post("/signIn", signIn);
 router.post("/verifyotp", verifyOTP);
+router.post("/resendotp", resendOTP);
 
 // serviceWorker
 

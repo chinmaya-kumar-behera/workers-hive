@@ -7,6 +7,7 @@ import VerifyOTP from "../views/authentication/VerifyOTP";
 
 const SignUp = () => {
   const { signUpHandler, googleLoginHandler } = AuthenticationHandler();
+  const [userData, setUserData] = useState({});
 
   const [signUpData, setSignUpData] = useState({
     name:"",
@@ -24,7 +25,16 @@ const SignUp = () => {
     signUpHandler(signUpData)
       .then((res) => {
         setLoader(false);
-        if (res.status === 200) {
+        // console.log(res.data.data)
+        if (res.status === 201) {
+          setUserData(res?.data?.data);
+        }
+        if (res.status === 202 || res.status === 200) {
+          setUserData(res?.data?.data);
+          if (res?.data?.data?.verified === "false") {
+            console.log("not verified");
+            setVerifyOtp(true);
+          }
           setSignUpData({
             email: "",
             password: "",
@@ -63,7 +73,7 @@ const SignUp = () => {
             />
           </div>
         </div>
-        {verifyOtp ? (
+        {!verifyOtp ? (
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -165,7 +175,7 @@ const SignUp = () => {
             </div>
           </div>
         ) : (
-          <VerifyOTP />
+            <VerifyOTP userData={userData} setVerifyOtp={setVerifyOtp} />
         )}
       </div>
     </section>
