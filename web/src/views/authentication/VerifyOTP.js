@@ -42,7 +42,10 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
         event.preventDefault();
         setResendLoading(true);
         resendOTPHandler({ id: _id })
-          .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res); 
+                toast.succes('OTP sent to your registered mail!')
+            })
           .catch((err) => console.log(err))
           .finally(() => setResendLoading(false));
     }
@@ -53,16 +56,22 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Verify account
         </h1>
-        <div className="">
-          hii {userData.name} an opt is send to your email please check
-        </div>
+        <label
+          htmlFor="otp"
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Hii <span className="text-lg font-semibold">{userData.name}</span>
+          <br /> An OTP is sent to your registered mail id{" "}
+          <span className="text-blue-400">{userData.email}</span>. Enter the OTP
+          below to procced with verification!
+        </label>
         <form className="space-y-4 md:space-y-6">
           <div>
             <label
               htmlFor="otp"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Enter OTP
+              Enter the 6-digit verification code
             </label>
             <input
               type="text"
@@ -76,23 +85,27 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
             />
           </div>
 
-          <button
-            className="w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
-            onClick={onResendOTP}
-            disabled={resendLoading}
-          >
-            {resendLoading ? <Loader size={2} /> : "Resend OTP"}
-          </button>
-
-          <button
-            className="w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
-            onClick={onSubmit}
-            disabled={loading}
-          >
-            {loading ? <Loader size={3} /> : "Verify OTP"}
-          </button>
+          <div className="space-y-3">
+            <button
+              className="w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
+              onClick={onSubmit}
+              disabled={loading}
+            >
+              {loading ? <Loader size={3} /> : "Verify OTP"}
+            </button>
+            <div className="flex items-center justify-end gap-2 text-gray-400">
+              <span>Didnot receive any code</span>
+              <button
+                className="text-blue-500"
+                onClick={onResendOTP}
+                disabled={resendLoading}
+              >
+                Resend OTP
+              </button>
+            </div>
+          </div>
         </form>
-      </div>
+        </div>
     </div>
   );
 };
