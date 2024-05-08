@@ -1,5 +1,5 @@
 import { useResetRecoilState, useSetRecoilState } from "recoil";
-import { signInService, signUpService } from "../services/authenticationService";
+import { signInService, signUpService, verifyOTPService } from "../services/authenticationService";
 import toast from "react-hot-toast";
 import { AuthState } from "../atom/authState";
 
@@ -83,6 +83,14 @@ const AuthenticationHandler = () => {
     }
   };
 
+  const verifyOTPHandler = async(data) => {
+     await verifyOTPService(data)
+       .then((res) => {
+         console.log(res);
+       })
+       .catch((err) => console.log(err));
+  }
+
   const setAuthDetails = (res) => {
     const data = res.data.data;
     localStorage.setItem("userData", JSON.stringify(data));
@@ -103,7 +111,13 @@ const AuthenticationHandler = () => {
     }
   }
 
-  return { signUpHandler, signInHandler, logOutHandler, googleLoginHandler };
+  return {
+    signUpHandler,
+    signInHandler,
+    logOutHandler,
+    googleLoginHandler,
+    verifyOTPHandler,
+  };
 };
 
 export default AuthenticationHandler;

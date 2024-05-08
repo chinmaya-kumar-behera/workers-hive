@@ -21,11 +21,14 @@ const signUp = async (req, res) => {
       name,
       email,
       password,
+      verified:'false'
     });
 
     await userData.save();
 
-    return res.status(200).json({ message: "Sign Up was successful"});
+    return res
+      .status(200)
+      .json({ message: "Sign Up was successful", data: userData });
   } catch (error) {
     if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
       return res.status(400).json({ message: "Name must be unique." });
@@ -103,4 +106,33 @@ const signIn = async (req, res) => {
 };
 
 
-module.exports = { signUp, signIn };
+function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
+async function sendOTP(email, otp) {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "your_email@gmail.com",
+      pass: "your_password",
+    },
+  });
+
+  const mailOptions = {
+    from: "your_email@gmail.com",
+    to: email,
+    subject: "Verification Code for Sign-Up",
+    text: `Your verification code is: ${otp}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+}
+
+const verifyOTP = (req, res) => {
+  return res.status(200).json({message:'Verified OTP'})
+}
+
+
+
+module.exports = { signUp, signIn, verifyOTP };
