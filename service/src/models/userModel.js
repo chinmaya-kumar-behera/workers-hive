@@ -54,6 +54,13 @@ const userSchema = new mongoose.Schema(
       city: { type: String },
       country: { type: String },
     },
+    verified: {
+      type: String,
+      default: 'false'
+    },
+    otp: {
+      type: Number,
+    },
   },
   {
     timestamps: true,
