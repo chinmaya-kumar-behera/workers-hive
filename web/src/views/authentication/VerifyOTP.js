@@ -1,16 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Loader from "../../components/ui/Loader";
 import AuthenticationHandler from "../../handler/AuthenticationHandler";
 import toast from "react-hot-toast";
+import NavigationHandler from "../../handler/NavigationHandler";
 
 const VerifyOTP = ({ userData, setVerifyOtp }) => {
   const { verifyOTPHandler, resendOTPHandler } = AuthenticationHandler();
+  const { navigateToSignInPage } = NavigationHandler();
 
   const [OTP, setOTP] = useState();
-    const [loading, setLoading] = useState(false);
-    const [resendLoading, setResendLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
   const { _id } = userData;
+
+  const intervalId = useRef();
+  const [enableOTPsend, setEnableOTPsend] = useState(false);
+  const [timer, setTimer] = useState(30);
+
+  const timerFunction = () => {
+    intervalId.current = setInterval(() => {
+      setTimer((prevTimer) => {
+        console.log(prevTimer);
+        if (prevTimer <= 0) {
+          clearInterval(intervalId.current);
+          setEnableOTPsend(true);
+          return prevTimer;
+        }
+        console.log(prevTimer);
+        return prevTimer - 1;
+      });
+    }, 1000);
+  };
+
+  useEffect(() => {
+    timerFunction();
+    
+    return () => {
+      clearInterval(intervalId.current);
+    };
+  }, []);
+
 
   const onChangeHandle = (event) => {
    setOTP(event.target.value);
@@ -18,13 +47,13 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
 
   const onSubmit = (event) => {
       event.preventDefault();
-      console.log(OTP)
       setLoading(true);
       verifyOTPHandler({ id: _id, otp: OTP })
         .then((res) => {
           if (res.status === 200) {
             toast.success(res.data.message);
             setVerifyOtp(false);
+            navigateToSignInPage();
           }
           if (res.status === 203) {
             toast.error(res.data.message);
@@ -44,7 +73,10 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
         resendOTPHandler({ id: _id })
             .then((res) => {
                 console.log(res); 
-                toast.succes('OTP sent to your registered mail!')
+              toast.success('OTP sent to your registered mail!');
+              setEnableOTPsend(false);
+              setTimer(30);
+              timerFunction();
             })
           .catch((err) => console.log(err))
           .finally(() => setResendLoading(false));
@@ -94,18 +126,23 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
               {loading ? <Loader size={3} /> : "Verify OTP"}
             </button>
             <div className="flex items-center justify-end gap-2 text-gray-400">
-              <span>Didnot receive any code</span>
-              <button
-                className="text-blue-500"
-                onClick={onResendOTP}
-                disabled={resendLoading}
-              >
-                Resend OTP
-              </button>
+              <span>Didn't receive any code</span>
+
+              {enableOTPsend ? (
+                <button
+                  className="text-blue-500"
+                  onClick={onResendOTP}
+                  disabled={resendLoading}
+                >
+                  Resend OTP
+                </button>
+              ) : (
+                <span className="text-blue-500">resend in {timer}s</span>
+              )}
             </div>
           </div>
         </form>
-        </div>
+      </div>
     </div>
   );
 };
