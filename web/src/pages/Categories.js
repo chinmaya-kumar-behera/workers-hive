@@ -3,7 +3,7 @@ import PageContainer from "../components/shared/PageContainer";
 import CategoryCardDetails from "../views/Home/components/CategoryCardDetails";
 import CategoryHandler from "../handler/CategoryHandler";
 import Footer from "../views/Footer";
-import Navbar from "../views/header/Navbar";
+import Navbar from "../views/Navbar";
 
 const Categories = () => {
   const { getCategoriesHandler } = CategoryHandler();
