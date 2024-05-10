@@ -63,29 +63,46 @@ function parseJwt(token) {
   return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
 }
 
+function generateStrongPassword(length = 12) {
+  const charset =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
+  let password = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+
+  return password;
+}
+
 const signIn = async (req, res) => {
   try {
     const { email, password, accessToken } = req.body;
 
     if (accessToken) {
-      let { email, name } = parseJwt(accessToken);
-
+      let { email, name, password } = parseJwt(accessToken);
       const user = await User.findOne({ email });
 
       if (!user) {
+        password = generateStrongPassword();
+        console.log(password);
         const userData = new User({
           name,
           email,
+          password,
         });
 
+        userData.save();
+
         return res.status(200).json({
-          message: "Sign In was successful (access token)",
+          message: "Sign In was successful (new user access token)",
           data: userData,
         });
       }
 
       return res.status(200).json({
-        message: "Sign In was successful (access token)",
+        message: "Sign In was successful (old user access token)",
         data: user,
       });
 

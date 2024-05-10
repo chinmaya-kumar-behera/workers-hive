@@ -15,6 +15,7 @@ const MenuItems = () => {
         navigateToAdminPanel,
         navigateToSignInPage,
         navigateToProfilePage,
+        navigateToAppointmentsPage
       } = NavigationHandler();
       const { logOutHandler } = AuthenticationHandler();
 
@@ -58,6 +59,13 @@ const MenuItems = () => {
                   Admin Panel
                 </MenuItem>
               )}
+              <MenuItem
+                className="w-full flex justify-start items-center gap-3 bg-blue-100 p-2"
+                onClick={navigateToAppointmentsPage}
+              >
+                <MdOutlineAdminPanelSettings className="text-xl" />
+                Appointments
+              </MenuItem>
               <MenuItem
                 className="w-full flex justify-start items-center gap-3 bg-blue-100 p-2"
                 onClick={logOutHandler}

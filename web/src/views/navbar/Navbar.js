@@ -81,7 +81,7 @@ const Navbar = () => {
 
         {/* Right section of the header */}
         <div className="hidden lg:flex items-center gap-4">
-          {authData?._id && (
+          {authData?._id && authData?.role === 'user' && (
             <div className="text-gray-900">
               <span
                 className="cursor-pointer text-gray-600 w-fit"

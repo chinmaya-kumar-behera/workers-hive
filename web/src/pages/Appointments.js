@@ -1,13 +1,37 @@
-import React from 'react'
-import Navbar from '../views/navbar/Navbar'
+import React from "react";
+import Navbar from "../views/navbar/Navbar";
+import { useRecoilValue } from "recoil";
+import { AuthState } from "../atom/authState";
+import ImageHandler from "../handler/ImageHandler";
+import AppointmentsUser from "../views/appointment/AppointmentsUser";
+import AppointmentsWorker from "../views/appointment/AppointmentsWorker";
 
-const Appointments = () => {
-    return (
-        <React.Fragment>
-            <Navbar/>
-          <div>Appointments</div>
-      </React.Fragment>
-  )
+
+const DefaultComponent = () => {
+    return <div>Hello this is default component</div>
 }
+const Appointments = () => {
+    const userData = useRecoilValue(AuthState);
+    
+const renderComponents = (role) => {
+  switch (role) {
+    case "user":
+      return <AppointmentsUser />;
+    case "worker":
+      return <AppointmentsWorker/>;
+    default:
+      return <DefaultComponent />;
+  }
+};
 
-export default Appointments
+  return (
+    <React.Fragment>
+      <Navbar />
+      {renderComponents(userData.role)}
+    </React.Fragment>
+  );
+};
+
+// Function to determine status color
+
+export default Appointments;
