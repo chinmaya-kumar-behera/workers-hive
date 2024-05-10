@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../views/Navbar";
+import Navbar from "../views/header/Navbar";
 import PageContainer from "../components/shared/PageContainer";
 import { useParams } from "react-router-dom";
 import SearchHandler from "../handler/searchHandler";

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageContainer from "../components/shared/PageContainer";
-import Navbar from "../views/Navbar";
+import Navbar from "../views/header/Navbar";
 import ProfileHandler from "../handler/ProfileHandler";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";

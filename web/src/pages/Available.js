@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PageContainer from "../components/shared/PageContainer";
 import EmployeeCard from "../views/employee/EmployeeCard";
-import Navbar from "../views/Navbar";
+import Navbar from "../views/header/Navbar";
 import { useParams } from "react-router-dom";
 import serviceWorkerHandler from "../handler/serviceWorkerHandler";
 import SubCategoryCard from "../views/Home/components/SubCategoryCard";
