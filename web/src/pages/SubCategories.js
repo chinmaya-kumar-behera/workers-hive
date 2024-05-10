@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import PageContainer from "../components/shared/PageContainer";
 import CategoryHandler from "../handler/CategoryHandler";
 import CategoryCardDetails from "../views/Home/components/CategoryCardDetails";
-import Navbar from "../views/Navbar";
+import Navbar from "../views/navbar/Navbar";
 import Footer from "../views/Footer";
 import video from "../Assets/Animation/video.mp4";
 

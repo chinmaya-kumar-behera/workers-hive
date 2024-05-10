@@ -2,7 +2,7 @@ import Categories from "../views/Home/Categories";
 import ServicesSlider from "../views/Home/ServicesSlider";
 import TrendingServices from "../views/Home/TrendingServices";
 import Footer from "../views/Footer";
-import Navbar from "../views/Navbar";
+import Navbar from "../views/navbar/Navbar";
 import CategorySection from "../views/Home/CategorySection";
 
 const Home = () => {

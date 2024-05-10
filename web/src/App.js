@@ -25,6 +25,14 @@ const PrivateRoute = ({ element, ...props }) => {
   return <Navigate to="/" />;
 };
 
+const LoginRoute = ({ element, ...props }) => {
+  const userData = useRecoilValue(AuthState);
+  if (userData._id) {
+    return element;
+  }
+  return <Navigate to="/" />;
+};
+
 const App = () => {
   const [userData, setUserData] = useRecoilState(AuthState);
   const photoModalValue = useRecoilValue(PhotoState);
