@@ -22,8 +22,14 @@ export const appointmentBookService = (data) => {
   );
 };
 
-export const getAppointments = (data) => {
+export const getWorkerAppointmentsService = (data) => {
   return axios.get(
-    `${process.env.REACT_APP_API_BASE_URL}/api/getappointments/${data.userId}`
+    `${process.env.REACT_APP_API_BASE_URL}/api/getworkerappointments/${data.userId}`
+  );
+};
+
+export const getUserAppointmentsService = (data) => {
+  return axios.get(
+    `${process.env.REACT_APP_API_BASE_URL}/api/getuserappointments/${data.userId}`
   );
 };

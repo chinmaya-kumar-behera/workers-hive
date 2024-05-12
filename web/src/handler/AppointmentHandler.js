@@ -1,16 +1,28 @@
-import React from 'react'
-import { appointmentBookService, getAppointments } from '../services/appointmentService';
+import React from "react";
+import {
+  appointmentBookService,
+  getUserAppointmentsService,
+  getWorkerAppointmentsService,
+} from "../services/appointmentService";
 
 const AppointmentHandler = () => {
-    const appointmentBookHandler = async(data) => {
-        return await appointmentBookService(data);
-    }
+  const appointmentBookHandler = async (data) => {
+    return await appointmentBookService(data);
+  };
 
-    const getAppointmentsHandler = async (data) => {
-      return await getAppointments(data);
-    };
+  const getWorkerAppointmentsHandler = async (data) => {
+    return await getWorkerAppointmentsService(data);
+  };
+  
+  const getUserAppointmentsHandler = async (data) => {
+    return await getUserAppointmentsService(data);
+  };
 
-  return { appointmentBookHandler, getAppointmentsHandler };
-}
+  return {
+    appointmentBookHandler,
+    getWorkerAppointmentsHandler,
+    getUserAppointmentsHandler,
+  };
+};
 
-export default AppointmentHandler
+export default AppointmentHandler;

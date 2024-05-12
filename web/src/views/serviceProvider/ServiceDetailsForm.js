@@ -12,6 +12,7 @@ import EmailFill from "./components/EmailFill";
 import PhoneFill from "./components/PhoneFill";
 import ImageFill from "./components/ImageFill";
 import WorkingPhotos from "./components/WorkingPhotos";
+import AuthenticationHandler from "../../handler/AuthenticationHandler";
 
 const ServiceDetailsForm = () => {
   const { createServiceWorkerHandler } = serviceWorkerHandler();
@@ -19,9 +20,9 @@ const ServiceDetailsForm = () => {
   const { navigateToHomePage } = NavigationHandler();
   const [categoriesList, setCategoriesList] = useState([]);
   const [SubCategoriesList, setSubCategoriesList] = useState([]);
+  const { setAuthDetails } = AuthenticationHandler();
 
   const [authData, setAuthData] = useRecoilState(AuthState);
-  console.log(authData._id);
   const [formData, setFormData] = useState({
     name: "",
     mobileNumber: "",
@@ -79,7 +80,7 @@ const ServiceDetailsForm = () => {
             professionDescription: "",
           });
           console.log(res.data);
-          setAuthData(res.data.data);
+          setAuthDetails(res);
           navigateToHomePage();
         }
       })

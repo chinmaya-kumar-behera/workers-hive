@@ -81,7 +81,7 @@ const signIn = async (req, res) => {
     const { email, password, accessToken } = req.body;
 
     if (accessToken) {
-      let { email, name, password } = parseJwt(accessToken);
+      let { email, name } = parseJwt(accessToken);
       const user = await User.findOne({ email });
 
       if (!user) {

@@ -1,37 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageContainer from "../../components/shared/PageContainer";
 import { useRecoilValue } from "recoil";
 import { AuthState } from "../../atom/authState";
 import ImageHandler from "../../handler/ImageHandler";
+import AppointmentHandler from "../../handler/AppointmentHandler";
+import AppointmentCard from "./components/AppointmentCard";
 
 const AppointmentsWorker = () => {
   const userData = useRecoilValue(AuthState);
+  const { getWorkerAppointmentsHandler } = AppointmentHandler();
+
   const { convertImageURL } = ImageHandler();
+  const [appointments, setAppointments] = useState([])
 
-  const appointments = [
-    { id: 1, status: "Pending" },
-    { id: 2, status: "Rejected" },
-    { id: 3, status: "Resolved" },
-  ];
+  const getAppointments = (userId) => {
+    getWorkerAppointmentsHandler({userId})
+      .then((res) => {
+        console.log(res.data.data);
+        setAppointments(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const profile = {
-    rejected: 2,
-    viewed: 5,
-    resolved: 3,
-    ratings: 4.5,
-  };
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Pending":
-        return "text-yellow-600";
-      case "Rejected":
-        return "text-red-600";
-      case "Resolved":
-        return "text-green-600";
-      default:
-        return "";
-    }
-  };
+  useEffect(() => {
+    if (userData._id) getAppointments(userData._id);
+  }, [userData._id]);
+
   return (
     <PageContainer className="mt-5 bg-transparent">
       <div className="flex gap-5">
@@ -53,16 +49,16 @@ const AppointmentsWorker = () => {
           <div className="mt-8">
             <div className="flex flex-col gap-1 text-white text-sm font-semibold">
               <div className=" bg-red-500 px-5 py-2 rounded-lg cursor-pointer">
-                Rejected: {profile.rejected}
+                Rejected: 3
               </div>
               <div className="bg-red-500 px-5 py-2 rounded-lg cursor-pointer">
-                Viewed: {profile.viewed}
+                Viewed: 5
               </div>
               <div className="bg-orange-500 px-5 py-2 rounded-lg cursor-pointer">
-                Pending: {profile.viewed}
+                Pending: 5
               </div>
               <div className="bg-green-500 px-5 py-2 rounded-lg cursor-pointer">
-                Resolved: {profile.resolved}
+                Resolved: 5
               </div>
             </div>
           </div>
@@ -73,28 +69,10 @@ const AppointmentsWorker = () => {
               <h2 className="font-semibold text-2xl mb-3">
                 Recent Appointments
               </h2>
-              <hr />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {appointments.map((appointment) => (
-                <div
-                  key={appointment.id}
-                  className="bg-white p-6 shadow-md  hover:shadow-blue-200 rounded-lg"
-                >
-                  <div className="flex justify-between mb-4">
-                    <div className="text-xl font-semibold">
-                      Appointment ID: {appointment.id}
-                    </div>
-                    <div
-                      className={`text-sm ${getStatusColor(
-                        appointment.status
-                      )}`}
-                    >
-                      {appointment.status}
-                    </div>
-                  </div>
-                  {/* Add more details about the appointment as needed */}
-                </div>
+                <AppointmentCard key={appointment._id} appointment={appointment} />
               ))}
             </div>
           </div>

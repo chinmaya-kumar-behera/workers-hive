@@ -4,16 +4,16 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import AuthenticationHandler from "../../handler/AuthenticationHandler";
 import NavigationHandler from "../../handler/NavigationHandler";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../../atom/authState";
 import { MobileSidebarState } from "../../atom/mobileSidebar";
 import { ChatWindow } from "../../atom/chatState";
 
 const MobileSideDrawer = () => {
   const authData = useRecoilValue(AuthState);
-  const [sideBarOpen, setSideBarOpen] = useRecoilState(MobileSidebarState);
+  const setSideBarOpen = useSetRecoilState(MobileSidebarState);
 
-  const { navigateToSignInPage, navigateToHomePage } = NavigationHandler();
+  const { navigateToSignInPage, navigateToHomePage, navigateToAppointmentsPage } = NavigationHandler();
   const { logOutHandler } = AuthenticationHandler();
 
   const toggleSideBar = () => {
@@ -56,6 +56,15 @@ const MobileSideDrawer = () => {
               </button>
             </div>
           )}
+          <button
+            className="text-blue-600"
+            onClick={() => {
+              toggleSideBar();
+              navigateToAppointmentsPage();
+            }}
+          >
+            Appointments
+          </button>
         </div>
         {authData?._id ? (
           <div className="">

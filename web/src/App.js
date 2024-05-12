@@ -52,11 +52,6 @@ const App = () => {
     }
   }, [userData?._id]);
 
-
-  useEffect(() => {
-    console.log("App Useffect called")
-  },[])
-
   return (
     <div className="relative">
       <Routes>

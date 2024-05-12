@@ -2,16 +2,16 @@ import React from "react";
 import Navbar from "../views/navbar/Navbar";
 import { useRecoilValue } from "recoil";
 import { AuthState } from "../atom/authState";
-import ImageHandler from "../handler/ImageHandler";
 import AppointmentsUser from "../views/appointment/AppointmentsUser";
 import AppointmentsWorker from "../views/appointment/AppointmentsWorker";
-
 
 const DefaultComponent = () => {
     return <div>Hello this is default component</div>
 }
+
+
 const Appointments = () => {
-    const userData = useRecoilValue(AuthState);
+  const userData = useRecoilValue(AuthState);
     
 const renderComponents = (role) => {
   switch (role) {
@@ -31,7 +31,5 @@ const renderComponents = (role) => {
     </React.Fragment>
   );
 };
-
-// Function to determine status color
 
 export default Appointments;

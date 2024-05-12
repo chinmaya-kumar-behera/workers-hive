@@ -9,7 +9,7 @@ const router = express.Router();
 const path = require("path");
 const { getSearchResult } = require("../controllers/saerchController");
 const { getUser, updateUser } = require("../controllers/userController");
-const { bookAppointment, getAppointment } = require("../controllers/appointmentController");
+const { bookAppointment, getWorkerAppointment, getUserAppointment } = require("../controllers/appointmentController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -66,7 +66,8 @@ router.post( "/user/:id/update",
 
 // apppointment routes
 router.post("/bookappointment",upload.fields([{ name: "appointmentImages", maxCount: 10 },]),bookAppointment);
-router.get("/getappointments/:id", getAppointment);
+router.get("/getworkerappointments/:id", getWorkerAppointment);
+router.get("/getuserappointments/:id", getUserAppointment);
 
 
 

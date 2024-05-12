@@ -10,11 +10,13 @@ import { MdCancel } from "react-icons/md";
 import { AuthState } from "../../atom/authState";
 import AppointmentHandler from "../../handler/AppointmentHandler";
 import toast from 'react-hot-toast';
+import AuthenticationHandler from "../../handler/AuthenticationHandler";
 
 const AppointmentForm = () => {
   const [appointmentModal, setAppointmentModal] = useRecoilState(appointmentModalState);
   const [appointmentState] = useRecoilState(appointmentStateData);
   const authData = useRecoilValue(AuthState);
+  const { setAuthDetails } = AuthenticationHandler();
 
   const { appointmentBookHandler } = AppointmentHandler();
   const [description, setDescription] = useState("");
@@ -46,6 +48,7 @@ const AppointmentForm = () => {
       onClose();
       setDescription("");
       setImages([]);
+      console.log(res);
     });
   };
 
