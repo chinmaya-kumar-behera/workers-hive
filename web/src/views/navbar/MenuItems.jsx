@@ -26,9 +26,9 @@ const MenuItems = () => {
         <div className="">
           <Menu placement="bottom-start">
             <MenuHandler>
-              <div className="flex items-center gap-2 bg-blue-400 text-gray-800 px-4 py-2 rounded-md cursor-pointer">
+              <div className="flex items-center gap-2 bg-blue-400 px-4 py-2 rounded-md cursor-pointer text-white">
                 <div className="">
-                  <FaRegUserCircle className="text-3xl text-white" />
+                  <FaRegUserCircle className="text-3xl " />
                 </div>
                 <div className="">
                   <h4 className="text-gray-100 text-sm font-semibold">

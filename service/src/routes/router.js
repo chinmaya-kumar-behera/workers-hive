@@ -9,6 +9,7 @@ const router = express.Router();
 const path = require("path");
 const { getSearchResult } = require("../controllers/saerchController");
 const { getUser, updateUser } = require("../controllers/userController");
+const { bookAppointment, getAppointment } = require("../controllers/appointmentController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -61,14 +62,11 @@ router.get("/search/:query", getSearchResult);
 //user routes
 router.get("/user/:id", getUser);
 router.post( "/user/:id/update",
-  upload.fields([
-    { name: "profilePic", maxCount: 2 },
-    { name: "workingPhotos", maxCount: 10 },
-  ]),
-  updateUser
-);
+  upload.fields([{ name: "profilePic", maxCount: 2 },{ name: "workingPhotos", maxCount: 10 },]),updateUser);
 
-
+// apppointment routes
+router.post("/bookappointment",upload.fields([{ name: "appointmentImages", maxCount: 10 },]),bookAppointment);
+router.get("/getappointments/:id", getAppointment);
 
 
 

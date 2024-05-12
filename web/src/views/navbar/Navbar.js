@@ -11,6 +11,8 @@ import { ChatWindow } from "../../atom/chatState";
 import { MobileSidebarState } from "../../atom/mobileSidebar";
 import MobileSideDrawer from "./MobileSideDrawer";
 import MenuItems from "./MenuItems";
+import { IoIosArrowRoundForward, IoMdLogOut } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
 
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
@@ -24,7 +26,12 @@ const Navbar = () => {
     setSearchQuery(query);
   }, []);
 
-  const { navigateToServiceProviderPage, navigateToHomePage } = NavigationHandler();
+  const {
+    navigateToServiceProviderPage,
+    navigateToSignInPage,
+    navigateToHomePage,
+  } = NavigationHandler();
+  const { logOutHandler } = AuthenticationHandler();
 
   const handleSearchClick = () => {
     if (!searchQuery?.trim()) return;
@@ -81,7 +88,7 @@ const Navbar = () => {
 
         {/* Right section of the header */}
         <div className="hidden lg:flex items-center gap-4">
-          {authData?._id && authData?.role === 'user' && (
+          {authData?._id && authData?.role === "user" && (
             <div className="text-gray-900">
               <span
                 className="cursor-pointer text-gray-600 w-fit"
@@ -105,7 +112,7 @@ const Navbar = () => {
               </button>
             )}
           </div>
-          <MenuItems/>
+          <MenuItems />
         </div>
 
         {/* overlay for side drawer */}
@@ -113,7 +120,13 @@ const Navbar = () => {
           <div className="absolute top-0 left-0 min-h-screen w-full bg-gray-900 bg-opacity-80 transition-all duration-500" />
         )}
         {/* side drawer for mobile screen */}
-       <MobileSideDrawer/>
+        <aside
+          className={`${
+            sideBarOpen ? "left-1/3" : "left-[100%]"
+          } fixed top-0 w-2/3 transition-all duration-500 h-full bg-gradient-to-br from-blue-200 to-blue-100 z-90 p-5`}
+        >
+          <MobileSideDrawer />
+        </aside>
       </div>
     </nav>
   );

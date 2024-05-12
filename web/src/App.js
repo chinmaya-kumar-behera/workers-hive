@@ -17,6 +17,8 @@ import ChattingWindow from "./views/chat/ChattingWindow";
 import PhotoModal from "./views/modals/PhotoModal";
 import { PhotoState } from "./atom/photoState";
 import Appointments from "./pages/Appointments";
+import { appointmentModalState } from "./atom/appointmentState";
+import AppointmentForm from "./views/appointment/AppointmentForm";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -36,6 +38,7 @@ const LoginRoute = ({ element, ...props }) => {
 const App = () => {
   const [userData, setUserData] = useRecoilState(AuthState);
   const photoModalValue = useRecoilValue(PhotoState);
+  const appointmentModal = useRecoilValue(appointmentModalState);
 
   useEffect(() => {  
     const storedUserData = localStorage.getItem("userData");
@@ -68,13 +71,17 @@ const App = () => {
         {/* private route */}
         <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
         <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
-        <Route path="/appointments" element={<LoginRoute element={<Appointments />} />} />
+        <Route
+          path="/appointments"
+          element={<LoginRoute element={<Appointments />} />}
+        />
 
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
       {userData?._id && <ChattingWindow />}
       {photoModalValue.isOpen && <PhotoModal />}
+      {appointmentModal && <AppointmentForm />}
     </div>
   );
 };
