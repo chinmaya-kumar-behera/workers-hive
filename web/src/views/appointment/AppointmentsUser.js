@@ -45,7 +45,7 @@ const AppointmentsUser = () => {
             <div className="mt-3 bg-gray-50 rounded-lg text-gray-900">
               <div className="flex flex-col gap-1 text-sm font-semibold">
                 <div className=" bg-indigo-100 px-2 py-2 rounded-lg cursor-pointer">
-                  total appointments: 5
+                  total appointments: {userAppointments?.totalAppointments}
                 </div>
               </div>
             </div>

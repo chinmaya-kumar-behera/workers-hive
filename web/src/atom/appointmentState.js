@@ -20,10 +20,16 @@ export const UserAppointments = atom({
     appointments: [],
     page: 0,
     totalPages: 0,
+    totalAppointments:0,
   },
 });
 
-export const WorkerAppointments= atom({
+export const WorkerAppointments = atom({
   key: "WorkerAppointments",
-  default: [],
+  default: {
+    appointments: [],
+    page: 0,
+    totalPages: 0,
+    totalAppointments: 0,
+  },
 });

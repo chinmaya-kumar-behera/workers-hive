@@ -1,27 +1,38 @@
 import { appointmentBookService, getUserAppointmentsService, getWorkerAppointmentsService, } from "../services/appointmentService";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { UserAppointments } from "../atom/appointmentState";
+import { UserAppointments, WorkerAppointments } from "../atom/appointmentState";
 import { AuthState } from "../atom/authState";
 
 const AppointmentHandler = () => {
   const setUserAppointments = useSetRecoilState(UserAppointments);
+  const setWorkerAppointments = useSetRecoilState(WorkerAppointments);
   const authData = useRecoilValue(AuthState);
 
   const appointmentBookHandler = async (data) => {
     return await appointmentBookService(data);
   };
 
-  const getWorkerAppointmentsHandler = async (data) => {
-    return await getWorkerAppointmentsService(data);
+  const getWorkerAppointmentsHandler = async () => {
+    await getWorkerAppointmentsService({ userId: authData._id })
+      .then((res) => {
+        console.log("appointments :", res.data);
+        setWorkerAppointments((prev) => ({
+          ...prev,
+          appointments: res.data.data,
+          totalAppointments: res.data.totalAppointments,
+        }));
+      })
+      .catch((err) => console.log(err));
   };
   
   const getUserAppointmentsHandler = async () => {
     await getUserAppointmentsService({ userId: authData._id })
       .then((res) => {
-        console.log("appointments :", res.data.data);
+        console.log("appointments :", res.data);
         setUserAppointments((prev) => ({
           ...prev,
           appointments: res.data.data,
+          totalAppointments: res.data.totalAppointments,
         }));
       })
       .catch((err) => console.log(err));

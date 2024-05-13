@@ -104,18 +104,22 @@ const AppointmentCard = ({ appointment }) => {
       </div>
 
       <div className="flex justify-start gap-2 bg-opacity-10">
-        {appointment.paymentStatus === "PENDING" && (
-          <span className="text-sm font-semibold flex gap-2 items-center rounded-md underline px-3 py-1 text-red-500 border-red-500">
-            Your payment is not done
-          </span>
-        )}
-        {appointment.paymentStatus === "SUCCESS" && (
-          <span className="text-sm font-semibold flex gap-2 items-center rounded-md border-2 px-3 py-1 bg-gray-200 shadow-sm shadow-green-500 border-green-500">
-            payment{" "}
-            <div className="flex gap-2 items-center">
-              <MdVerified className="text-lg text-green-500" />
-            </div>
-          </span>
+        {(
+          <div className="">
+            {appointment.paymentStatus === "PENDING" && (
+              <span className="text-sm font-semibold flex gap-2 items-center rounded-md underline px-3 py-1 text-red-500 border-red-500">
+                {userData.role === "worker" ? "Payment is not done" : "Your payment is not done"}
+              </span>
+            )}
+            {appointment.paymentStatus === "SUCCESS" && (
+              <span className="text-sm font-semibold flex gap-2 items-center rounded-md border-2 px-3 py-1 bg-gray-200 shadow-sm shadow-green-500 border-green-500">
+                payment{" "}
+                <div className="flex gap-2 items-center">
+                  <MdVerified className="text-lg text-green-500" />
+                </div>
+              </span>
+            )}{" "}
+          </div>
         )}
         {userData.role !== "worker" &&
           appointment.paymentStatus !== "SUCCESS" && (
