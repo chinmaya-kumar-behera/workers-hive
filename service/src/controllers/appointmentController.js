@@ -76,7 +76,7 @@ const getWorkerAppointment = async (req, res) => {
 
         const result = await Appointment.find({ workerId: id })
           .populate({ path: "userId", select: "_id name email photo" })
-          .populate({ path: "workerId", select: "_id name email photo" });
+          .populate({ path: "workerId", select: "_id name email photo price" });
 
         const totalAppointments = await Appointment.countDocuments({
           workerId: id,
@@ -116,7 +116,7 @@ const getUserAppointment = async (req, res) => {
        select: "_id name email photo category subcategory",
        populate: {
          path: "category subCategory",
-         select: " _id heading",
+         select: " _id heading price",
        },
      });
     

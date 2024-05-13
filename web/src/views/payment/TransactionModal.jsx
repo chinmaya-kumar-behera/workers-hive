@@ -94,7 +94,7 @@ const TransactionModal = () => {
       isOpen={modalState}
       onClose={onClose}
       className="h-full lg:h-auto overflow-scroll"
-      contentClassName={`w-full bg-white lg:max-w-3xl lg:max-h-[500px] sm:rounded-lg p-5`}
+      contentClassName={`w-full bg-white lg:max-w-xl sm:rounded-lg p-5`}
       overlayClassName="backdrop-blur"
       closable={true}
     >
@@ -106,7 +106,7 @@ const TransactionModal = () => {
         <div className="flex flex-col space-y-2">
           <label className="text-sm font-medium text-gray-600">Amount</label>
           <p className="text-lg font-semibold text-gray-800">
-            {transactionData?.price}
+            {transactionData?.amount}
           </p>
         </div>
         {/* Add more transaction details as needed */}

@@ -12,7 +12,9 @@ const AppointmentCard = ({ appointment }) => {
   const onPaymentClick = () => {
     setTransactionModalState(true);
     const { userId, workerId } = appointment;
-    setTransactionDataState({ sender: userId, receiver: workerId, amount:6000, appointmentId:appointment._id });
+    console.log(appointment);
+    const amount = workerId.subCategory.price;
+    setTransactionDataState({ sender: userId, receiver: workerId, amount, appointmentId:appointment._id });
   };
 
   return (
