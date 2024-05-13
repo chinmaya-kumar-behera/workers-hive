@@ -1,8 +1,6 @@
 const User = require("../models/userModel");
 const nodemailer = require('nodemailer');
 const { emailTemplate } = require("../views/otpVerification");
-// const { emailTemplate } = require("../views/otpVerification");
-
 
 const signUp = async (req, res) => {
   const { name, email, password } = req.body;
@@ -141,7 +139,6 @@ const signIn = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);

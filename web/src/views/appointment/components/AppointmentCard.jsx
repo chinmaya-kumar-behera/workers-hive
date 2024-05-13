@@ -38,7 +38,7 @@ const AppointmentCard = ({ appointment }) => {
               {appointment.appointmentPhotos.map((photo) => (
                 <div key={photo} className="">
                   <img
-                    className="h-16 w-16 rounded-md hover:scale-105 transition-all duration-200"
+                    className="h-16 w-16 rounded-md hover:scale-105 transition-all duration-200 overflow-hidden"
                     src={photo}
                     alt="appo_photo"
                   />
@@ -62,7 +62,8 @@ const AppointmentCard = ({ appointment }) => {
               <div className="">
                 <h2 className="text-lg">Chinmaya Behera</h2>
                 <p className="text-sm text-gray-600">
-                  {appointment.workerId.category.heading} / {appointment.workerId.subCategory?.heading}
+                  {appointment.workerId.category.heading} /{" "}
+                  {appointment.workerId.subCategory?.heading}
                 </p>
               </div>
             </div>
@@ -93,11 +94,13 @@ const AppointmentCard = ({ appointment }) => {
             <span className="text-red-500">Pending</span>
           </div>
         </span>
-        <div className="flex items-center">
-          <button className="bg-blue-500 text-white px-5 py-2 rounded-md">
-            Pay Now
-          </button>
-        </div>
+        {userData.role !== "worker" && (
+          <div className="flex items-center">
+            <button className="bg-blue-500 text-white px-5 py-2 rounded-md">
+              Pay Now
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

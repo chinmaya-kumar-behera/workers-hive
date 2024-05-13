@@ -69,6 +69,10 @@ router.post("/bookappointment",upload.fields([{ name: "appointmentImages", maxCo
 router.get("/getworkerappointments/:id", getWorkerAppointment);
 router.get("/getuserappointments/:id", getUserAppointment);
 
+// transaction routes
+
+router.post("/initiateTransaction", initiateTransaction)
+
 
 
 module.exports = router;
