@@ -1,11 +1,12 @@
-import React from "react";
-import {
-  appointmentBookService,
-  getUserAppointmentsService,
-  getWorkerAppointmentsService,
-} from "../services/appointmentService";
+import { appointmentBookService, getUserAppointmentsService, getWorkerAppointmentsService, } from "../services/appointmentService";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserAppointments } from "../atom/appointmentState";
+import { AuthState } from "../atom/authState";
 
 const AppointmentHandler = () => {
+  const setUserAppointments = useSetRecoilState(UserAppointments);
+  const authData = useRecoilValue(AuthState);
+
   const appointmentBookHandler = async (data) => {
     return await appointmentBookService(data);
   };
@@ -14,8 +15,16 @@ const AppointmentHandler = () => {
     return await getWorkerAppointmentsService(data);
   };
   
-  const getUserAppointmentsHandler = async (data) => {
-    return await getUserAppointmentsService(data);
+  const getUserAppointmentsHandler = async () => {
+    await getUserAppointmentsService({ userId: authData._id })
+      .then((res) => {
+        console.log("appointments :", res.data.data);
+        setUserAppointments((prev) => ({
+          ...prev,
+          appointments: res.data.data,
+        }));
+      })
+      .catch((err) => console.log(err));
   };
 
   return {

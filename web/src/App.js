@@ -19,6 +19,7 @@ import { PhotoState } from "./atom/photoState";
 import Appointments from "./pages/Appointments";
 import { appointmentModalState } from "./atom/appointmentState";
 import AppointmentForm from "./views/appointment/AppointmentForm";
+import TransactionModal from "./views/payment/TransactionModal";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -77,6 +78,7 @@ const App = () => {
       {userData?._id && <ChattingWindow />}
       {photoModalValue.isOpen && <PhotoModal />}
       {appointmentModal && <AppointmentForm />}
+      <TransactionModal />
     </div>
   );
 };

@@ -1,24 +1,40 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../../../atom/authState";
+import { TransactionDataState, TransactionModalState } from "../../../atom/transactionState";
+import { MdVerified } from "react-icons/md";
 
 const AppointmentCard = ({ appointment }) => {
-    const userData = useRecoilValue(AuthState);
+  const userData = useRecoilValue(AuthState);
+  const setTransactionModalState = useSetRecoilState(TransactionModalState);
+  const setTransactionDataState = useSetRecoilState(TransactionDataState);
+
+  const onPaymentClick = () => {
+    setTransactionModalState(true);
+    const { userId, workerId } = appointment;
+    setTransactionDataState({ sender: userId, receiver: workerId, amount:6000, appointmentId:appointment._id });
+  };
 
   return (
     <div
       key={appointment._id}
-      className="bg-gray-100 p-6 shadow-md hover:shadow-blue-200 rounded-lg space-y-3"
+      className="bg-gray-100 p-4 shadow-lg hover:shadow-blue-200 rounded-lg space-y-3 text-md"
     >
       <div className="">
         <div className="">
-          <div className="flex gap-5">
-            <span className="">
-              <strong>Appointment ID:</strong> APP00000002
+          <div className="flex gap-5 ">
+            <span className="bg-gray-50 px-2 py-1 rounded-md cursor-pointer">
+              Appointment ID :{" "}
+              <span className="font-semibold">
+                {" "}
+                {appointment.appointmentId}
+              </span>
             </span>
-            <span className="">
-              Appointment Status:{" "}
-              <span className=" text-red-500 py-1 rounded-md">Pending</span>
+            <span className="cursor-pointer bg-gray-50 px-2 py-1 rounded-md">
+              Application Status :{" "}
+              <span className="py-1 rounded-md bg-gray-50">
+                {appointment.status}
+              </span>
             </span>
           </div>
         </div>
@@ -51,7 +67,7 @@ const AppointmentCard = ({ appointment }) => {
         {userData.role !== "worker" ? (
           <div className="">
             <div className="text-center mb-2">
-              <h3 className="text-md">Your Technician</h3>
+              {/* <h3 className="text-md">Worker</h3> */}
             </div>
             <div className="max-w-[300px] flex p-3 bg-blue-100 border rounded-xl">
               <img
@@ -88,19 +104,30 @@ const AppointmentCard = ({ appointment }) => {
       </div>
 
       <div className="flex justify-start gap-2 bg-opacity-10">
-        <span className="font-semibold flex gap-2 items-center rounded-md">
-          Payment Status:{" "}
-          <div className="flex gap-2 items-center">
-            <span className="text-red-500">Pending</span>
-          </div>
-        </span>
-        {userData.role !== "worker" && (
-          <div className="flex items-center">
-            <button className="bg-blue-500 text-white px-5 py-2 rounded-md">
-              Pay Now
-            </button>
-          </div>
+        {appointment.paymentStatus === "PENDING" && (
+          <span className="text-sm font-semibold flex gap-2 items-center rounded-md underline px-3 py-1 text-red-500 border-red-500">
+            Your payment is not done
+          </span>
         )}
+        {appointment.paymentStatus === "SUCCESS" && (
+          <span className="text-sm font-semibold flex gap-2 items-center rounded-md border-2 px-3 py-1 bg-gray-200 shadow-sm shadow-green-500 border-green-500">
+            payment{" "}
+            <div className="flex gap-2 items-center">
+              <MdVerified className="text-lg text-green-500" />
+            </div>
+          </span>
+        )}
+        {userData.role !== "worker" &&
+          appointment.paymentStatus !== "SUCCESS" && (
+            <div className="flex items-center">
+              <button
+                className="bg-blue-500 text-white px-4 py-1.5 rounded-md"
+                onClick={onPaymentClick}
+              >
+                Pay Now
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );

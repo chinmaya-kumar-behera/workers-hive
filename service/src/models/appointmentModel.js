@@ -13,9 +13,10 @@ const appointmentModel = mongoose.Schema({
   },
   paymentStatus: {
     type: String,
-    enum: ["pending", "processing", "paid"],
-    default: "pending",
+    enum: ["SUCCESS", "PENDING", "FAILED"],
+    default: "PENDING",
   },
+  payments: [{ type: mongoose.Schema.Types.ObjectId }],
 });
 
 module.exports = mongoose.model("Appointments", appointmentModel);
