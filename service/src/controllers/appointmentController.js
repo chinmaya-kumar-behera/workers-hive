@@ -78,17 +78,28 @@ const getWorkerAppointment = async (req, res) => {
           .populate({ path: "userId", select: "_id name email photo" })
           .populate({ path: "workerId", select: "_id name email photo price" });
 
-        const totalAppointments = await Appointment.countDocuments({
+        const totalAppointments = await Appointment.countDocuments({workerId: id});
+        const pendingAppointments = await Appointment.countDocuments({
           workerId: id,
+          paymentStatus: "PENDING",
         });
-      
-        return res
-          .status(200)
-          .json({
-            message: "Worker Appointment get successfully",
-            data: result,
-            totalAppointments,
-          });
+        const resolvedAppointments = await Appointment.countDocuments({
+          workerId: id,
+          paymentStatus: "SUCCESS",
+        });
+        const cancelledAppointments = await Appointment.countDocuments({
+          workerId: id,
+          paymentStatus: "FAILED",
+        });
+           
+        return res.status(200).json({
+          message: "Worker Appointment get successfully",
+          data: result,
+          totalAppointments,
+          pendingAppointments,
+          resolvedAppointments,
+          cancelledAppointments,
+        });
     } catch (err) {
         res.status(400).json({
           message: "Some Error occured!",
@@ -123,7 +134,7 @@ const getUserAppointment = async (req, res) => {
     const totalAppointments = await Appointment.countDocuments({
       userId: id,
     });
-    
+
     return res
       .status(200)
       .json({

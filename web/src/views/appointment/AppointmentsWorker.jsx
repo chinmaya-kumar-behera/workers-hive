@@ -53,12 +53,7 @@ const AppointmentsWorker = () => {
             </div>
 
             <div className="">
-              <AdminAppointmentsDetails
-                totalAppointments={4}
-                pendingAppointments={2}
-                resolvedAppointments={1}
-                cancelledAppointments={5}
-              />
+              <AdminAppointmentsDetails/>
             </div>
 
             <div className="mt-3 rounded-lg text-gray-900 space-y-2">

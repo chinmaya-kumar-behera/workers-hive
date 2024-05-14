@@ -46,24 +46,28 @@ const AdminAppointmentCard = ({ appointment }) => {
           </p>
         </div>
         <div className="space-y-1">
-          <div>
-            <span className="text-xs text-blue-500">Attached photos</span>
-          </div>
-          <div className="w-fit flex gap-2 bg-gray-200 rounded-md p-1">
-            {appointment.appointmentPhotos.map((photo) => (
-              <div
-                key={photo}
-                className=""
-                onClick={() => setPhotoModal({ isOpen: true, photo })}
-              >
-                <img
-                  className="h-10 w-10 object-cover rounded-md hover:scale-105 transition-all duration-200 overflow-hidden"
-                  src={photo}
-                  alt="appo_photo"
-                />
+          {appointment.appointmentPhotos.length !== 0 && (
+            <React.Fragment>
+              <div>
+                <span className="text-xs text-blue-500">Attached photos</span>
               </div>
-            ))}
-          </div>
+              <div className="w-fit flex gap-2 bg-gray-200 rounded-md p-1">
+                {appointment.appointmentPhotos.map((photo) => (
+                  <div
+                    key={photo}
+                    className=""
+                    onClick={() => setPhotoModal({ isOpen: true, photo })}
+                  >
+                    <img
+                      className="h-10 w-10 object-cover rounded-md hover:scale-105 transition-all duration-200 overflow-hidden"
+                      src={photo}
+                      alt="appo_photo"
+                    />
+                  </div>
+                ))}
+              </div>
+            </React.Fragment>
+          )}
           <hr />
 
           <div className="flex justify-start gap-2 bg-opacity-10">
@@ -72,13 +76,15 @@ const AdminAppointmentCard = ({ appointment }) => {
                 <span className="text-sm font-semibold flex gap-2 items-center rounded-md underline py-1 text-red-500 border-red-500">
                   Payment is not done by user
                 </span>
-               )}
-                          
+              )}
+
               {appointment.paymentStatus === "SUCCESS" && (
                 <span className="text-sm font-semibold flex gap-2 items-center rounded-md border-2 px-3 py-1 bg-gray-200 shadow-sm shadow-green-500 border-green-500">
                   <MdVerified className="text-lg text-green-500" />
                   Payment done by user
-                  <span className="text-green-500 underline cursor-pointer hover:text-green-400">view Details</span>
+                  <span className="text-green-500 underline cursor-pointer hover:text-green-400">
+                    view Details
+                  </span>
                 </span>
               )}
             </div>

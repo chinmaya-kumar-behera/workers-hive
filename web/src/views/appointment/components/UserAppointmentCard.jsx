@@ -1,13 +1,11 @@
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { AuthState } from "../../../atom/authState";
+import { useSetRecoilState } from "recoil";
 import { TransactionDataState, TransactionModalState } from "../../../atom/transactionState";
 import { MdVerified } from "react-icons/md";
 import Accordion from "../../../components/ui/Accordion";
 import { PhotoState } from "../../../atom/photoState";
 
 const UserAppointmentCard = ({ appointment }) => {
-  const userData = useRecoilValue(AuthState);
   const setTransactionModalState = useSetRecoilState(TransactionModalState);
   const setTransactionDataState = useSetRecoilState(TransactionDataState);
   const setPhotoModal = useSetRecoilState(PhotoState);
@@ -36,9 +34,7 @@ const UserAppointmentCard = ({ appointment }) => {
               <div className="flex items-center gap-1 ">
                 <React.Fragment>
                   <span className="text-gray-600">To :</span>{" "}
-                  <span className="">
-                    {appointment?.workerId?.name}
-                  </span>
+                  <span className="">{appointment?.workerId?.name}</span>
                 </React.Fragment>
               </div>
             </div>
@@ -54,24 +50,28 @@ const UserAppointmentCard = ({ appointment }) => {
           </p>
         </div>
         <div className="space-y-1">
-          <div>
-            <span className="text-xs text-blue-500">Attached photos</span>
-          </div>
-          <div className="w-fit flex gap-2 bg-gray-200 rounded-md p-1">
-            {appointment.appointmentPhotos.map((photo) => (
-              <div
-                key={photo}
-                className=""
-                onClick={() => setPhotoModal({ isOpen: true, photo })}
-              >
-                <img
-                  className="h-10 w-10 object-cover rounded-md hover:scale-105 transition-all duration-200 overflow-hidden"
-                  src={photo}
-                  alt="appo_photo"
-                />
+          {appointment.appointmentPhotos.length !== 0 && 
+            <React.Fragment>
+              <div>
+                <span className="text-xs text-blue-500">Attached photos</span>
               </div>
-            ))}
-          </div>
+              <div className="w-fit flex gap-2 bg-gray-200 rounded-md p-1">
+                {appointment.appointmentPhotos.map((photo) => (
+                  <div
+                    key={photo}
+                    className=""
+                    onClick={() => setPhotoModal({ isOpen: true, photo })}
+                  >
+                    <img
+                      className="h-10 w-10 object-cover rounded-md hover:scale-105 transition-all duration-200 overflow-hidden"
+                      src={photo}
+                      alt="appo_photo"
+                    />
+                  </div>
+                ))}
+              </div>
+            </React.Fragment>
+          }
           <hr />
           <div className="flex justify-start gap-2 bg-opacity-10">
             {
