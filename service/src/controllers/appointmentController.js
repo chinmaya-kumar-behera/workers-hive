@@ -81,15 +81,15 @@ const getWorkerAppointment = async (req, res) => {
         const totalAppointments = await Appointment.countDocuments({workerId: id});
         const pendingAppointments = await Appointment.countDocuments({
           workerId: id,
-          paymentStatus: "PENDING",
+          status: "pending",
         });
         const resolvedAppointments = await Appointment.countDocuments({
           workerId: id,
-          paymentStatus: "SUCCESS",
+          status: "resolved",
         });
         const cancelledAppointments = await Appointment.countDocuments({
           workerId: id,
-          paymentStatus: "FAILED",
+          status: "rejected",
         });
            
         return res.status(200).json({
