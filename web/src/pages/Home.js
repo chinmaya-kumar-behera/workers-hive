@@ -1,7 +1,7 @@
 import Categories from "../views/Home/Categories";
 import ServicesSlider from "../views/Home/ServicesSlider";
 import TrendingServices from "../views/Home/TrendingServices";
-import Footer from "../views/Footer";
+import Footer from "../views/footer/Footer";
 import Navbar from "../views/navbar/Navbar";
 import CategorySection from "../views/Home/CategorySection";
 

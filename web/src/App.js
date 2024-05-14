@@ -20,6 +20,8 @@ import Appointments from "./pages/Appointments";
 import { appointmentModalState } from "./atom/appointmentState";
 import AppointmentForm from "./views/appointment/AppointmentForm";
 import TransactionModal from "./views/payment/TransactionModal";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -63,6 +65,10 @@ const App = () => {
         <Route path="/serviceProvider" element={<ServiceProvider />} />
         <Route path="/search/:query" element={<SearchPage />} />
         <Route path="/user/:id" element={<ProfilePage />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/privary&policy" element={<AboutUs />} />
+        <Route path="/terms&conditions" element={<AboutUs />} />
+        <Route path="/contactus" element={<ContactUs />} />
 
         {/* private route */}
         <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
@@ -71,7 +77,6 @@ const App = () => {
           path="/appointments"
           element={<LoginRoute element={<Appointments />} />}
         />
-
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
