@@ -5,6 +5,7 @@ import Dialog from "../../components/ui/Dialog";
 import TransactionHandler from "../../handler/TransactionHandler";
 import axios from "axios";
 import AppointmentHandler from "../../handler/AppointmentHandler";
+import Loader from "../../components/ui/Loader";
 
 const TransactionModal = () => {
   const [modalState, setModalState] = useRecoilState(TransactionModalState);
@@ -113,8 +114,9 @@ const TransactionModal = () => {
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-200"
           onClick={buttonHandler}
+          disabled={loading}
         >
-          Proceed with payment
+          {loading ? <Loader /> : "Proceed with payment"}
         </button>
       </div>
     </Dialog>

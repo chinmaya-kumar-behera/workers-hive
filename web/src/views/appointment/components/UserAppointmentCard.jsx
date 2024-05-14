@@ -6,7 +6,7 @@ import { MdVerified } from "react-icons/md";
 import Accordion from "../../../components/ui/Accordion";
 import { PhotoState } from "../../../atom/photoState";
 
-const AppointmentCard = ({ appointment }) => {
+const UserAppointmentCard = ({ appointment }) => {
   const userData = useRecoilValue(AuthState);
   const setTransactionModalState = useSetRecoilState(TransactionModalState);
   const setTransactionDataState = useSetRecoilState(TransactionDataState);
@@ -15,7 +15,6 @@ const AppointmentCard = ({ appointment }) => {
   const onPaymentClick = () => {
     setTransactionModalState(true);
     const { userId, workerId } = appointment;
-    console.log(appointment);
     const amount = workerId.subCategory.price;
     setTransactionDataState({ sender: userId, receiver: workerId, amount, appointmentId:appointment._id });
   };
@@ -35,18 +34,10 @@ const AppointmentCard = ({ appointment }) => {
           <div className="">
             <div className="max-w-[300px] flex text-sm">
               <div className="flex items-center gap-1 ">
-                {userData.role === "worker" && (
-                  <React.Fragment>
-                    <span className="text-gray-600">Customer :</span>{" "}
-                    <span className=""> {appointment?.userId?.name}</span>
-                  </React.Fragment>
-                )}
                 <React.Fragment>
-                  <span className="text-gray-600">From :</span>{" "}
+                  <span className="text-gray-600">To :</span>{" "}
                   <span className="">
-                    {appointment?.userId?._id === userData._id
-                      ? "You"
-                      : appointment?.userId?.name}
+                    {appointment?.workerId?.name}
                   </span>
                 </React.Fragment>
               </div>
@@ -86,32 +77,29 @@ const AppointmentCard = ({ appointment }) => {
             {
               <div className="">
                 {appointment.paymentStatus === "PENDING" && (
-                  <span className="text-sm font-semibold flex gap-2 items-center rounded-md underline py-1 text-red-500 border-red-500">
-                    {userData.role !== "worker"
-                      ? "Payment is not done by user"
-                      : "Your payment is pending"}
-                  </span>
+                  <div className="flex gap-2 items-center py-2">
+                    <span className="text-sm font-semibold flex gap-2 items-center rounded-md underline py-1 text-red-500 border-red-500">
+                      Your payment is pending
+                    </span>
+                    <button
+                      className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm"
+                      onClick={onPaymentClick}
+                    >
+                      Pay Now
+                    </button>
+                  </div>
                 )}
                 {appointment.paymentStatus === "SUCCESS" && (
                   <span className="text-sm font-semibold flex gap-2 items-center rounded-md border-2 px-3 py-1 bg-gray-200 shadow-sm shadow-green-500 border-green-500">
-                    payment{" "}
-                    <div className="flex gap-2 items-center">
-                      <MdVerified className="text-lg text-green-500" />
-                    </div>
+                    <MdVerified className="text-lg text-green-500" />
+                    payment done
                   </span>
                 )}{" "}
               </div>
             }
             {appointment.userId.role !== "user" &&
               appointment.paymentStatus !== "SUCCESS" && (
-                <div className="flex items-center">
-                  <button
-                    className="bg-blue-500 text-white px-4 py-1.5 rounded-md"
-                    onClick={onPaymentClick}
-                  >
-                    Pay Now
-                  </button>
-                </div>
+                <div className="flex items-center"></div>
               )}
           </div>
         </div>
@@ -120,4 +108,4 @@ const AppointmentCard = ({ appointment }) => {
   );
 };
 
-export default AppointmentCard;
+export default UserAppointmentCard;

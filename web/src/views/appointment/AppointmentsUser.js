@@ -4,8 +4,8 @@ import AppointmentHandler from "../../handler/AppointmentHandler";
 import ImageHandler from "../../handler/ImageHandler";
 import { AuthState } from "../../atom/authState";
 import PageContainer from "../../components/shared/PageContainer";
-import AppointmentCard from "./components/AppointmentCard";
 import { UserAppointments } from "../../atom/appointmentState";
+import YourAppointments from "./components/YourAppointments";
 
 const AppointmentsUser = () => {
   const userData = useRecoilValue(AuthState);
@@ -13,7 +13,6 @@ const AppointmentsUser = () => {
 
   const { convertImageURL } = ImageHandler();
   const userAppointments = useRecoilValue(UserAppointments);
-  console.log(userAppointments);
 
   const getAppointments = (userId) => {
     getUserAppointmentsHandler();
@@ -52,20 +51,8 @@ const AppointmentsUser = () => {
           </div>
         </div>
 
-        <div className="w-[80%] grid grid-cols-1 gap-4 bg-white rounded-lg p-5">
-          <div className="">
-            <div className="mb-2">
-              <h2 className="font-semibold text-2xl mb-3">Your Appointments</h2>
-            </div>
-            <div className="space-y-2">
-              {userAppointments.appointments.map((appointment) => (
-                <AppointmentCard
-                  key={appointment._id}
-                  appointment={appointment}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="w-full">
+          <YourAppointments/>
         </div>
       </div>
     </PageContainer>

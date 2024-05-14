@@ -22,6 +22,8 @@ import AppointmentForm from "./views/appointment/AppointmentForm";
 import TransactionModal from "./views/payment/TransactionModal";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -66,17 +68,14 @@ const App = () => {
         <Route path="/search/:query" element={<SearchPage />} />
         <Route path="/user/:id" element={<ProfilePage />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/privary&policy" element={<AboutUs />} />
-        <Route path="/terms&conditions" element={<AboutUs />} />
+        <Route path="/privacy&policy" element={<PrivacyPolicy />} />
+        <Route path="/term&conditions" element={<TermsConditions />} />
         <Route path="/contactus" element={<ContactUs />} />
 
         {/* private route */}
         <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
         <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
-        <Route
-          path="/appointments"
-          element={<LoginRoute element={<Appointments />} />}
-        />
+        <Route path="/appointments" element={<Appointments />} />
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>

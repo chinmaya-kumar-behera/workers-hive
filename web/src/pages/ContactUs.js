@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "../views/navbar/Navbar";
 import Footer from "../views/footer/Footer";
-import PageContainer from "../components/shared/PageContainer";
 
 const ContactUs = () => {
   return (
