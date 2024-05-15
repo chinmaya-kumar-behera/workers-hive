@@ -112,11 +112,11 @@ const TransactionModal = () => {
         </div>
         {/* Add more transaction details as needed */}
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-200"
+          className="flex justify-center items-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-200"
           onClick={buttonHandler}
           disabled={loading}
         >
-          {loading ? <Loader /> : "Proceed with payment"}
+          {loading ? <Loader size={5} color="fil-red-400"/> : "Proceed with payment"}
         </button>
       </div>
     </Dialog>
