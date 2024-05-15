@@ -131,7 +131,7 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
           <div className="flex gap-1">
             {otpArr.map((digit, index) => (
               <input
-                className="w-10 h-10 text-xl pl-[14px] bg- font-bold rounded-md text-blue-500"
+                className="w-10 h-10 text-xl pl-[14px] bg- font-bold rounded-md text-white bg-gray-100 bg-opacity-50"
                 type="text"
                 key={index}
                 value={digit}
