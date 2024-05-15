@@ -53,7 +53,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center w-full lg:w-fit gap-2">
           <div className="flex justify-between items-center gap-3">
             <div
-              className="max-w-[80px] lg:max-w-[200px] h-[40px] md:h-[50px] lg:h-[50px]"
+              className="w-[150px] max-w-[150px] lg:w-[230px] lg:max-w-[230px] h-[40px] md:h-[50px] lg:h-[50px]"
               onClick={navigateToHomePage}
             >
               <img
