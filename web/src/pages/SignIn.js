@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import AuthenticationHandler from "../handler/AuthenticationHandler";
-import { AuthState } from "../atom/authState";
-import { useSetRecoilState } from "recoil";
 import logo from "../Assets/Logo/logo.jpg";
 import { GoogleLogin } from "@react-oauth/google";
 
@@ -11,8 +9,6 @@ const SignIn = () => {
     email: "",
     password: "",
   });
-
-
 
   const [loading, setLoading] = useState(false);
 
