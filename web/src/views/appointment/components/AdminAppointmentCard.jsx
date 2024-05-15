@@ -50,7 +50,9 @@ const AdminAppointmentCard = ({ appointment }) => {
         <div className="text-gray-600">
           <p>
             <span className="text-black">Date</span> :{" "}
-            {new Date(appointment.createdAt).toLocaleString()}
+            <span className="text-xs font-semibold">
+              {new Date(appointment.createdAt).toLocaleString()}
+            </span>
           </p>
           <p>
             <span className="text-black">Description</span> :{" "}

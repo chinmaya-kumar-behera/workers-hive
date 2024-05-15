@@ -4,6 +4,8 @@ import { TransactionDataState, TransactionModalState } from "../../../atom/trans
 import { MdVerified } from "react-icons/md";
 import Accordion from "../../../components/ui/Accordion";
 import { PhotoState } from "../../../atom/photoState";
+import { FaRegClock } from "react-icons/fa";
+import moment from "moment";
 
 const UserAppointmentCard = ({ appointment }) => {
   const setTransactionModalState = useSetRecoilState(TransactionModalState);
@@ -22,9 +24,15 @@ const UserAppointmentCard = ({ appointment }) => {
       title={
         <div className="space-y-1">
           <div className="flex items-center gap-5 justify-between">
-            <span className="text-blue-600 hover:text-black hover:underline text-md font-bold">
-              ID : {appointment.appointmentId}
-            </span>
+            <div className="flex gap-5">
+              <span className="text-blue-600 hover:text-black hover:underline text-md font-bold">
+                ID : {appointment.appointmentId}
+              </span>
+              <span className="flex gap-2 items-center text-gray-600 hover:text-black hover:underline text-xs">
+                <FaRegClock className="text-sm" />{" "}
+                {moment(appointment.createdAt).fromNow()}
+              </span>
+            </div>
             <span className="text-gray-700 hover:text-black hover:underline text-xs font-bold">
               STATUS : {appointment.status.toUpperCase()}
             </span>
@@ -45,12 +53,18 @@ const UserAppointmentCard = ({ appointment }) => {
       <div className="relative space-y-2">
         <div className="text-gray-600">
           <p>
+            <span className="text-black">Date</span> :{" "}
+            <span className="text-xs font-semibold">
+              {new Date(appointment.createdAt).toLocaleString()}
+            </span>
+          </p>
+          <p>
             <span className="text-black">Description</span> :{" "}
             {appointment.description}.
           </p>
         </div>
         <div className="space-y-1">
-          {appointment.appointmentPhotos.length !== 0 && 
+          {appointment.appointmentPhotos.length !== 0 && (
             <React.Fragment>
               <div>
                 <span className="text-xs text-blue-500">Attached photos</span>
@@ -71,7 +85,7 @@ const UserAppointmentCard = ({ appointment }) => {
                 ))}
               </div>
             </React.Fragment>
-          }
+          )}
           <hr />
           <div className="flex justify-start gap-2 bg-opacity-10">
             {
