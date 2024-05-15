@@ -8,7 +8,6 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
   const { verifyOTPHandler, resendOTPHandler } = AuthenticationHandler();
   const { navigateToSignInPage } = NavigationHandler();
 
-  const [OTP, setOTP] = useState();
   const [loading, setLoading] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const { _id } = userData;
@@ -17,16 +16,17 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
   const [enableOTPsend, setEnableOTPsend] = useState(false);
   const [timer, setTimer] = useState(30);
 
+  const [otpArr, setOtpArr] = useState(["", "", "", "", "", ""]);
+  const inputRefs = useRef([]);
+
   const timerFunction = () => {
     intervalId.current = setInterval(() => {
       setTimer((prevTimer) => {
-        console.log(prevTimer);
         if (prevTimer <= 0) {
           clearInterval(intervalId.current);
           setEnableOTPsend(true);
           return prevTimer;
         }
-        console.log(prevTimer);
         return prevTimer - 1;
       });
     }, 1000);
@@ -34,53 +34,75 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
 
   useEffect(() => {
     timerFunction();
-    
+
     return () => {
       clearInterval(intervalId.current);
     };
   }, []);
 
-
-  const onChangeHandle = (event) => {
-   setOTP(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const otp = otpArr.join("");
+    verifyOTPHandler({ id: _id, otp })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(res.data.message);
+          setVerifyOtp(false);
+          navigateToSignInPage();
+        }
+        if (res.status === 203) {
+          toast.error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
-  const onSubmit = (event) => {
-      event.preventDefault();
-      setLoading(true);
-      verifyOTPHandler({ id: _id, otp: OTP })
-        .then((res) => {
-          if (res.status === 200) {
-            toast.success(res.data.message);
-            setVerifyOtp(false);
-            navigateToSignInPage();
-          }
-          if (res.status === 203) {
-            toast.error(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    };
-    
-    const onResendOTP = (event) => {
-        event.preventDefault();
-        setResendLoading(true);
-        resendOTPHandler({ id: _id })
-            .then((res) => {
-                console.log(res); 
-              toast.success('OTP sent to your registered mail!');
-              setEnableOTPsend(false);
-              setTimer(30);
-              timerFunction();
-            })
-          .catch((err) => console.log(err))
-          .finally(() => setResendLoading(false));
+  const onResendOTP = (event) => {
+    event.preventDefault();
+    setResendLoading(true);
+    resendOTPHandler({ id: _id })
+      .then((res) => {
+        console.log(res);
+        toast.success("OTP sent to your registered mail!");
+        setEnableOTPsend(false);
+        setTimer(30);
+        timerFunction();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setResendLoading(false));
+  };
+
+  const onChangeHandler = (event, index) => {
+    const { value } = event.target;
+    const newOtp = otpArr;
+    newOtp[index] = value;
+
+    if (index < otpArr.length - 1 && value) {
+      inputRefs.current[index + 1].focus();
     }
+
+    setOtpArr(newOtp);
+  };
+
+  const keyUpHandler = (event, index) => {
+    const { key } = event;
+    if (key === "Backspace" && index > 0 && !otpArr[index]) {
+      const newOtp = [...otpArr];
+      newOtp[index] = "";
+      inputRefs.current[index - 1].focus();
+      setOtpArr(newOtp);
+    }
+  };
+
+  const refHandler = (ref, index) => {
+    inputRefs.current[index] = ref;
+  };
 
   return (
     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -105,25 +127,30 @@ const VerifyOTP = ({ userData, setVerifyOtp }) => {
             >
               Enter the 6-digit verification code
             </label>
-            <input
-              type="text"
-              name="otp"
-              id="otp"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Enter OTP"
-              required=""
-              onChange={onChangeHandle}
-              value={OTP}
-            />
+          </div>
+          <div className="flex gap-1">
+            {otpArr.map((digit, index) => (
+              <input
+                className="w-10 h-10 text-xl pl-[14px] bg- font-bold rounded-md text-blue-500"
+                type="text"
+                key={index}
+                value={digit}
+                maxLength={1}
+                onChange={(event) => onChangeHandler(event, index)}
+                onKeyUp={(event) => keyUpHandler(event, index)}
+                autoFocus={index === 0}
+                ref={(ref) => refHandler(ref, index)}
+              />
+            ))}
           </div>
 
           <div className="space-y-3">
             <button
-              className="w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
+              className="flex justify-center w-full font-semibold text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-600 hover:bg-blue-700 transition-all"
               onClick={onSubmit}
               disabled={loading}
             >
-              {loading ? <Loader size={3} /> : "Verify OTP"}
+              {loading ? <Loader size={5} /> : "Verify OTP"}
             </button>
             <div className="flex items-center justify-end gap-2 text-gray-400">
               <span>Didn't receive any code</span>
