@@ -2,14 +2,27 @@ import React from "react";
 import { CiUser } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import ImageHandler from "../../handler/ImageHandler";
+import { useSetRecoilState } from "recoil";
+import { appointmentModalState, appointmentStateData } from "../../atom/appointmentState";
 
 const EmployeeCard = ({ data }) => {
   const navigate = useNavigate();
   const { convertImageURL } = ImageHandler();
-
+  const setAppointmentModalState = useSetRecoilState(appointmentModalState);
+  const setAppointmentStateData = useSetRecoilState(appointmentStateData);
+  
   const handleVisitProfile = () => {
     navigate(`/user/${data._id}`);
   };
+
+  const bookAppointment = (data) => {
+    setAppointmentModalState(true);
+    setAppointmentStateData({ workerData: data });
+  }
+
+  const saveForLater =()=>{
+    console.log('save for later');
+  }
 
   return (
     <div className="w-full flex gap-5 rounded-xl p-4 bg-gray-50 shadow-xl hover:shadow-lg">
@@ -51,10 +64,10 @@ const EmployeeCard = ({ data }) => {
             </h5>
           </div>
           <div className="flex flex-wrap gap-2 lg:items-center">
-            <button className="px-2 lg:px-4 py-1 lg:py-2 text-sm lg:text-lg bg-blue-500 text-white rounded hover:bg-blue-400 transition-all">
+            <button className="px-2 lg:px-4 py-1 lg:py-2 text-sm lg:text-lg bg-blue-500 text-white rounded hover:bg-blue-400 transition-all" onClick={()=>bookAppointment(data)}>
               Book Appointment
             </button>
-            <button className="px-2 lg:px-4 py-1 lg:py-2 text-sm lg:text-lg bg-orange-400 text-white rounded hover:bg-orange-300 transition-all">
+            <button className="px-2 lg:px-4 py-1 lg:py-2 text-sm lg:text-lg bg-orange-400 text-white rounded hover:bg-orange-300 transition-all" onClick={saveForLater}>
               Save for Later
             </button>
           </div>

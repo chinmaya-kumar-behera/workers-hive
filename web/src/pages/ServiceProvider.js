@@ -1,5 +1,5 @@
 import PageContainer from "../components/shared/PageContainer";
-import Navbar from "../views/Navbar";
+import Navbar from "../views/navbar/Navbar";
 import ServiceDetailsForm from "../views/serviceProvider/ServiceDetailsForm";
 
 const ServiceProvider = () => {

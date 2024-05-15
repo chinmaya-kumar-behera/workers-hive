@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+dotenv.config();
 
 const { connectToDatabase } = require("./src/config/db");
 const adminRouter = require("./src/routes/adminRoutes");
@@ -8,17 +9,7 @@ const router = require("./src/routes/router");
 const { chatRouter } = require("./src/routes/chatRouter");
 const { messageRouter } = require("./src/routes/messageRoutes");
 
-
-// if (process.env.NODE_ENV === "development") {
-//   dotenv.config({ path: ".env.development" });
-// } else if (process.env.NODE_ENV === "production") {
-//   dotenv.config({ path: ".env.production" });
-// }
-
-dotenv.config();
-
 const app = express();
-
 connectToDatabase();
 
 app.use(express.json());

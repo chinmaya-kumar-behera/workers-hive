@@ -16,6 +16,14 @@ import ProfilePage from "./pages/ProfilePage";
 import ChattingWindow from "./views/chat/ChattingWindow";
 import PhotoModal from "./views/modals/PhotoModal";
 import { PhotoState } from "./atom/photoState";
+import Appointments from "./pages/Appointments";
+import { appointmentModalState } from "./atom/appointmentState";
+import AppointmentForm from "./views/appointment/AppointmentForm";
+import TransactionModal from "./views/payment/TransactionModal";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 
 const PrivateRoute = ({ element, ...props }) => {
   const userData = useRecoilValue(AuthState);
@@ -25,9 +33,17 @@ const PrivateRoute = ({ element, ...props }) => {
   return <Navigate to="/" />;
 };
 
+const LoginRoute = ({ element, ...props }) => {
+  const userData = useRecoilValue(AuthState);
+  if (userData?._id) {
+    return element;
+  } else return <Navigate to="/signin" />;
+};
+
 const App = () => {
   const [userData, setUserData] = useRecoilState(AuthState);
   const photoModalValue = useRecoilValue(PhotoState);
+  const appointmentModal = useRecoilValue(appointmentModalState);
 
   useEffect(() => {  
     const storedUserData = localStorage.getItem("userData");
@@ -41,11 +57,6 @@ const App = () => {
     }
   }, [userData?._id]);
 
-
-  useEffect(() => {
-    console.log("App Useffect called")
-  },[])
-
   return (
     <div className="relative">
       <Routes>
@@ -53,18 +64,25 @@ const App = () => {
         <Route path="/categories" element={<Categories />} />
         <Route path="/category/:id" element={<SubCategories />} />
         <Route path="/subcategory/:id" element={<Available />} />
-
-        <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
-        <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
         <Route path="/serviceProvider" element={<ServiceProvider />} />
         <Route path="/search/:query" element={<SearchPage />} />
         <Route path="/user/:id" element={<ProfilePage />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/privacy&policy" element={<PrivacyPolicy />} />
+        <Route path="/term&conditions" element={<TermsConditions />} />
+        <Route path="/contactus" element={<ContactUs />} />
 
+        {/* private route */}
+        <Route path="/signin" element={<PrivateRoute element={<SignIn />} />} />
+        <Route path="/signup" element={<PrivateRoute element={<SignUp />} />} />
+        <Route path="/appointments" element={<Appointments />} />
         {/* ADMIN ROUTE */}
         <Route path="/admin*" element={<Admin />} />
       </Routes>
       {userData?._id && <ChattingWindow />}
       {photoModalValue.isOpen && <PhotoModal />}
+      {appointmentModal && <AppointmentForm />}
+      <TransactionModal />
     </div>
   );
 };

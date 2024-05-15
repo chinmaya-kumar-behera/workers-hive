@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import PageContainer from "../components/shared/PageContainer";
 import CategoryCardDetails from "../views/Home/components/CategoryCardDetails";
 import CategoryHandler from "../handler/CategoryHandler";
-import Footer from "../views/Footer";
-import Navbar from "../views/Navbar";
+import Footer from "../views/footer/Footer";
+import Navbar from "../views/navbar/Navbar";
 
 const Categories = () => {
   const { getCategoriesHandler } = CategoryHandler();

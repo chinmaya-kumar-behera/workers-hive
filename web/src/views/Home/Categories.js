@@ -19,14 +19,14 @@ const Categories = () => {
    useEffect(() => {
      getCategoriesHandler()
        .then((res) => {
-         console.log(res.data.data);
+        //  console.log(res.data.data);
          setCategories(res.data.data);
        })
        .catch((err) => console.log(err));
    }, []);
   
   return (
-    <PageContainer>
+    <PageContainer className='bg-transparent'>
       <div className="w-full flex gap-3 sm:gap-5 md:gap-7 lg:gap-10 items-center justify-start lg:justify-center overflow-x-auto py-5 px-2 lg:px-10">
         <div
           className="flex flex-col items-center gap-2"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import serviceWorkerHandler from "../../handler/serviceWorkerHandler";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AuthState } from "../../atom/authState";
 import CategoryHandler from "../../handler/CategoryHandler";
 import toast from "react-hot-toast";
@@ -12,6 +12,7 @@ import EmailFill from "./components/EmailFill";
 import PhoneFill from "./components/PhoneFill";
 import ImageFill from "./components/ImageFill";
 import WorkingPhotos from "./components/WorkingPhotos";
+import AuthenticationHandler from "../../handler/AuthenticationHandler";
 
 const ServiceDetailsForm = () => {
   const { createServiceWorkerHandler } = serviceWorkerHandler();
@@ -19,8 +20,9 @@ const ServiceDetailsForm = () => {
   const { navigateToHomePage } = NavigationHandler();
   const [categoriesList, setCategoriesList] = useState([]);
   const [SubCategoriesList, setSubCategoriesList] = useState([]);
+  const { setAuthDetails } = AuthenticationHandler();
 
-  const authData = useRecoilValue(AuthState);
+  const [authData, setAuthData] = useRecoilState(AuthState);
   const [formData, setFormData] = useState({
     name: "",
     mobileNumber: "",
@@ -51,8 +53,6 @@ const ServiceDetailsForm = () => {
     }
   }, [formData.category]);
 
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -79,6 +79,8 @@ const ServiceDetailsForm = () => {
             subCategory: "",
             professionDescription: "",
           });
+          console.log(res.data);
+          setAuthDetails(res);
           navigateToHomePage();
         }
       })

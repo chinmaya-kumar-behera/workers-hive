@@ -1,14 +1,17 @@
 const User = require("../models/userModel");
 
 const createServiceWorker = async (req, res) => {
-  const { userId, firstName, lastName, email, mobileNumber, category, subCategory, professionDescription, price, city, country, gender } = req.body;
-  const { profilePic, workingPhotos } = req.files;
-
-  if (!firstName || !email || !category || !subCategory || !professionDescription || !price || !city || !country || !gender) {
-    res.status(500).json({ message: "Fill all the details !" });
-    return;
-  }
   try {
+    const { userId, firstName, lastName, email, mobileNumber, category, subCategory, professionDescription, price, city, country, gender } = req.body;
+    const { profilePic, workingPhotos } = req.files;
+
+    console.log(req.body.userId)
+
+    if (!firstName || !email || !category || !subCategory || !professionDescription || !price || !city || !country || !gender) {
+      res.status(500).json({ message: "Fill all the details !" });
+      return;
+    }
+
     if (!userId) {
       res.status(404).json({ message: "User Id not Found !" });
     }

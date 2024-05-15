@@ -31,8 +31,10 @@ const NavigationHandler = () => {
   };
   const navigateToProfilePage = () => {
      navigate(`/user/${authData?._id}`);
-    
   }
+  const navigateToAppointmentsPage = () => {
+    navigate(`/appointments`);
+  };
 
   return {
     navigateToAdminPanel,
@@ -42,6 +44,7 @@ const NavigationHandler = () => {
     navigateToServiceProviderPage,
     navigateToHomePage,
     navigateToProfilePage,
+    navigateToAppointmentsPage,
   };
 };
 
