@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const appointmentModel = mongoose.Schema(
+const appointmentSchema = mongoose.Schema(
   {
     appointmentId: { type: String },
     workerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -19,9 +19,7 @@ const appointmentModel = mongoose.Schema(
     },
     payments: [{ type: mongoose.Schema.Types.ObjectId }],
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-module.exports = mongoose.model("Appointments", appointmentModel);
+module.exports = mongoose.model("Appointments", appointmentSchema);

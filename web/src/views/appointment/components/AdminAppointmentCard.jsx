@@ -4,6 +4,8 @@ import { AuthState } from "../../../atom/authState";
 import { MdVerified } from "react-icons/md";
 import Accordion from "../../../components/ui/Accordion";
 import { PhotoState } from "../../../atom/photoState";
+import { FaRegClock } from "react-icons/fa";
+import moment from "moment";
 
 const AdminAppointmentCard = ({ appointment }) => {
   const userData = useRecoilValue(AuthState);
@@ -14,9 +16,15 @@ const AdminAppointmentCard = ({ appointment }) => {
       title={
         <div className="space-y-1">
           <div className="flex items-center gap-5 justify-between">
-            <span className="text-blue-600 hover:text-black hover:underline text-md font-bold">
-              ID : {appointment.appointmentId}
-            </span>
+            <div className="flex gap-5">
+              <span className="text-blue-600 hover:text-black hover:underline text-md font-bold">
+                ID : {appointment.appointmentId}
+              </span>
+              <span className="flex gap-2 items-center text-gray-600 hover:text-black hover:underline text-xs">
+                <FaRegClock className="text-sm" />{" "}
+                {moment(appointment.createdAt).fromNow()}
+              </span>
+            </div>
             <span className="text-gray-700 hover:text-black hover:underline text-xs font-bold">
               STATUS : {appointment.status.toUpperCase()}
             </span>
@@ -40,6 +48,10 @@ const AdminAppointmentCard = ({ appointment }) => {
     >
       <div className="relative space-y-2">
         <div className="text-gray-600">
+          <p>
+            <span className="text-black">Date</span> :{" "}
+            {new Date(appointment.createdAt).toLocaleString()}
+          </p>
           <p>
             <span className="text-black">Description</span> :{" "}
             {appointment.description}.

@@ -46,10 +46,12 @@ const TransactionModal = () => {
                         })
                         .catch((err) => {
                           console.log(err);
+                            onClose();
                         });
                   })
                   .catch((err) => {
                     console.log(err);
+                      onClose();
                   });
               } catch (err) {
                 console.log(err);
