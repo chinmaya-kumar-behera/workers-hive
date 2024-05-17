@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import NavigationHandler from "../../handler/NavigationHandler";
-import AuthenticationHandler from "../../handler/AuthenticationHandler";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { AuthState } from "../../atom/authState";
 import { CiSearch } from "react-icons/ci";
@@ -11,8 +10,6 @@ import { ChatWindow } from "../../atom/chatState";
 import { MobileSidebarState } from "../../atom/mobileSidebar";
 import MobileSideDrawer from "./MobileSideDrawer";
 import MenuItems from "./MenuItems";
-import { IoIosArrowRoundForward, IoMdLogOut } from "react-icons/io";
-import { RxCross2 } from "react-icons/rx";
 
 const Navbar = () => {
   const authData = useRecoilValue(AuthState);
@@ -28,10 +25,8 @@ const Navbar = () => {
 
   const {
     navigateToServiceProviderPage,
-    navigateToSignInPage,
     navigateToHomePage,
   } = NavigationHandler();
-  const { logOutHandler } = AuthenticationHandler();
 
   const handleSearchClick = () => {
     if (!searchQuery?.trim()) return;
@@ -56,6 +51,7 @@ const Navbar = () => {
               className="w-[150px] max-w-[150px] lg:w-[230px] lg:max-w-[230px] h-[40px] md:h-[50px] lg:h-[50px]"
               onClick={navigateToHomePage}
             >
+              {/* logo */}
               <img
                 className="h-full w-full object-cover object-center rounded-lg"
                 alt="logo"

@@ -92,7 +92,7 @@ const ShowCard = ({ data }) => {
   );
 };
 
-const CategorySection = ({ id, heading, rowreverse=false }) => {
+const CategorySection = ({ id, heading, rowreverse=false, image, desc }) => {
   const { getSubcategoriresByCategoryIdHandler } = CategoryHandler();
   const [subcategories, setSubCategories] = useState([]);
   const navigate = useNavigate();
@@ -120,13 +120,7 @@ const CategorySection = ({ id, heading, rowreverse=false }) => {
               <div className="w-full lg:w-1/2 space-y-5">
                 <div className="text-center">
                   <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged.
+                    {desc}
                   </p>
                 </div>
                 <div className="pb-10 space-y-4 text-center">
@@ -154,7 +148,7 @@ const CategorySection = ({ id, heading, rowreverse=false }) => {
               <div className="w-full lg:w-1/2 flex justify-center items-center">
                 <img
                   className="h-[200px] lg:h-[250px] w-auto object-cover rounded-xl"
-                  src="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+                  src={image}
                   alt="alt"
                 />
               </div>
