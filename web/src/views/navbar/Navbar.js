@@ -42,7 +42,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="sticky flex items-center top-0 px-2 md:px-5 bg-white z-20 h-[50px] md:h-[70px]">
+    <nav className="sticky flex items-center top-0 px-2 md:px-5 bg-white z-20 h-[50px] md:h-[70px] border-b">
       <div className="w-full mx-auto flex flex-col md:flex-row justify-between lg:items-center">
         {/* Left section of the header */}
         <div className="flex justify-between items-center w-full lg:w-fit gap-2">
