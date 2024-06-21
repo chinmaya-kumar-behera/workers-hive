@@ -6,20 +6,19 @@ Workers Hive is a comprehensive MERN Stack web application designed to provide o
 
 ### Search Technician
 - Allows users to search for technicians based on their specific needs.
-- Filters by service type, location, ratings, and availability.
-- Displays detailed profiles of technicians, including their skills, experience, and customer reviews.
+- Displays detailed profiles of technicians, including their skills, experience.
 
 ### User Registration for Service Providers
 - Service providers can register on the platform to offer their services.
 - Registration includes verification steps to ensure the credibility of the service providers.
-- Providers can manage their profiles, including services offered, pricing, and availability.
+- Providers can manage their profiles, including services offered, pricing.
 
 ### Real-Time Chat Window
 - Facilitates direct communication between customers and service providers.
 - Ensures quick response times and better coordination for service appointments.
 - Supports text messaging and multimedia sharing for a comprehensive communication experience.
 
-### Admin Dashboards
+### Admin Dashboards 
 - Provides admins with tools for efficient data management and oversight.
 - Dashboards include metrics for user activity, service requests, and system performance.
 - Admins can manage users, review service provider applications, and resolve disputes.
@@ -35,7 +34,6 @@ Workers Hive is a comprehensive MERN Stack web application designed to provide o
 ![Technician Search](https://github.com/chinmaya-kumar-behera/workers-hive/assets/101429530/6e774e5a-9528-415b-96cf-91677a3a324d)
 ![book appointment](https://github.com/chinmaya-kumar-behera/workers-hive/assets/101429530/4d8c3cb9-8e47-413d-93ae-0b7df8f379c4)
 ![chat window](https://github.com/chinmaya-kumar-behera/workers-hive/assets/101429530/3468769f-8151-47fa-8d12-faa83f09a216)
-
 ![image](https://github.com/chinmaya-kumar-behera/workers-hive/assets/101429530/2c9fbd8a-4b1f-4699-ada9-a0b730355bd9)
 
 ## Visit the Site
@@ -108,4 +106,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Developed by [Your Name](https://github.com/your-username)
+Developed by [Chinmaya Kumar Behera](https://github.com/chinmaya-kumar-behera)
