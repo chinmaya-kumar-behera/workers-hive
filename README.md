@@ -85,10 +85,19 @@ Explore Workers Hive and experience the convenience of on-demand services at [wo
     REACT_APP_PUBLIC_RAZOR_PAY_KEY_ID=<razorpay key id>
     ```
 
-5. Start the development server:
+5.Run the application
+
+    Open two terminal windows or tabs:
+    
+    In the first terminal window, navigate to the server directory and run the backend server:
     ```sh
-    npm run dev
+    cd server
+    npm start
     ```
+    
+    ```sh
+    cd client
+    npm start
 
 ## Contributing
 
