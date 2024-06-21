@@ -87,18 +87,17 @@ Explore Workers Hive and experience the convenience of on-demand services at [wo
 
 5.Run the application
 
-    Open two terminal windows or tabs:
-    
-    In the first terminal window, navigate to the server directory and run the backend server:
-    ```sh
-    cd server
-    npm start
-    ```
-    
-    ```sh
-    cd client
-    npm start
+Open two terminal windows or tabs:
+In the first terminal window, navigate to the server directory and run the backend server:
+```sh
+cd server
+npm start
+```
 
+```sh
+cd client
+npm start
+```
 ## Contributing
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure that your code adheres to the existing code style and includes appropriate tests.
