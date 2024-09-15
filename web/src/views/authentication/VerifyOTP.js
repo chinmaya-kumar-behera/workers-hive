@@ -1,8 +1,10 @@
+"ues client";
 import React, { useEffect, useRef, useState } from "react";
 import Loader from "../../components/ui/Loader";
-import AuthenticationHandler from "../../handler/AuthenticationHandler";
+// import AuthenticationHandler from "../../handler/AuthenticationHandler";
 import toast from "react-hot-toast";
 import NavigationHandler from "../../handler/NavigationHandler";
+import AuthenticationHandler from "../../handler/AuthenticationHandler";
 
 const VerifyOTP = ({ userData, setVerifyOtp }) => {
   const { verifyOTPHandler, resendOTPHandler } = AuthenticationHandler();

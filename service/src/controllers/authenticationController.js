@@ -76,7 +76,7 @@ function generateStrongPassword(length = 12) {
 
 const signIn = async (req, res) => {
   try {
-    const { email, password, accessToken } = req.body;
+    let { email, password, accessToken } = req.body;
 
     if (accessToken) {
       let { email, name } = parseJwt(accessToken);

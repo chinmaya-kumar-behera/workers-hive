@@ -56,6 +56,7 @@ const SignUp = () => {
     const handleGoogleLoginSuccess = (token) => {
       const { credential } = token;
       googleLoginHandler(credential);
+      
     };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
